@@ -1,38 +1,42 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { DownloadSimple, Export, PlusSquare, X } from '@phosphor-icons/react';
+import { DotsThreeVertical, DownloadSimple, Export, PlusSquare, X } from '@phosphor-icons/react';
 import { useSite } from './SiteProvider';
 import { installApp, usePwa } from '@/components/pwa/pwa';
 
-const HIDE_KEY = 'petalya.install.hide';
-const HIDE_DAYS = 7;
+/** "Don't show again" lives on the device for good; the × only hides the card for this visit. */
+const NEVER_KEY = 'petalya.install.never';
+const VISIT_KEY = 'petalya.install.closed';
 export const INSTALL_EVENT = 'petalya:install';
 
-function recentlyHidden() {
+function read(storage: 'local' | 'session', key: string) {
   try {
-    const t = Number(localStorage.getItem(HIDE_KEY));
-    return !!t && Date.now() - t < HIDE_DAYS * 864e5;
+    return (storage === 'local' ? localStorage : sessionStorage).getItem(key) === '1';
   } catch {
     return false;
   }
+}
+function write(storage: 'local' | 'session', key: string) {
+  try {
+    (storage === 'local' ? localStorage : sessionStorage).setItem(key, '1');
+  } catch {}
 }
 
 /** Opens the install flow from anywhere (e.g. the mobile menu). */
 export const requestInstall = () => window.dispatchEvent(new Event(INSTALL_EVENT));
 
-/** "Install the app" card shown to customers a few seconds after they land, plus the iOS how-to. */
+/** Side card shown as soon as a customer lands: install the site as an app. They can close it or turn it off for good. */
 export function InstallBanner() {
   const { pick, count } = useSite();
   const pwa = usePwa();
-  const [delayed, setDelayed] = useState(false);
-  const [hidden, setHidden] = useState(true);
+  const [ready, setReady] = useState(false);
+  const [closed, setClosed] = useState(true);
   const [steps, setSteps] = useState(false);
 
   useEffect(() => {
-    setHidden(recentlyHidden());
-    const id = setTimeout(() => setDelayed(true), 4500);
-    return () => clearTimeout(id);
+    setClosed(read('local', NEVER_KEY) || read('session', VISIT_KEY));
+    setReady(true);
   }, []);
 
   const start = async () => {
@@ -41,63 +45,79 @@ export function InstallBanner() {
   };
 
   useEffect(() => {
-    const on = () => void start();
+    const on = () => {
+      setClosed(false);
+      void start();
+    };
     window.addEventListener(INSTALL_EVENT, on);
     return () => window.removeEventListener(INSTALL_EVENT, on);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pwa.canPrompt]);
 
   const close = () => {
-    setHidden(true);
+    setClosed(true);
     setSteps(false);
-    try {
-      localStorage.setItem(HIDE_KEY, String(Date.now()));
-    } catch {}
+    write('session', VISIT_KEY);
+  };
+  const never = () => {
+    setClosed(true);
+    setSteps(false);
+    write('local', NEVER_KEY);
   };
 
-  if (!pwa.available) return null;
-  const show = steps || (delayed && !hidden && count === 0);
-  if (!show) return null;
+  if (!ready || closed || !pwa.showable) return null;
 
   return (
-    <div className="install-bar" role="dialog" aria-label={pick('تثبيت التطبيق', 'Install the app')}>
-      <img src="/icons/icon-192.png" alt="" width={48} height={48} />
-      <div className="txt">
-        {steps ? (
-          <ol>
-            <li>
-              {pick('اضغط زرار المشاركة', 'Tap the Share button')} <Export size={16} weight="bold" />
-            </li>
-            <li>
-              {pick('اختار «إضافة إلى الشاشة الرئيسية»', 'Choose “Add to Home Screen”')} <PlusSquare size={16} weight="bold" />
-            </li>
-            <li>{pick('اضغط «إضافة» وافتح Petalya من الشاشة', 'Tap “Add”, then open Petalya from your home screen')}</li>
-          </ol>
-        ) : (
-          <>
-            <b>{pick('ثبّت تطبيق Petalya', 'Install the Petalya app')}</b>
-            <span>{pick('اطلب أسرع وافتحه من شاشة الموبايل زي أي تطبيق.', 'Order faster, right from your home screen.')}</span>
-          </>
-        )}
+    <aside className={'install-bar' + (count > 0 ? ' above-cart' : '')} aria-label={pick('تثبيت التطبيق', 'Install the app')}>
+      <button className="x" onClick={close} aria-label={pick('إغلاق', 'Close')}>
+        <X size={16} />
+      </button>
+      <div className="head">
+        <img src="/icons/icon-192.png" alt="" width={44} height={44} />
+        <div className="txt">
+          <b>{pick('ثبّت تطبيق Petalya', 'Install the Petalya app')}</b>
+          <span>{pick('افتحه من شاشة موبايلك زي أي تطبيق.', 'Open it from your home screen like any app.')}</span>
+        </div>
       </div>
-      {!steps && (
+      {steps ? (
+        <ol className="steps">
+          {pwa.ios ? (
+            <>
+              <li>
+                {pick('اضغط زرار المشاركة', 'Tap the Share button')} <Export size={15} weight="bold" />
+              </li>
+              <li>
+                {pick('اختار «إضافة إلى الشاشة الرئيسية»', 'Choose “Add to Home Screen”')} <PlusSquare size={15} weight="bold" />
+              </li>
+              <li>{pick('اضغط «إضافة»', 'Tap “Add”')}</li>
+            </>
+          ) : (
+            <>
+              <li>
+                {pick('افتح قايمة المتصفح', 'Open the browser menu')} <DotsThreeVertical size={15} weight="bold" />
+              </li>
+              <li>{pick('اختار «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»', 'Choose “Install app” or “Add to Home screen”')}</li>
+            </>
+          )}
+        </ol>
+      ) : (
         <button className="go" onClick={start}>
           <DownloadSimple size={18} weight="bold" />
           {pick('تثبيت', 'Install')}
         </button>
       )}
-      <button className="x" onClick={close} aria-label={pick('إغلاق', 'Close')}>
-        <X size={17} />
+      <button className="never" onClick={never}>
+        {pick('ما تظهرليش تاني', "Don't show this again")}
       </button>
-    </div>
+    </aside>
   );
 }
 
 /** Small text button for menus; renders nothing when the app is already installed or cannot be installed. */
 export function InstallLink({ onClick, tabIndex }: { onClick?: () => void; tabIndex?: number }) {
   const { pick } = useSite();
-  const { available } = usePwa();
-  if (!available) return null;
+  const { showable } = usePwa();
+  if (!showable) return null;
   return (
     <button
       type="button"
