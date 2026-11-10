@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { List, ShoppingBagOpen, Trash, WhatsappLogo, X, ArrowLeft, ArrowRight, UserCircle } from '@phosphor-icons/react';
 import { useSite } from './SiteProvider';
+import { InstallLink } from './InstallBanner';
 import content from '@/lib/content.json';
 
 export const NAV = content.nav;
@@ -139,6 +140,7 @@ export function Header({ home = false }: { home?: boolean }) {
             <a href={help} target="_blank" rel="noopener" tabIndex={open ? 0 : -1} onClick={() => track('whatsapp_click', { source: 'menu' })}>
               {pick('مساعدة على واتساب', 'Help on WhatsApp')}
             </a>
+            <InstallLink tabIndex={open ? 0 : -1} onClick={() => setOpen(false)} />
           </div>
         </div>
       </div>

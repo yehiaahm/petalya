@@ -43,6 +43,8 @@ const nextConfig: NextConfig = {
       { source: '/:path*', headers: securityHeaders },
       { source: '/admin/:path*', headers: [{ key: 'Cache-Control', value: 'no-store' }, { key: 'X-Robots-Tag', value: 'noindex, nofollow' }] },
       { source: '/api/:path*', headers: [{ key: 'Cache-Control', value: 'no-store' }] },
+      // The service worker must always be re-checked so updates reach phones quickly.
+      { source: '/sw.js', headers: [{ key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' }, { key: 'Content-Type', value: 'application/javascript; charset=utf-8' }] },
     ];
   },
 };

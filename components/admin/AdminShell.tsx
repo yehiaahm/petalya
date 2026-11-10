@@ -5,6 +5,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import { Bell, Cake, ChartLineUp, ChatCircleText, Gear, House, Images, List, MagnifyingGlass, Receipt, SignOut, Storefront, Ticket, Users, X } from '@phosphor-icons/react';
 import { AdminProvider, api, egp } from './ui';
+import { PhoneAlerts } from './PhoneAlerts';
 
 type Summary = { newOrders: number; pendingReviews: number; latest: { id: string; code: string; name: string; total: number; createdAt: string } | null };
 
@@ -67,6 +68,12 @@ export function AdminShell({ children, initial }: { children: React.ReactNode; i
     const id = setInterval(poll, 15000);
     return () => clearInterval(id);
   }, [router]);
+
+  // Red count on the app icon (installed app only), like WhatsApp.
+  useEffect(() => {
+    const nav = navigator as Navigator & { setAppBadge?: (n?: number) => Promise<void>; clearAppBadge?: () => Promise<void> };
+    (sum.newOrders ? nav.setAppBadge?.(sum.newOrders) : nav.clearAppBadge?.())?.catch(() => {});
+  }, [sum.newOrders]);
 
   useEffect(() => {
     document.title = (sum.newOrders ? `(${sum.newOrders}) ` : '') + 'لوحة تحكم Petalya';
@@ -146,7 +153,10 @@ export function AdminShell({ children, initial }: { children: React.ReactNode; i
               أ
             </span>
           </header>
-          <main className="adm-content">{children}</main>
+          <main className="adm-content">
+            {path !== '/admin/settings' && <PhoneAlerts />}
+            {children}
+          </main>
         </div>
 
         {alert && (

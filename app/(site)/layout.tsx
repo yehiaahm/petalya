@@ -2,6 +2,7 @@ import { cookies } from 'next/headers';
 import { getPublicData } from '@/lib/db';
 import { SiteProvider } from '@/components/site/SiteProvider';
 import { getUser, publicUser } from '@/lib/customer';
+import { InstallBanner } from '@/components/site/InstallBanner';
 
 export const dynamic = 'force-dynamic';
 
@@ -11,6 +12,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   return (
     <SiteProvider data={data} initialLang={lang} initialUser={publicUser(user)}>
       {children}
+      <InstallBanner />
     </SiteProvider>
   );
 }

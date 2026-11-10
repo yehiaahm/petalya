@@ -35,6 +35,17 @@ Default admin login (local only): `/admin` with password `petalya-admin`.
 | `/admin/gallery`, `/admin/reviews`, `/admin/coupons`, `/admin/customers`, `/admin/analytics` | Content and insights |
 | `/admin/settings` | WhatsApp number, open/closed, lead days, delivery zones & fees, time slots, payment methods, cake-builder prices, password, backup, demo data |
 
+## Install as an app + order alerts on the phone
+
+**Customers:** the site is a PWA. A few seconds after they land, an *Install the Petalya app* card appears (Android/Chrome/desktop: one tap installs it; iPhone: it shows the Share → *Add to Home Screen* steps). There is also an *Install the app* link in the mobile menu. Installing needs HTTPS (Railway gives you that) — it also works on `localhost`.
+
+**Owner:** the dashboard is its own installable app (`/admin-manifest.webmanifest`, opens on the orders). In `/admin` a card offers *Enable notifications*; after that every new order sends a push notification to the phone — like a WhatsApp message, even when the app is closed — and tapping it opens that order. Manage it (test / turn off) in **Settings**.
+
+- Android: open the dashboard in Chrome → *Install app* → *Enable notifications*.
+- iPhone/iPad (iOS 16.4+): iOS only delivers notifications to apps on the Home Screen: Safari → Share → *Add to Home Screen*, open it from the icon, then *Enable notifications*.
+- Every phone/computer you enable it on gets the alert. Keys (VAPID) are created automatically and stored in the database; to pin your own set `VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` (and optionally `VAPID_SUBJECT`) in the environment (`npx web-push generate-vapid-keys`). Changing the keys means re-enabling notifications on each device.
+- Icons live in `public/icons` (regenerate them from the logo with `node scripts/gen-icons.mjs`).
+
 ## Customer accounts
 
 Customers can sign up with email + password or **Continue with Google** (`/account/login`, `/account/register`). Guest checkout still works. Signed-in customers get:

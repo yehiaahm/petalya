@@ -2,6 +2,7 @@ import { mutate, appendEvents } from '@/lib/db';
 import { buildOrder, OrderError, type OrderInput } from '@/lib/orders';
 import { getUser } from '@/lib/customer';
 import { clientIp, rateLimited, tooMany } from '@/lib/net';
+import { notifyNewOrder } from '@/lib/push';
 
 export async function POST(req: Request) {
   if (rateLimited('orders', clientIp(req), 12, 60 * 60_000)) return tooMany();
@@ -29,6 +30,8 @@ export async function POST(req: Request) {
       return o;
     });
     await appendEvents([{ t: Date.now(), type: 'order_placed', meta: { total: order.total, code: order.code } }]);
+    // Ping the owner's phone; never let a push problem fail the customer's order.
+    void notifyNewOrder(order);
     return Response.json({ id: order.id, code: order.code });
   } catch (e) {
     if (e instanceof OrderError) return Response.json({ error: e.field, message: e.msg }, { status: 422 });

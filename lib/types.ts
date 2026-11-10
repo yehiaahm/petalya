@@ -170,7 +170,12 @@ export type DB = {
   admin: { passwordHash: string; secret: string };
   counters: { order: number };
   users: User[];
+  push: PushState;
 };
+
+/** A phone/browser the owner turned order notifications on for. */
+export type PushSub = { id: string; endpoint: string; p256dh: string; auth: string; ua?: string; createdAt: string };
+export type PushState = { vapid?: { publicKey: string; privateKey: string }; subs: PushSub[] };
 
 export type TrackEvent = {
   t: number;

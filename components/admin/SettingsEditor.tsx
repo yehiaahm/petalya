@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Cake, CreditCard, DownloadSimple, FloppyDisk, Lock, Moped, Plus, Sparkle, Storefront, Trash } from '@phosphor-icons/react';
 import type { Settings } from '@/lib/types';
+import { PhoneAlerts } from './PhoneAlerts';
 import { api, BiInput, Field, NumInput, PageHeader, Toggle, useAdmin, useConfirm } from './ui';
 
 const TABS = [
@@ -47,6 +48,8 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
           {busy ? 'بنحفظ…' : dirty ? 'حفظ التغييرات' : 'محفوظ'}
         </button>
       </PageHeader>
+
+      <PhoneAlerts always />
 
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'flex-start' }}>
         <nav className="a-card set-nav" aria-label="أقسام الإعدادات">

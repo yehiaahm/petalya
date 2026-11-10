@@ -72,6 +72,7 @@ function initialAdminPassword() {
   return pw || DEFAULT_ADMIN_PASSWORD;
 }
 
+
 export function createSeed(): DB {
   const t = now();
   const categories = content.menu.map((m, i) => ({ id: m.id, name: { ar: m.ar, en: m.en }, sort: i }));
@@ -132,6 +133,7 @@ export function createSeed(): DB {
     },
     counters: { order: 1000 },
     users: [],
+    push: { subs: [] },
   };
 }
 

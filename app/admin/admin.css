@@ -334,3 +334,12 @@ select.ai { cursor: pointer; }
   .steps-h .s .c { width: 36px; height: 36px; }
   .steps-h .s::before { top: 17px; }
 }
+
+/* ---- phone alerts card (install + push) ---- */
+.phone-alerts { display: flex; gap: 14px; align-items: flex-start; margin-bottom: 18px; }
+.phone-alerts .ic { flex: none; width: 46px; height: 46px; border-radius: 16px; display: grid; place-items: center; background: var(--blush-tile); color: var(--copper-icon); }
+.phone-alerts .ic.on { background: var(--ok-bg); color: var(--ok); }
+.phone-alerts .body { flex: 1; min-width: 0; }
+.phone-alerts b { display: block; font-size: 15.5px; }
+.phone-alerts p { margin: 4px 0 0; color: var(--ink-muted); line-height: 1.7; }
+.phone-alerts .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }

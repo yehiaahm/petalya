@@ -48,6 +48,8 @@ function migrate(db: DB): DB {
   db.coupons ??= [];
   db.counters ??= { order: 1000 };
   db.users ??= [];
+  db.push ??= { subs: [] };
+  db.push.subs ??= [];
   return db;
 }
 
