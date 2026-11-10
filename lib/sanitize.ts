@@ -15,7 +15,7 @@ export const lstr = (v: unknown, max = 500): L => {
 };
 const img = (v: unknown) => {
   const s = str(v, 300);
-  return /^\/(uploads|assets)\/[\w.\-]+$/.test(s) || /^https:\/\/[^\s"'<>]+$/.test(s) ? s : '';
+  return /^\/(uploads|assets|reviews)\/[\w.\-]+$/.test(s) || /^https:\/\/[^\s"'<>]+$/.test(s) ? s : '';
 };
 const id = (v: unknown, prefix: string) => {
   const s = str(v, 40);
@@ -73,6 +73,10 @@ export function cleanReviews(list: unknown): Review[] {
     ...(r.orderCode ? { orderCode: str(r.orderCode, 20) } : {}),
     createdAt: str(r.createdAt, 40) || new Date().toISOString(),
   }));
+}
+
+export function cleanReviewShots(list: unknown): string[] {
+  return (Array.isArray(list) ? list : []).map(img).filter(Boolean).slice(0, 40);
 }
 
 export function cleanCoupons(list: unknown): Coupon[] {

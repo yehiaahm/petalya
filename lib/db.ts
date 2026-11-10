@@ -2,7 +2,7 @@ import 'server-only';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { DB, PublicData, TrackEvent } from './types';
-import { createSeed, defaultSettings } from './seed';
+import { createSeed, defaultReviewShots, defaultSettings } from './seed';
 
 export const DATA_DIR = process.env.PETALYA_DATA_DIR || path.join(process.cwd(), 'data');
 export const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
@@ -50,6 +50,7 @@ function migrate(db: DB): DB {
   db.users ??= [];
   db.push ??= { subs: [] };
   db.push.subs ??= [];
+  db.reviewShots ??= defaultReviewShots();
   return db;
 }
 
@@ -86,6 +87,7 @@ export async function getPublicData(): Promise<PublicData> {
     products: db.products.filter((p) => p.active).sort(byOrder),
     gallery: db.gallery.filter((x) => x.active).sort(byOrder),
     reviews: db.reviews.filter((r) => r.status === 'approved'),
+    reviewShots: db.reviewShots,
     settings: db.settings,
   };
 }

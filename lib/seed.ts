@@ -72,6 +72,7 @@ function initialAdminPassword() {
   return pw || DEFAULT_ADMIN_PASSWORD;
 }
 
+export const defaultReviewShots = () => [1, 2, 3, 4, 5, 6, 7].map((n) => `/reviews/review-${n}.webp`);
 
 export function createSeed(): DB {
   const t = now();
@@ -134,6 +135,7 @@ export function createSeed(): DB {
     counters: { order: 1000 },
     users: [],
     push: { subs: [] },
+    reviewShots: defaultReviewShots(),
   };
 }
 

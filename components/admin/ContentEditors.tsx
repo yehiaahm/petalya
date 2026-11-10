@@ -150,6 +150,45 @@ function GalleryModal({ item, products, onClose, onSave }: { item: GalleryItem; 
   );
 }
 
+/* ======================= Review screenshots ======================= */
+export function ReviewShotsEditor({ shots }: { shots: string[] }) {
+  const router = useRouter();
+  const { toast } = useAdmin();
+  const [saved, setSaved] = useState(shots);
+  const [list, setList] = useState(shots);
+  const [busy, setBusy] = useState(false);
+  const dirty = JSON.stringify(list) !== JSON.stringify(saved);
+  const save = async () => {
+    setBusy(true);
+    try {
+      const next = await api<string[]>('/api/admin/review-shots', 'PUT', list);
+      setSaved(next);
+      setList(next);
+      toast('اتحفظت سكرينات الآراء');
+      router.refresh();
+    } catch {
+      toast('مقدرناش نحفظ', true);
+    }
+    setBusy(false);
+  };
+  return (
+    <div className="a-card a-pad" style={{ marginBottom: 22, display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+        <div>
+          <b style={{ fontWeight: 700, fontSize: 17 }}>سكرينات آراء العملاء</b>
+          <p className="muted small" style={{ margin: '4px 0 0' }}>
+            صور محادثات العملاء اللي بتتحرك في قسم «حلاوة بتتحكي» والعميل بيضغط عليها يشوفها كبيرة. الترتيب هنا هو ترتيبها في الموقع.
+          </p>
+        </div>
+        <button className="ab primary" disabled={!dirty || busy} onClick={save}>
+          <Check size={16} /> حفظ
+        </button>
+      </div>
+      <ImageManager images={list} onChange={setList} max={40} />
+    </div>
+  );
+}
+
 /* ======================= Reviews ======================= */
 export function ReviewsEditor({ reviews }: { reviews: Review[] }) {
   const { list, save } = useListSave('/api/admin/reviews', reviews);

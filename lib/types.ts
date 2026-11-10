@@ -171,6 +171,8 @@ export type DB = {
   counters: { order: number };
   users: User[];
   push: PushState;
+  /** Screenshots of customer chats, shown as the tap-to-open wall in the reviews area. */
+  reviewShots: string[];
 };
 
 /** A phone/browser the owner turned order notifications on for. */
@@ -194,6 +196,7 @@ export type PublicData = {
   products: Product[];
   gallery: GalleryItem[];
   reviews: Review[];
+  reviewShots: string[];
   settings: Omit<Settings, 'payments'> & { payments: Settings['payments'] };
 };
 
