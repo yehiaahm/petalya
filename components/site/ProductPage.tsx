@@ -30,7 +30,7 @@ export function ProductPage({ id }: { id: string }) {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url());
-      toast(pick('تم نسخ الرابط', 'Link copied'));
+      toast(pick('اتنسخ اللينك', 'Link copied'));
     } catch {}
   };
 
@@ -65,14 +65,14 @@ export function ProductPage({ id }: { id: string }) {
             {count > 0 && (
               <Link href="/checkout" className="btn btn-flat btn-md" data-burst="1" style={{ alignSelf: 'flex-start' }}>
                 <ShoppingBagOpen size={20} />
-                {pick('إتمام الطلب', 'Go to checkout')}
+                {pick('كمّل الطلب', 'Go to checkout')}
                 <FwdIcon size={17} />
               </Link>
             )}
             {p.leadDays ? (
               <p className="menu-note" style={{ justifyContent: 'flex-start', textAlign: 'start', margin: 0 }}>
                 <Info size={16} color="#B97E5E" style={{ flex: 'none' }} />
-                {pick(`اطلبها قبل موعدك بـ ${arCount(p.leadDays, 'day')} على الأقل.`, `Order at least ${p.leadDays} days ahead.`)}
+                {pick(`اطلبها قبل ميعادك بـ ${arCount(p.leadDays, 'day')} على الأقل.`, `Order at least ${p.leadDays} days ahead.`)}
               </p>
             ) : null}
             <div className="pp-share">
@@ -82,11 +82,11 @@ export function ProductPage({ id }: { id: string }) {
               </button>
               <button className="btn btn-outline btn-sm" onClick={copy}>
                 <Copy size={18} />
-                {pick('نسخ الرابط', 'Copy link')}
+                {pick('انسخ اللينك', 'Copy link')}
               </button>
               <button className="btn btn-outline btn-sm" onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + url())}`, '_blank', 'noopener')}>
                 <WhatsappLogo size={18} />
-                {pick('أرسلها لصديق', 'Send to a friend')}
+                {pick('ابعتها لحد', 'Send to a friend')}
               </button>
             </div>
           </div>
@@ -95,7 +95,7 @@ export function ProductPage({ id }: { id: string }) {
         {related.length > 0 && (
           <section style={{ marginTop: 'clamp(48px,8vw,80px)' }}>
             <h2 className="card-title" style={{ justifyContent: 'center', marginBottom: 20 }}>
-              {pick('قد يعجبك أيضًا', 'You may also like')}
+              {pick('ممكن يعجبك كمان', 'You may also like')}
             </h2>
             <div className="pp-related">
               {related.map((r) => (
@@ -109,7 +109,7 @@ export function ProductPage({ id }: { id: string }) {
         )}
 
         <p className="center" style={{ marginTop: 40, fontSize: 14 }}>
-          <Link href="/#custom">{pick('تريد تصميمًا خاصًا؟ صمّم تورتتك', 'Want something custom? Design your cake')}</Link>
+          <Link href="/#custom">{pick('عايز حاجة مخصوص؟ صمّم الـ Cake بتاعك', 'Want something custom? Design your cake')}</Link>
         </p>
       </main>
     </div>

@@ -10,10 +10,10 @@ import { arCount } from '@/lib/ar';
 export function QtyControl({ product, light = false }: { product: Product; light?: boolean }) {
   const { qtyOf, add, dec, pick } = useSite();
   const q = qtyOf(product.id);
-  if (product.soldOut) return <span className="soldout">{pick('نفدت الكمية', 'Sold out')}</span>;
+  if (product.soldOut) return <span className="soldout">{pick('Sold out', 'Sold out')}</span>;
   if (!q)
     return (
-      <button className="add-btn" data-burst="1" onClick={() => add(product.id)} aria-label={pick('أضف إلى الطلب', 'Add to order')}>
+      <button className="add-btn" data-burst="1" onClick={() => add(product.id)} aria-label={pick('ضيف للطلب', 'Add to order')}>
         <Plus size={16} weight="bold" />
       </button>
     );
@@ -80,7 +80,7 @@ export function Menu({ tab, setTab }: { tab: number; setTab: (i: number) => void
           <h2 data-reveal="1" className="h2">
             {ar ? (
               <>
-                اختر <span className="accent">حلاوتك</span>
+                اختار <span className="accent">حلاوتك</span>
               </>
             ) : (
               <>
@@ -127,7 +127,7 @@ export function Menu({ tab, setTab }: { tab: number; setTab: (i: number) => void
         {showPrices && (
           <p className="menu-note">
             <Info size={16} color="#B97E5E" style={{ flex: 'none' }} />
-            {pick('الأسعار المعروضة أسعار مبدئية، ويُحدَّد السعر النهائي حسب التصميم والحجم.', 'Prices are starting points — the final quote depends on design and size.')}
+            {pick('الأسعار دي بداية من — والسعر النهائي بيتحدد حسب التصميم والحجم.', 'Prices are starting points — the final quote depends on design and size.')}
           </p>
         )}
       </div>
@@ -214,7 +214,7 @@ export function ProductSheet({ product, onClose }: { product: Product | null; on
               {p.leadDays ? (
                 <p className="menu-note" style={{ justifyContent: 'flex-start', marginTop: 8, textAlign: 'start' }}>
                   <Info size={16} color="#B97E5E" style={{ flex: 'none' }} />
-                  {pick(`اطلبها قبل موعدك بـ ${arCount(p.leadDays, 'day')} على الأقل.`, `Order at least ${p.leadDays} days ahead.`)}
+                  {pick(`اطلبها قبل ميعادك بـ ${arCount(p.leadDays, 'day')} على الأقل.`, `Order at least ${p.leadDays} days ahead.`)}
                 </p>
               ) : null}
             </div>

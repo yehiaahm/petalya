@@ -22,284 +22,284 @@
   },
   "whatsapp": {
     "link": "https://wa.me/{number}?text={encodeURIComponent(message)}",
-    "general": { "ar": "أهلًا Petalya! أودّ طلب تورتة.", "en": "Hi Petalya! I'd love to order a cake." },
-    "galleryItem": { "ar": "أهلًا Petalya! أودّ طلب تورتة مثل «{title}»", "en": "Hi Petalya! I’d love something like \"{title}\"" },
+    "general": { "ar": "أهلاً Petalya! حابب أطلب Cake.", "en": "Hi Petalya! I'd love to order a cake." },
+    "galleryItem": { "ar": "أهلاً Petalya! حابب أطلب حاجة زي «{title}»", "en": "Hi Petalya! I’d love something like \"{title}\"" },
     "cart": {
-      "ar": "أهلًا Petalya! أودّ طلب:\n{lines}\nالإجمالي التقريبي: {total}",
+      "ar": "أهلاً Petalya! حابب أطلب:\n{lines}\nالإجمالي التقريبي: {total}",
       "en": "Hi Petalya! I'd like to order:\n{lines}\nEstimated total: {total}",
       "line": "• {qty} × {name}"
     },
     "builder": {
-      "ar": "أهلًا Petalya! صمّمت تورتتي على الموقع:\n{lines}\nالسعر التقريبي يبدأ من {price}",
+      "ar": "أهلاً Petalya! صمّمت الـ Cake بتاعي على الموقع:\n{lines}\nالسعر التقريبي يبدأ من {price}",
       "en": "Hi Petalya! I designed my cake on your site:\n{lines}\nEstimated from {price}",
       "line": "• {label}: {value}"
     }
   },
   "nav": [
-    { "id": "work", "ar": "أعمالنا", "en": "Our work" },
+    { "id": "work", "ar": "شغلنا", "en": "Our work" },
     { "id": "menu", "ar": "المنيو", "en": "Menu" },
     { "id": "flowers", "ar": "الورد", "en": "Flowers" },
-    { "id": "custom", "ar": "صمّم تورتتك", "en": "Design a cake" },
+    { "id": "custom", "ar": "صمّم الـ Cake", "en": "Design a cake" },
     { "id": "reviews", "ar": "الآراء", "en": "Reviews" },
-    { "id": "contact", "ar": "تواصل معنا", "en": "Contact" }
+    { "id": "contact", "ar": "كلّمنا", "en": "Contact" }
   ],
   "ui": {
     "header": {
-      "orderNow": { "ar": "اطلب الآن", "en": "Order now" },
+      "orderNow": { "ar": "اطلب دلوقتي", "en": "Order now" },
       "orderOnWhatsApp": { "ar": "اطلب على واتساب", "en": "Order on WhatsApp" }
     },
     "hero": {
-      "eyebrow": { "ar": "تورت وكب كيك · بتوقيع أمنية الجندي", "en": "Cakes & cupcakes · by Omnia El Gendy" },
+      "eyebrow": { "ar": "Cakes & Cupcakes · بإيد أمنية الجندي", "en": "Cakes & cupcakes · by Omnia El Gendy" },
       "title": {
-        "ar": { "before": "تورت أنيقة ", "accent": "للحظات لا تُنسى", "after": "" },
+        "ar": { "before": "Cakes أنيقة ", "accent": "لأحلى لحظاتك", "after": "" },
         "en": { "before": "Elegant cakes for ", "accent": "unforgettable", "after": " moments" }
       },
       "lead": {
-        "ar": "تورت مصمَّمة خصيصًا لمناسبتك، وكب كيك مصنوع يدويًا، طازج كل يوم وبكل حب.",
+        "ar": "Custom Cakes على ذوقك لكل مناسبة، و Cupcakes معمولة بإيدينا — طازة كل يوم وبكل حب.",
         "en": "Custom cakes for your occasion and handcrafted cupcakes — freshly made, every day, with love."
       },
-      "primaryCta": { "ar": "صمّم تورتتك", "en": "Design your cake", "href": "#custom" },
-      "secondaryCta": { "ar": "تصفّح المنيو", "en": "Browse the menu", "href": "#menu" },
-      "hint": { "ar": "المس الشاشة… وشاهد البتلات تتطاير", "en": "Touch anywhere — watch the petals fly" }
+      "primaryCta": { "ar": "صمّم الـ Cake بتاعك", "en": "Design your cake", "href": "#custom" },
+      "secondaryCta": { "ar": "شوف المنيو", "en": "Browse the menu", "href": "#menu" },
+      "hint": { "ar": "المس الشاشة وشوف البتلات بتطير", "en": "Touch anywhere — watch the petals fly" }
     },
     "marquee": {
-      "ar": ["أعياد ميلاد", "خطوبة", "كتب كتاب", "سبوع", "تخرّج", "بوكيهات كب كيك", "جندر ريفيل", "عيد الأم"],
+      "ar": ["أعياد ميلاد", "خطوبة", "كتب كتاب", "سبوع", "تخرّج", "Cupcake Bouquets", "Gender Reveal", "عيد الأم"],
       "en": ["Birthdays", "Engagements", "Weddings", "Baby showers", "Graduations", "Cupcake bouquets", "Gender reveals", "Mother’s Day"]
     },
     "work": {
       "eyebrow": { "ar": "من مطبخنا", "en": "From our kitchen" },
       "title": {
-        "ar": { "before": "تورت تحكي ", "accent": "حكايتكم", "after": "" },
+        "ar": { "before": "Cakes بتحكي ", "accent": "حكايتكم", "after": "" },
         "en": { "before": "Cakes that tell ", "accent": "your", "after": " story" }
       },
       "lead": {
-        "ar": "اسحب الصور واقلب أي صورة — وراء كل تورتة مناسبة جميلة.",
+        "ar": "اسحب الصور واقلب أي صورة — ورا كل Cake مناسبة حلوة.",
         "en": "Swipe along the line and flip any photo — every cake has a sweet occasion behind it."
       },
-      "cardCta": { "ar": "اطلب مثلها", "en": "Order one like it" }
+      "cardCta": { "ar": "اطلب زيها", "en": "Order one like it" }
     },
     "menu": {
       "eyebrow": { "ar": "المنيو", "en": "The menu" },
       "title": {
-        "ar": { "before": "اختر ", "accent": "حلاوتك", "after": "" },
+        "ar": { "before": "اختار ", "accent": "حلاوتك", "after": "" },
         "en": { "before": "Choose your ", "accent": "sweet", "after": "" }
       },
-      "addToOrder": { "ar": "أضف إلى الطلب", "en": "Add to order" },
+      "addToOrder": { "ar": "ضيف للطلب", "en": "Add to order" },
       "note": {
-        "ar": "الأسعار المعروضة أسعار مبدئية، ويُحدَّد السعر النهائي حسب التصميم والحجم.",
+        "ar": "الأسعار دي بداية من — والسعر النهائي بيتحدد حسب التصميم والحجم.",
         "en": "Prices are starting points — the final quote depends on design and size."
       }
     },
     "flowers": {
-      "eyebrow": { "ar": "شغفنا الحالي", "en": "Current obsession" },
+      "eyebrow": { "ar": "هوسنا الحالي", "en": "Current obsession" },
       "title": {
-        "ar": { "before": "ورود ", "accent": "من الكريمة", "after": "" },
+        "ar": { "before": "ورد من ", "accent": "Buttercream", "after": "" },
         "en": { "before": "A bakery of ", "accent": "flowers", "after": "" }
       },
       "lead": {
-        "ar": "نشكّل كل وردة من الكريمة بتلةً بتلة بأيدينا… بوكيهات كب كيك تُهدى، وتُؤكل أيضًا.",
+        "ar": "ورد Buttercream بنعمله بتلة بتلة بإيدينا… Cupcake Bouquets تتهادى، وتتاكل كمان.",
         "en": "Buttercream blooms, piped petal by petal by hand — cupcake bouquets made to be gifted, and eaten."
       },
       "chips": {
-        "ar": ["ورد جوري", "بيوني", "هيدرانجيا", "توليب", "أقحوان"],
+        "ar": ["Roses", "Peonies", "Hydrangeas", "Tulips", "Daisies"],
         "en": ["Roses", "Peonies", "Hydrangeas", "Tulips", "Daisies"]
       },
-      "cta": { "ar": "اطلب بوكيه ورد", "en": "Order a bouquet", "action": "Switch menu tab to Bouquets, then scroll to #menu" },
-      "hint": { "ar": "اسحب الوردة لتدور", "en": "Drag the flower to spin it" },
+      "cta": { "ar": "اطلب Bouquet", "en": "Order a bouquet", "action": "Switch menu tab to Bouquets, then scroll to #menu" },
+      "hint": { "ar": "اسحب الوردة عشان تلف", "en": "Drag the flower to spin it" },
       "centerMark": "P"
     },
     "builder": {
       "eyebrow": { "ar": "على ذوقك", "en": "Made to order" },
       "title": {
-        "ar": { "before": "صمّم ", "accent": "تورتتك", "after": "" },
+        "ar": { "before": "صمّم ", "accent": "الـ Cake بتاعك", "after": "" },
         "en": { "before": "Design ", "accent": "your", "after": " cake" }
       },
       "lead": {
-        "ar": "اختر المناسبة والحجم والنكهة والزينة، وشاهد تورتتك تتشكّل أمامك، ثم أرسلها لنا على واتساب.",
+        "ar": "اختار المناسبة والحجم والنكهة والديكور، وشوف الـ Cake بيتبني قدامك — وبعدين ابعته لنا على واتساب.",
         "en": "Pick the occasion, size, flavour and décor — watch your cake come together, then send it to us on WhatsApp."
       },
-      "stageHint": { "ar": "اضغط على التورتة واحتفل", "en": "Tap the cake to celebrate" },
+      "stageHint": { "ar": "اضغط على الـ Cake واحتفل", "en": "Tap the cake to celebrate" },
       "pricePrefix": { "ar": "من ", "en": "From " },
-      "stepCounter": { "ar": "الخطوة {n} من 5", "en": "Step {n} of 5" },
+      "stepCounter": { "ar": "خطوة {n} من 5", "en": "Step {n} of 5" },
       "stepTitles": {
-        "ar": ["ما المناسبة؟", "ما الحجم الذي تحتاجه؟", "النكهة واللون", "بماذا نزيّنها؟", "اللمسات الأخيرة"],
+        "ar": ["المناسبة إيه؟", "محتاج حجم قد إيه؟", "النكهة واللون", "الديكور", "اللمسة الأخيرة"],
         "en": ["What’s the occasion?", "How big should it be?", "Flavour & colour", "How shall we dress it?", "Final touches"]
       },
       "flavourLabel": { "ar": "النكهة", "en": "Flavour" },
       "colourLabel": { "ar": "لون الكريمة", "en": "Frosting colour" },
-      "messageLabel": { "ar": "الكتابة على التورتة", "en": "Message on the cake" },
+      "messageLabel": { "ar": "الكتابة على الـ Cake", "en": "Message on the cake" },
       "messagePlaceholder": { "ar": "اسم أو رسالة قصيرة", "en": "A name or a short message" },
       "dateLabel": { "ar": "تاريخ المناسبة", "en": "Celebration date" },
       "summaryLabels": {
-        "ar": ["المناسبة", "الحجم", "النكهة", "لون الكريمة", "الزينة", "الكتابة", "التاريخ"],
+        "ar": ["المناسبة", "الحجم", "النكهة", "لون الكريمة", "الديكور", "الكتابة", "التاريخ"],
         "en": ["Occasion", "Size", "Flavour", "Colour", "Décor", "Message", "Date"]
       },
       "none": { "ar": "بدون", "en": "None" },
       "empty": "—",
       "back": { "ar": "رجوع", "en": "Back" },
       "next": { "ar": "التالي", "en": "Next" },
-      "send": { "ar": "أرسل التصميم على واتساب", "en": "Send my design" }
+      "send": { "ar": "ابعت التصميم على واتساب", "en": "Send my design" }
     },
     "reviews": {
       "eyebrow": { "ar": "آراء عملائنا", "en": "Kind words" },
       "title": {
-        "ar": { "before": "كلمات ", "accent": "أحلى من السكر", "after": "" },
+        "ar": { "before": "كلام ", "accent": "أحلى من السكر", "after": "" },
         "en": { "before": "Sweet things ", "accent": "they said", "after": "" }
       }
     },
     "contact": {
-      "eyebrow": { "ar": "لنحتفل معًا", "en": "Let's celebrate" },
+      "eyebrow": { "ar": "يلا نحتفل", "en": "Let's celebrate" },
       "title": {
-        "ar": { "before": "جاهز ", "accent": "للاحتفال؟", "after": "" },
+        "ar": { "before": "جاهز ", "accent": "تحتفل؟", "after": "" },
         "en": { "before": "Ready to ", "accent": "celebrate?", "after": "" }
       },
       "lead": {
-        "ar": "راسلنا على واتساب بالمناسبة والتاريخ، وسنرتّب معك كل التفاصيل.",
+        "ar": "ابعتلنا على واتساب المناسبة والتاريخ، وهنرتب معاك كل التفاصيل.",
         "en": "Message us on WhatsApp with your occasion and date — we'll work out every detail with you."
       },
       "whatsappCta": { "ar": "اطلب على واتساب", "en": "Order on WhatsApp" }
     },
     "footer": {
-      "tagline": { "ar": "تُحضَّر طازجة وبكل حب · أمنية الجندي", "en": "Freshly made with love · by Omnia El Gendy" }
+      "tagline": { "ar": "معمولة طازة وبكل حب · أمنية الجندي", "en": "Freshly made with love · by Omnia El Gendy" }
     },
     "cart": {
       "label": { "ar": "طلبك", "en": "Your order" },
-      "send": { "ar": "أرسل الطلب", "en": "Send order" }
+      "send": { "ar": "ابعت الطلب", "en": "Send order" }
     }
   },
   "gallery": [
     { "id": "g1", "productId": "c1", "image": "products/cake-golden-memories.webp", "tilt": -2.5,
-      "ar": {"title": "ذكريات ذهبية", "occasion": "عيد ميلاد", "note": "صوركم المفضلة معلّقة بمشابك فوق تورتة كريمية مزيّنة برقائق الذهب."},
+      "ar": {"title": "Golden Memories", "occasion": "عيد ميلاد", "note": "صوركم المفضلة متعلّقة بمشابك فوق Cake كريمي بلمسة Gold leaf."},
       "en": {"title": "Golden Memories", "occasion": "Birthday", "note": "Your favourite photos pinned above a creamy cake, flecked with gold leaf."} },
     { "id": "g2", "productId": "c2", "image": "products/cake-bride-in-bloom.webp", "tilt": 2,
-      "ar": {"title": "عروس الورد", "occasion": "بريدال شاور", "note": "فستان من الفوندان تحت قوس من ورد السكر."},
+      "ar": {"title": "Bride in Bloom", "occasion": "Bridal Shower", "note": "فستان Fondant تحت قوس من ورد السكر."},
       "en": {"title": "Bride in Bloom", "occasion": "Bridal shower", "note": "A fondant gown beneath an arch of sugar blossoms."} },
     { "id": "g3", "productId": "b3", "image": "products/bouquet-grand-garden.webp", "tilt": -1.5,
-      "ar": {"title": "بوكيه الحديقة", "occasion": "هدية", "note": "ورود من الكريمة بألوان الربيع، مجتمعة في بوكيه واحد."},
+      "ar": {"title": "The Garden Bouquet", "occasion": "هدية", "note": "ورد Buttercream بألوان الربيع، متجمّع في Bouquet واحد."},
       "en": {"title": "The Garden Bouquet", "occasion": "A gift", "note": "Buttercream blooms in spring colours, gathered into one bouquet."} },
     { "id": "g4", "productId": "u1", "image": "assets/cupcake-tulle.png", "tilt": 3,
-      "ar": {"title": "وردة في تول", "occasion": "لمسة صغيرة", "note": "قطعة كب كيك واحدة ملفوفة بالتول — أرقّ هدية."},
+      "ar": {"title": "Bloom in tulle", "occasion": "لمسة صغيرة", "note": "Cupcake واحدة ملفوفة بالتول — أرق هدية."},
       "en": {"title": "A bloom in tulle", "occasion": "Little gesture", "note": "A single cupcake wrapped in tulle — the softest gift."} },
     { "id": "g5", "productId": "c3", "image": "products/cake-crossword.webp", "tilt": -2,
-      "ar": {"title": "تورتة الكلمات المتقاطعة", "occasion": "عيد زواج", "note": "كلماتكم على شكل كلمات متقاطعة… لأجمل مناسبة."},
+      "ar": {"title": "The Crossword", "occasion": "عيد جواز", "note": "كلامكم على شكل كلمات متقاطعة… لأحلى مناسبة."},
       "en": {"title": "The Crossword", "occasion": "Anniversary", "note": "Your words, crossword-style — for the sweetest occasion."} },
     { "id": "g6", "productId": "c4", "image": "products/cake-pink-crown.webp", "tilt": 2.5,
-      "ar": {"title": "التاج الوردي", "occasion": "عيد ميلاد", "note": "وردي ناعم ولؤلؤ وتاج ذهبي… لأميرة الحفل."},
+      "ar": {"title": "The Pink Crown", "occasion": "عيد ميلاد", "note": "Pink ناعم ولؤلؤ وتاج دهبي… لأميرة الحفلة."},
       "en": {"title": "The Pink Crown", "occasion": "Birthday", "note": "Soft pink, pearls and a golden crown — for the birthday princess."} },
     { "id": "g7", "productId": "c5", "image": "products/cake-strawberry-picnic.webp", "tilt": -3,
-      "ar": {"title": "بيكنيك الفراولة", "occasion": "عيد ميلاد أطفال", "note": "نقشة كاروهات حمراء، وفراولة وكرز وبطيخ مصنوعة يدويًا."},
+      "ar": {"title": "Strawberry Picnic", "occasion": "عيد ميلاد أطفال", "note": "كاروهات حمرا مع فراولة وكريز وبطيخ معمولين باليد."},
       "en": {"title": "Strawberry Picnic", "occasion": "Kids' birthday", "note": "Red gingham with handmade strawberries, cherries and watermelon."} },
     { "id": "g8", "productId": "u12", "image": "products/cupcake-stargazer-lily.webp", "tilt": 1.5,
-      "ar": {"title": "زنبقة ستارجيزر", "occasion": "كب كيك", "note": "زنبقة بيضاء بلمسات وردية، نشكّلها من الكريمة بتلةً بتلة."},
+      "ar": {"title": "Stargazer Lily", "occasion": "Cupcakes", "note": "زنبقة بيضا بلمسات Pink، معمولة بتلة بتلة من الـ Buttercream."},
       "en": {"title": "Stargazer Lily", "occasion": "Cupcake", "note": "A white lily brushed with raspberry pink, piped petal by petal."} },
     { "id": "g9", "productId": "u5", "image": "products/cupcake-lilac-anemone.webp", "tilt": -2,
-      "ar": {"title": "أنيمون ليلكي", "occasion": "كب كيك", "note": "بتلات ليلكية حول قلب أخضر مزيّن بحبيبات صغيرة."},
+      "ar": {"title": "Lilac Anemone", "occasion": "Cupcakes", "note": "بتلات Lilac حوالين قلب أخضر بحبيبات صغيرة."},
       "en": {"title": "Lilac Anemone", "occasion": "Cupcake", "note": "Lilac petals around a beaded green heart."} },
     { "id": "g10", "productId": "u4", "image": "products/cupcake-mauve-dahlia.webp", "tilt": 2,
-      "ar": {"title": "داليا موف", "occasion": "كب كيك", "note": "عشرات البتلات المدبّبة من الكريمة بلون موف هادئ."},
+      "ar": {"title": "Mauve Dahlia", "occasion": "Cupcakes", "note": "عشرات البتلات المدببة من الـ Buttercream بلون Mauve هادي."},
       "en": {"title": "Mauve Dahlia", "occasion": "Cupcake", "note": "Dozens of pointed buttercream petals in dusty mauve."} }
   ],
   "menu": [
-    { "id": "cakes", "ar": "تورت", "en": "Cakes", "items": [
+    { "id": "cakes", "ar": "Cakes", "en": "Cakes", "items": [
       { "id": "c1", "images": ["products/cake-golden-memories.webp"], "price": 1200,
-        "ar": {"name": "ذكريات ذهبية", "desc": "كريمة بلون أخضر مريمي، ورقائق ذهب، وصور بولارويد لأجمل لحظاتكم · تكفي ١٢–١٥ فردًا"},
+        "ar": {"name": "Golden Memories", "desc": "Buttercream بلون Sage مع Gold leaf وصور Polaroid لأحلى لحظاتكم · تكفي ١٢–١٥ فرد"},
         "en": {"name": "Golden Memories", "desc": "Sage buttercream, gold leaf and pegged Polaroid prints of your favourite moments · serves 12–15"} },
       { "id": "c4", "images": ["products/cake-pink-crown.webp"], "price": 950,
-        "ar": {"name": "التاج الوردي", "desc": "كريمة وردية ناعمة بحواف مكشكشة، ولؤلؤ، وتاج ذهبي مرصّع، وإطار صورة · تكفي ٨–١٠ أفراد"},
+        "ar": {"name": "The Pink Crown", "desc": "Buttercream بينك ناعم بحواف مكشكشة، ولؤلؤ، وتاج دهبي، وبرواز صورة · تكفي ٨–١٠ أفراد"},
         "en": {"name": "The Pink Crown", "desc": "Blush buttercream with ruffled piping, pearls, a jewelled gold crown and a gold-piped photo frame · serves 8–10"} },
       { "id": "c2", "images": ["products/cake-bride-in-bloom.webp"], "price": 1850,
-        "ar": {"name": "عروس الورد", "desc": "فستان من الفوندان بفيونكة لامعة تحت قوس من ورد السكر، تحيط به ورود البيوني · تكفي ١٥–٢٠ فردًا"},
+        "ar": {"name": "Bride in Bloom", "desc": "فستان Fondant بفيونكة لامعة تحت قوس من ورد السكر، وحواليه Peonies · تكفي ١٥–٢٠ فرد"},
         "en": {"name": "Bride in Bloom", "desc": "A shimmering fondant gown and bow beneath an arch of sugar blossoms, framed by peonies · serves 15–20"} },
       { "id": "c5", "images": ["products/cake-strawberry-picnic.webp"], "price": 2200,
-        "ar": {"name": "بيكنيك الفراولة", "desc": "تورتة من دورين بنقشة كاروهات حمراء وكشكشة من الفوندان، تعلوها فراولة وكرز وبطيخ مصنوعة يدويًا، مع اسم الطفل · تكفي ٢٥–٣٠ فردًا"},
+        "ar": {"name": "Strawberry Picnic", "desc": "دورين بكاروهات حمرا وكشكشة Fondant، وفوقهم فراولة وكريز وبطيخ معمولين باليد، مع اسم الطفل · تكفي ٢٥–٣٠ فرد"},
         "en": {"name": "Strawberry Picnic", "desc": "Two tiers of red gingham and ruffled fondant, topped with handmade strawberries, cherries and watermelon — personalised with a name · serves 25–30"} },
       { "id": "c3", "images": ["products/cake-crossword.webp"], "price": 1050,
-        "ar": {"name": "تورتة الكلمات المتقاطعة", "desc": "كلماتكم على شكل كلمات متقاطعة، مكتوبة بالأزرق الملكي مع حافة ذهبية · تكفي ١٠–١٢ فردًا"},
+        "ar": {"name": "The Crossword", "desc": "كلامكم على شكل كلمات متقاطعة، مكتوب بالأزرق الملكي مع حافة دهبي · تكفي ١٠–١٢ فرد"},
         "en": {"name": "The Crossword", "desc": "Your words, crossword-style, piped in royal blue with a gold-edged top · serves 10–12"} },
       { "id": "c-golden-fairy", "images": ["products/cake-golden-fairy.webp", "products/cake-golden-fairy-2.webp"], "price": 1450,
-        "ar": { "name": "تورتة الجنية الذهبية", "desc": "كريمة صفراء بتموّجات ناعمة، ورسمة جنية على الواجهة، وأجنحة فراشة من السكر — مع الاسم والعمر الذي تختارونه." },
+        "ar": { "name": "The Golden Fairy Cake", "desc": "Buttercream أصفر بتموّجات ناعمة، ورسمة Fairy على الواجهة، وأجنحة فراشة من السكر — بالاسم والسن اللي تختاروه." },
         "en": { "name": "The Golden Fairy Cake", "desc": "Sunny buttercream ruffles, a fairy portrait and sugar butterfly wings — personalised with her name and age." } },
       { "id": "c-sunflower-gold", "images": ["products/cake-sunflower-gold.webp", "products/cake-sunflower-gold-2.webp", "products/cake-sunflower-gold-3.webp"], "price": 1250,
-        "ar": { "name": "تورتة دوّار الشمس", "desc": "مئات النجوم من الكريمة مرصوصة يدويًا، تحيط بها بتلات ذهبية مشكَّلة باليد." },
+        "ar": { "name": "Sunflower Gold Cake", "desc": "مئات النجوم من الـ Buttercream معمولة بإيد، وحواليها بتلات دهبي متشكّلة يدويًا." },
         "en": { "name": "Sunflower Gold Cake", "desc": "Hundreds of hand-piped buttercream stars ringed with sculpted, gold-dusted petals." } },
       { "id": "c-raspberry-ribbon", "images": ["products/cake-raspberry-ribbon.webp"], "price": 1300,
-        "ar": { "name": "تورتة التوت والفيونكة", "desc": "تصميم كلاسيكي بلمسة فينتدج: حواف كريمة مزخرفة، وفيونكات من الساتان، وتاج من التوت الطازج." },
+        "ar": { "name": "Raspberry Ribbon Cake", "desc": "ستايل Vintage بحواف Buttercream مزخرفة، وفيونكات ستان، وتاج من التوت الفريش." },
         "en": { "name": "Raspberry Ribbon Cake", "desc": "Vintage-style piping, satin ribbon bows and a crown of fresh raspberries." } },
       { "id": "c-cherry-picnic", "images": ["products/cake-cherry-picnic.webp", "products/cake-cherry-picnic-2.webp", "products/cake-cherry-picnic-3.webp"], "price": 1350,
-        "ar": { "name": "تورتة بيكنيك الكرز", "desc": "مفرش من الفوندان بحواف لؤلؤية فوق نقشة كاروهات وردية، تعلوه سلة شوكولاتة مليئة بحبات كرز مصنوعة يدويًا." },
+        "ar": { "name": "Cherry Picnic Cake", "desc": "مفرش Fondant بحواف لؤلؤ فوق كاروهات بينك، وفوقه سبت شوكولاتة مليان كريز معمول باليد." },
         "en": { "name": "Cherry Picnic Cake", "desc": "A pearl-trimmed fondant tablecloth over pink gingham, topped with a handmade chocolate basket of cherries." } },
       { "id": "c-sage-garden", "images": ["products/cake-sage-garden.webp"], "price": 1200,
-        "ar": { "name": "تورتة الحديقة الخضراء", "desc": "كريمة بلون أخضر مريمي بحواف رقيقة، وبوكيه من ورود الكريمة بالوردي والبنفسجي والعاجي." },
+        "ar": { "name": "Sage Garden Cake", "desc": "Buttercream بلون Sage بحواف رقيقة، و Bouquet ورد بالبينك والموف والأوف وايت." },
         "en": { "name": "Sage Garden Cake", "desc": "Sage-green buttercream with scalloped piping and a hand-piped bouquet of pink, plum and ivory roses." } },
       { "id": "c-blush-banter", "images": ["products/cake-blush-banter.webp", "products/cake-blush-banter-2.webp"], "price": 1100,
-        "ar": { "name": "تورتة الهزار الوردي", "desc": "كريمة بدرجات الوردي بتأثير ضربات الفرشاة وحافة ذهبية، تعلوها بطاقات دائرية بعبارات مضحكة وصورة — مصمَّمة على ذوقكم ونكاتكم الخاصة." },
+        "ar": { "name": "Blush Banter Cake", "desc": "Buttercream بدرجات البينك بلمسة فرشاة وحافة Gold leaf، وفوقه كروت بجمل مضحكة وصورة — متصمم على هزاركم الخاص." },
         "en": { "name": "Blush Banter Cake", "desc": "Pink brush-stroke buttercream with a gold-leaf edge and a crown of witty quote toppers — designed around your inside jokes." } },
       { "id": "c-ombre-rosette", "images": ["products/cake-ombre-rosette.webp"], "price": 950,
-        "ar": { "name": "تورتة الوردات المتدرّجة", "desc": "وردات من الكريمة مشكَّلة يدويًا، تتدرّج من الوردي الفاتح إلى لون التوت." },
+        "ar": { "name": "Ombré Rosette Cake", "desc": "وردات Buttercream معمولة بإيد، متدرّجة من البينك الفاتح للون التوت." },
         "en": { "name": "Ombré Rosette Cake", "desc": "Hand-piped rosettes that melt from soft blush to deep berry." } },
       { "id": "c-blooming-crown", "images": ["products/cake-blooming-crown.webp"], "price": 1150,
-        "ar": { "name": "تورتة تاج الزهور", "desc": "إكليل من ورود الكريمة بألوان الباستيل والمشمشي والأصفر، مع توبر ذهبي مكتوب." },
+        "ar": { "name": "Blooming Crown Cake", "desc": "تاج من ورد الـ Buttercream بألوان Pastel والمشمشي والأصفر، مع Topper دهبي مكتوب." },
         "en": { "name": "Blooming Crown Cake", "desc": "A wreath of buttercream roses in peach, mint, pink and marigold, finished with a gold script topper." } },
       { "id": "c-crimson-rose", "images": ["products/cake-crimson-rose.webp"], "price": 1100,
-        "ar": { "name": "تورتة الورد الأحمر", "desc": "ورود حمراء مخملية فوق جوانب بيضاء متموّجة، مع لوحة أكريليك ذهبية مكتوب عليها Happy Birthday." },
+        "ar": { "name": "Crimson Rose Cake", "desc": "ورد أحمر Velvet فوق جوانب بيضا متموّجة، مع Topper أكريليك دهبي مكتوب عليه Happy Birthday." },
         "en": { "name": "Crimson Rose Cake", "desc": "Velvety red roses above ruffled white sides, framed by a gold acrylic Happy Birthday plaque." } },
       { "id": "c-white-coat", "images": ["products/cake-white-coat.webp", "products/cake-white-coat-2.webp"], "price": 1500,
-        "ar": { "name": "تورتة البالطو الأبيض", "desc": "بالطو طبيب من الفوندان مع سماعة وشريط أدوية — للتخرّج والإنجازات الكبيرة، وبالاسم الذي تختارونه." },
+        "ar": { "name": "The White Coat Cake", "desc": "بالطو دكتور من الـ Fondant بسماعة وشريط دوا — للتخرج والنجاحات الكبيرة، وبالاسم اللي تختاروه." },
         "en": { "name": "The White Coat Cake", "desc": "A fondant doctor's coat with stethoscope and pill strip — for graduations and big wins, with the name of your choice." } }
     ] },
-    { "id": "cupcakes", "ar": "كب كيك", "en": "Cupcakes", "items": [
+    { "id": "cupcakes", "ar": "Cupcakes", "en": "Cupcakes", "items": [
       { "id": "u4", "images": ["products/cupcake-mauve-dahlia.webp"], "price": 140,
-        "ar": {"name": "داليا موف", "desc": "بتلات مدبّبة متراصّة بلون موف هادئ"},
+        "ar": {"name": "Mauve Dahlia", "desc": "بتلات مدببة متراصة بلون Mauve هادي"},
         "en": {"name": "Mauve Dahlia", "desc": "Layered, pointed petals piped in dusty mauve"} },
       { "id": "u5", "images": ["products/cupcake-lilac-anemone.webp", "products/cupcake-lilac-anemone-2.webp"], "price": 140,
-        "ar": {"name": "أنيمون ليلكي", "desc": "بتلات ليلكية مكشكشة حول قلب أخضر مزيّن بحبيبات صغيرة"},
+        "ar": {"name": "Lilac Anemone", "desc": "بتلات Lilac مكشكشة حوالين قلب أخضر بحبيبات صغيرة"},
         "en": {"name": "Lilac Anemone", "desc": "Ruffled lilac petals around a beaded green heart"} },
       { "id": "u6", "images": ["products/cupcake-ivory-daisy.webp", "products/cupcake-ivory-daisy-2.webp"], "price": 140,
-        "ar": {"name": "أقحوانة عاجية", "desc": "بتلات رفيعة بلون عاجي حول قلب أخضر وذهبي"},
+        "ar": {"name": "Ivory Daisy", "desc": "بتلات رفيعة Off-white بقلب أخضر ودهبي"},
         "en": {"name": "Ivory Daisy", "desc": "Fine ivory petals with a green-and-gold centre"} },
       { "id": "u7", "images": ["products/cupcake-peach-rose.webp", "products/cupcake-peach-rose-2.webp"], "price": 140,
-        "ar": {"name": "الوردة الخوخية", "desc": "وردة كلاسيكية مشكَّلة يدويًا بدرجات الخوخي والوردي"},
+        "ar": {"name": "Peach Rose", "desc": "وردة Classic معمولة باليد بدرجات الخوخي والبينك"},
         "en": {"name": "Peach Rose", "desc": "A classic hand-piped rose in soft peach and blush"} },
       { "id": "u8", "images": ["products/cupcake-apricot-peony.webp", "products/cupcake-apricot-peony-2.webp"], "price": 140,
-        "ar": {"name": "بيوني مشمشي", "desc": "زهرة بيوني ممتلئة بحواف مكشكشة بلون المشمش"},
+        "ar": {"name": "Apricot Peony", "desc": "Peony مليانة بحواف مكشكشة بلون المشمش"},
         "en": {"name": "Apricot Peony", "desc": "A full, ruffled peony in warm apricot"} },
       { "id": "u9", "images": ["products/cupcake-golden-peony.webp"], "price": 140,
-        "ar": {"name": "بيوني ذهبي", "desc": "زهرة بيوني صفراء مشرقة بقلب ملفوف"},
+        "ar": {"name": "Golden Peony", "desc": "Peony أصفر منوّر بقلب ملفوف"},
         "en": {"name": "Golden Peony", "desc": "A sunny yellow peony with a swirled heart"} },
       { "id": "u10", "images": ["products/cupcake-velvet-rose.webp"], "price": 140,
-        "ar": {"name": "وردة مخملية", "desc": "وردة ممتلئة بلون وردي مائل إلى الموف الداكن"},
+        "ar": {"name": "Velvet Rose", "desc": "وردة مليانة بلون بينك موف غامق"},
         "en": {"name": "Velvet Rose", "desc": "A full rose in deep mauve-pink"} },
       { "id": "u11", "images": ["products/cupcake-rosebud-garden.webp"], "price": 140,
-        "ar": {"name": "حديقة البراعم", "desc": "براعم ورد عنّابية بين أوراق خضراء"},
+        "ar": {"name": "Rosebud Garden", "desc": "براعم ورد Burgundy وسط ورق أخضر"},
         "en": {"name": "Rosebud Garden", "desc": "Burgundy rosebuds nestled among green leaves"} },
       { "id": "u12", "images": ["products/cupcake-stargazer-lily.webp"], "price": 140,
-        "ar": {"name": "زنبقة ستارجيزر", "desc": "زنبقة بيضاء بلمسات بلون التوت"},
+        "ar": {"name": "Stargazer Lily", "desc": "زنبقة بيضا بلمسات Raspberry pink"},
         "en": {"name": "Stargazer Lily", "desc": "A white lily brushed with raspberry pink"} },
       { "id": "u1", "images": ["assets/cupcake-tulle.png"], "price": 140,
-        "ar": {"name": "وردة في تول", "desc": "قطعة كب كيك واحدة مغلّفة كهدية"},
+        "ar": {"name": "Bloom in tulle", "desc": "Cupcake واحدة متغلّفة كهدية"},
         "en": {"name": "Bloom in tulle", "desc": "One cupcake, gift-wrapped"} },
       { "id": "u2", "images": [], "price": 390,
-        "ar": {"name": "علبة ٦ كب كيك", "desc": "نكهتان من اختيارك"},
+        "ar": {"name": "Box of 6", "desc": "نكهتين من اختيارك"},
         "en": {"name": "Box of 6", "desc": "Two flavours of your choice"} },
       { "id": "u3", "images": [], "price": 740,
-        "ar": {"name": "علبة ١٢ كب كيك", "desc": "حتى ٣ نكهات بألوان مناسبتك"},
+        "ar": {"name": "Box of 12", "desc": "لحد ٣ نكهات بألوان مناسبتك"},
         "en": {"name": "Box of 12", "desc": "Up to three flavours, in your party colours"} }
     ] },
-    { "id": "bouquets", "ar": "بوكيهات", "en": "Bouquets", "items": [
+    { "id": "bouquets", "ar": "Bouquets", "en": "Bouquets", "items": [
       { "id": "b3", "images": ["products/bouquet-grand-garden.webp", "products/bouquet-grand-garden-2.webp"], "price": 1690,
-        "ar": {"name": "بوكيه الحديقة الكبير", "desc": "١٩ وردة من الكريمة مشكَّلة يدويًا — ورد جوري وبيوني وأقحوان وزنبق وغيرها — مغلّفة مثل بوكيه ورد طبيعي"},
+        "ar": {"name": "Grand Garden Bouquet", "desc": "١٩ وردة Buttercream معمولة باليد — Roses و Peonies و Daisies و Lilies وأكتر — متغلّفة زي Bouquet ورد طبيعي"},
         "en": {"name": "Grand Garden Bouquet", "desc": "Nineteen hand-piped buttercream blooms — roses, peonies, daisies, lilies and more — wrapped like fresh flowers"} },
       { "id": "b1", "images": [], "price": 690,
-        "ar": {"name": "بوكيه صغير", "desc": "٧ ورود من الكريمة"},
+        "ar": {"name": "Petite bouquet", "desc": "٧ وردات Buttercream"},
         "en": {"name": "Petite bouquet", "desc": "Seven buttercream blooms"} },
       { "id": "b2", "images": [], "price": 1150,
-        "ar": {"name": "بوكيه كلاسيكي", "desc": "١٢ وردة بألوان من اختيارك"},
+        "ar": {"name": "Classic bouquet", "desc": "١٢ وردة بالألوان اللي تختارها"},
         "en": {"name": "Classic bouquet", "desc": "Twelve blooms in your colours"} },
       { "id": "b-midnight-rose", "images": ["products/bouquet-midnight-rose.webp"], "price": 750,
-        "ar": { "name": "بوكيه منتصف الليل", "desc": "ورود من الكريمة بالأحمر النبيذي والعاجي، في تغليف رمادي دخاني أنيق مع شريط أحمر." },
+        "ar": { "name": "Midnight Rose Bouquet", "desc": "ورد Buttercream بالـ Burgundy والأوف وايت في تغليف رمادي أنيق وشريطة حمرا." },
         "en": { "name": "Midnight Rose Bouquet", "desc": "Burgundy and ivory buttercream roses in smoky-grey wrap, tied with a crimson ribbon." } },
       { "id": "b-garden-party", "images": ["products/bouquet-garden-party.webp", "products/bouquet-garden-party-2.webp"], "price": 1250,
-        "ar": { "name": "بوكيه حفلة الحديقة", "desc": "ورود من الكريمة بالوردي والموف والعاجي، في غلاف بحواف ذهبية مع فيونكة خضراء من الساتان." },
+        "ar": { "name": "Garden Party Bouquet", "desc": "ورد Buttercream بالبينك والـ Lilac والأوف وايت، في تغليف بحواف دهبي وفيونكة Sage ستان." },
         "en": { "name": "Garden Party Bouquet", "desc": "Pink, lilac and ivory buttercream roses in gold-edged wrap with a sage satin bow." } }
     ] }
   ],
@@ -318,32 +318,32 @@
       { "ar": "كتب كتاب", "en": "Wedding", "topper": { "ar": "ألف مبروك", "en": "Mr & Mrs" } },
       { "ar": "سبوع", "en": "Baby shower", "topper": { "ar": "نوّرت الدنيا", "en": "Oh Baby" } },
       { "ar": "تخرّج", "en": "Graduation", "topper": { "ar": "مبروك التخرّج", "en": "Congrats, Grad" } },
-      { "ar": "مناسبة أخرى", "en": "Something else", "topper": { "ar": "يوم سعيد", "en": "Celebrate" } }
+      { "ar": "مناسبة تانية", "en": "Something else", "topper": { "ar": "يوم حلو", "en": "Celebrate" } }
     ],
     "sizes": [
       { "tiers": 1, "price": 950, "ar": "دور واحد", "en": "One tier", "serves": { "ar": "٨–١٠ أفراد", "en": "Serves 8–10" } },
-      { "tiers": 2, "price": 2200, "ar": "دورين", "en": "Two tiers", "serves": { "ar": "٢٠–٢٥ فردًا", "en": "Serves 20–25" } },
-      { "tiers": 3, "price": 3900, "ar": "٣ أدوار", "en": "Three tiers", "serves": { "ar": "أكثر من ٤٠ فردًا", "en": "Serves 40+" } }
+      { "tiers": 2, "price": 2200, "ar": "دورين", "en": "Two tiers", "serves": { "ar": "٢٠–٢٥ فرد", "en": "Serves 20–25" } },
+      { "tiers": 3, "price": 3900, "ar": "٣ أدوار", "en": "Three tiers", "serves": { "ar": "+٤٠ فرد", "en": "Serves 40+" } }
     ],
     "flavours": [
-      { "ar": "فانيليا", "en": "Vanilla", "surchargePerTier": 0 },
-      { "ar": "شوكولاتة", "en": "Chocolate", "surchargePerTier": 0 },
-      { "ar": "ريد فيلفت", "en": "Red velvet", "surchargePerTier": 80 },
-      { "ar": "لوتس", "en": "Lotus", "surchargePerTier": 120 },
-      { "ar": "فستق", "en": "Pistachio", "surchargePerTier": 180 }
+      { "ar": "Vanilla", "en": "Vanilla", "surchargePerTier": 0 },
+      { "ar": "Chocolate", "en": "Chocolate", "surchargePerTier": 0 },
+      { "ar": "Red velvet", "en": "Red velvet", "surchargePerTier": 80 },
+      { "ar": "Lotus", "en": "Lotus", "surchargePerTier": 120 },
+      { "ar": "Pistachio", "en": "Pistachio", "surchargePerTier": 180 }
     ],
     "frostingColours": [
-      { "ar": "وردي", "en": "Blush", "base": "#F3CBC2", "light": "#FAE3DD", "dark": "#E0A497" },
-      { "ar": "عاجي", "en": "Ivory", "base": "#FAF0E2", "light": "#FFF9F1", "dark": "#E6D3BA" },
-      { "ar": "أخضر مريمي", "en": "Sage", "base": "#CDD6BC", "light": "#E3E9D6", "dark": "#AEBB98" },
-      { "ar": "ليلكي", "en": "Lilac", "base": "#DACBE6", "light": "#EEE5F4", "dark": "#BEA8D0" },
-      { "ar": "شوكولاتة", "en": "Cocoa", "base": "#7B4F3B", "light": "#9C6B53", "dark": "#5B3829", "messageColour": "#FBEFE6" }
+      { "ar": "Blush", "en": "Blush", "base": "#F3CBC2", "light": "#FAE3DD", "dark": "#E0A497" },
+      { "ar": "Ivory", "en": "Ivory", "base": "#FAF0E2", "light": "#FFF9F1", "dark": "#E6D3BA" },
+      { "ar": "Sage", "en": "Sage", "base": "#CDD6BC", "light": "#E3E9D6", "dark": "#AEBB98" },
+      { "ar": "Lilac", "en": "Lilac", "base": "#DACBE6", "light": "#EEE5F4", "dark": "#BEA8D0" },
+      { "ar": "Cocoa", "en": "Cocoa", "base": "#7B4F3B", "light": "#9C6B53", "dark": "#5B3829", "messageColour": "#FBEFE6" }
     ],
     "decorations": [
-      { "id": "flowers", "icon": "Flower", "price": 300, "perTier": true, "ar": "ورود من الكريمة", "en": "Buttercream flowers" },
-      { "id": "photos", "icon": "Camera", "price": 250, "perTier": true, "ar": "صور بولارويد", "en": "Polaroid photos" },
-      { "id": "gold", "icon": "Sparkle", "price": 150, "perTier": true, "ar": "رقائق ذهب", "en": "Gold leaf" },
-      { "id": "topper", "icon": "PenNib", "price": 120, "perTier": false, "ar": "توبر مكتوب", "en": "Written topper" }
+      { "id": "flowers", "icon": "Flower", "price": 300, "perTier": true, "ar": "Buttercream Flowers", "en": "Buttercream flowers" },
+      { "id": "photos", "icon": "Camera", "price": 250, "perTier": true, "ar": "Polaroid Photos", "en": "Polaroid photos" },
+      { "id": "gold", "icon": "Sparkle", "price": 150, "perTier": true, "ar": "Gold Leaf", "en": "Gold leaf" },
+      { "id": "topper", "icon": "PenNib", "price": 120, "perTier": false, "ar": "Written Topper", "en": "Written topper" }
     ],
     "defaults": { "step": 0, "occasion": 0, "size": 1, "flavour": 0, "colour": 0, "decorations": ["flowers", "gold"], "message": "", "date": "" },
     "rules": {
@@ -355,30 +355,30 @@
     }
   },
   "reviews": [
-    { "ar": { "quote": "التورتة كانت تحفة حرفيًا، والطعم أحلى من الشكل كمان. كل الضيوف سألوا عليها!", "name": "منة", "occasion": "عيد ميلاد" },
+    { "ar": { "quote": "الـ Cake كانت تحفة حرفيًا، والطعم أحلى من الشكل كمان. كل الضيوف سألوا عليها!", "name": "منة", "occasion": "عيد ميلاد" },
       "en": { "quote": "The cake was a work of art — and it tasted even better than it looked. Every guest asked about it!", "name": "Menna", "occasion": "Birthday" } },
     { "ar": { "quote": "بوكيه الكب كيك كان أحلى هدية لماما في عيد الأم. شكله ورد حقيقي!", "name": "سارة", "occasion": "عيد الأم" },
       "en": { "quote": "The cupcake bouquet was the sweetest Mother’s Day gift. It looked like real flowers!", "name": "Sara", "occasion": "Mother’s Day" } },
-    { "ar": { "quote": "اتفقنا على كل التفاصيل على الواتساب في دقايق، والتورتة وصلت في ميعادها بالظبط.", "name": "نور", "occasion": "خطوبة" },
+    { "ar": { "quote": "اتفقنا على كل التفاصيل على الواتساب في دقايق، والـ Cake وصلت في ميعادها بالظبط.", "name": "نور", "occasion": "خطوبة" },
       "en": { "quote": "We settled every detail on WhatsApp in minutes, and the cake arrived right on time.", "name": "Nour", "occasion": "Engagement" } },
-    { "ar": { "quote": "تورتة العروسة خطفت الأنظار في الشاور. شكرًا يا أمنية على الذوق ده!", "name": "ياسمين", "occasion": "بريدال شاور" },
+    { "ar": { "quote": "الـ Bride Cake خطفت الأنظار في الـ Shower. شكرًا يا أمنية على الذوق ده!", "name": "ياسمين", "occasion": "Bridal Shower" },
       "en": { "quote": "The bride cake stole the show at my shower. Thank you, Omnia, for such taste!", "name": "Yasmine", "occasion": "Bridal shower" } }
   ],
   "info": [
     { "icon": "ClockCountdown",
-      "ar": { "title": "اطلب قبل موعدك بـ ٣ أيام", "desc": "تحتاج التورت حسب الطلب إلى بعض الوقت لتخرج على أكمل وجه." },
+      "ar": { "title": "اطلب قبلها بـ ٣ أيام", "desc": "الـ Custom Cakes محتاجة وقت عشان تطلع مظبوطة." },
       "en": { "title": "Order 3 days ahead", "desc": "Custom cakes need a little time to turn out just right." } },
     { "icon": "Truck",
-      "ar": { "title": "توصيل حتى باب البيت", "desc": "في القاهرة والجيزة، وتختلف الرسوم حسب المنطقة." },
+      "ar": { "title": "توصيل لحد الباب", "desc": "القاهرة والجيزة — والتوصيل حسب المنطقة." },
       "en": { "title": "Delivered to your door", "desc": "Cairo & Giza — the fee depends on your area." } },
     { "icon": "Storefront",
-      "ar": { "title": "استلام من المطبخ", "desc": "متاح بموعد مسبق." },
+      "ar": { "title": "استلام من المطبخ", "desc": "بميعاد مسبق." },
       "en": { "title": "Kitchen pick-up", "desc": "Available by appointment." } }
   ],
   "linkInBio": {
-    "tagline": { "ar": "تورت وكب كيك · @petalya.og", "en": "Cakes & cupcakes · @petalya.og" },
+    "tagline": { "ar": "Cakes & Cupcakes · @petalya.og", "en": "Cakes & cupcakes · @petalya.og" },
     "bio": {
-      "ar": "تورت أنيقة للحظات لا تُنسى — تورت حسب الطلب وكب كيك مصنوع يدويًا، يُحضَّر طازجًا وبكل حب.",
+      "ar": "Cakes أنيقة لأحلى لحظاتك — Custom Cakes و Cupcakes معمولة بإيدينا، طازة وبكل حب.",
       "en": "Elegant cakes for unforgettable moments — custom cakes and handcrafted cupcakes, freshly made with love."
     },
     "whatsappCta": {
@@ -388,22 +388,22 @@
     "feature": {
       "href": "#flowers",
       "image": "assets/cupcake-bouquet.png",
-      "eyebrow": { "ar": "شغفنا الحالي", "en": "Current obsession" },
-      "title": { "ar": "ورود من الكريمة", "en": "Bakery of flowers" },
-      "desc": { "ar": "بوكيهات كب كيك تشبه الورد الحقيقي", "en": "Cupcake bouquets that look like the real thing" }
+      "eyebrow": { "ar": "هوسنا الحالي", "en": "Current obsession" },
+      "title": { "ar": "Cupcake Bouquets", "en": "Bakery of flowers" },
+      "desc": { "ar": "Cupcakes شكلها ورد حقيقي", "en": "Cupcake bouquets that look like the real thing" }
     },
     "links": [
-      { "icon": "Cake", "href": "#custom", "ar": { "title": "صمّم تورتتك", "desc": "اختر الحجم والنكهة والزينة" }, "en": { "title": "Design your cake", "desc": "Pick the size, flavour and décor" } },
-      { "icon": "BookOpenText", "href": "#menu", "ar": { "title": "المنيو والأسعار", "desc": "تورت وكب كيك وبوكيهات" }, "en": { "title": "Menu & prices", "desc": "Cakes, cupcakes and bouquets" } },
-      { "icon": "Images", "href": "#work", "ar": { "title": "معرض أعمالنا", "desc": "من مطبخنا إلى مناسباتكم" }, "en": { "title": "Our work", "desc": "From our kitchen to your table" } },
-      { "icon": "Heart", "href": "#reviews", "ar": { "title": "آراء العملاء", "desc": "كلمات أحلى من السكر" }, "en": { "title": "Reviews", "desc": "Sweet things they said" } },
+      { "icon": "Cake", "href": "#custom", "ar": { "title": "صمّم الـ Cake بتاعك", "desc": "اختار الحجم والنكهة والديكور" }, "en": { "title": "Design your cake", "desc": "Pick the size, flavour and décor" } },
+      { "icon": "BookOpenText", "href": "#menu", "ar": { "title": "المنيو والأسعار", "desc": "Cakes و Cupcakes و Bouquets" }, "en": { "title": "Menu & prices", "desc": "Cakes, cupcakes and bouquets" } },
+      { "icon": "Images", "href": "#work", "ar": { "title": "شغلنا", "desc": "من مطبخنا لمناسباتكم" }, "en": { "title": "Our work", "desc": "From our kitchen to your table" } },
+      { "icon": "Heart", "href": "#reviews", "ar": { "title": "آراء العملاء", "desc": "كلام أحلى من السكر" }, "en": { "title": "Reviews", "desc": "Sweet things they said" } },
       { "icon": "Truck", "href": "#contact", "ar": { "title": "التوصيل والاستلام", "desc": "القاهرة والجيزة" }, "en": { "title": "Delivery & pick-up", "desc": "Cairo & Giza" } }
     ],
     "kitchenHeading": { "ar": "من مطبخنا", "en": "From our kitchen" },
-    "seeAll": { "ar": "عرض الكل", "en": "See all" },
+    "seeAll": { "ar": "شوف الكل", "en": "See all" },
     "stripImages": ["assets/cake-birthday.png", "assets/cupcake-bouquet.png", "assets/cake-bride.png", "assets/cupcake-tulle.png", "assets/cake-husband.png"],
-    "shareText": { "ar": "تورت أنيقة للحظات لا تُنسى", "en": "Elegant cakes for unforgettable moments" },
-    "toastCopied": { "ar": "تم نسخ الرابط", "en": "Link copied" },
-    "footerTagline": { "ar": "تُحضَّر طازجة وبكل حب · أمنية الجندي", "en": "Freshly made with love · by Omnia El Gendy" }
+    "shareText": { "ar": "Cakes أنيقة لأحلى لحظاتك", "en": "Elegant cakes for unforgettable moments" },
+    "toastCopied": { "ar": "اتنسخ اللينك", "en": "Link copied" },
+    "footerTagline": { "ar": "معمولة طازة وبكل حب · أمنية الجندي", "en": "Freshly made with love · by Omnia El Gendy" }
   }
 }

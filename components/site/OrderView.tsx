@@ -61,14 +61,14 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
   const cancelled = o.status === 'cancelled';
 
   const msg =
-    pick(`أهلًا Petalya! هذا طلبي رقم ${o.code} من الموقع:\n`, `Hi Petalya! This is my order ${o.code} from the website:\n`) +
+    pick(`أهلاً Petalya! ده طلبي رقم ${o.code} من الموقع:\n`, `Hi Petalya! This is my order ${o.code} from the website:\n`) +
     o.items.map((i) => `• ${i.qty} × ${t(i.name)}`).join('\n') +
     (showPrices ? '\n' + pick('الإجمالي: ', 'Total: ') + fmt(o.total) : '');
 
   const copy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      toast(pick('تم النسخ', 'Copied'));
+      toast(pick('اتنسخ', 'Copied'));
     } catch {}
   };
 
@@ -93,11 +93,11 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
           </div>
           <h1 className="h2" style={{ fontSize: lang === 'ar' ? 'clamp(30px,7vw,50px)' : 'clamp(38px,8vw,62px)' }}>
             {cancelled ? (
-              pick('تم إلغاء هذا الطلب', 'This order was cancelled')
+              pick('الطلب ده اتلغى', 'This order was cancelled')
             ) : isNew ? (
               lang === 'ar' ? (
                 <>
-                  شكرًا يا {o.customer.name.split(' ')[0]}! <span className="accent">وصلنا طلبك</span>
+                  شكرًا يا {o.customer.name.split(' ')[0]}! <span className="accent">طلبك وصلنا</span>
                 </>
               ) : (
                 <>
@@ -110,26 +110,26 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
           </h1>
           <p className="intro">
             {cancelled
-              ? pick('إذا حدث ذلك عن طريق الخطأ، راسلنا على واتساب وسنحلّ الأمر.', 'If this was a mistake, message us on WhatsApp and we’ll sort it out.')
-              : pick('سنراجع التفاصيل ونؤكد لك السعر هنا في هذه الصفحة. تتحدّث الصفحة تلقائيًا، فاحفظ رابطها لمتابعة طلبك.', 'We’ll review the details and confirm your price right here. This page updates by itself — bookmark it to follow your order.')}
+              ? pick('لو ده حصل بالغلط كلّمنا على واتساب وهنحلّها.', 'If this was a mistake, message us on WhatsApp and we’ll sort it out.')
+              : pick('هنراجع التفاصيل ونأكدلك السعر هنا في الصفحة دي. الصفحة بتتحدّث لوحدها — احفظ اللينك عشان تتابع طلبك.', 'We’ll review the details and confirm your price right here. This page updates by itself — bookmark it to follow your order.')}
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12, marginTop: 26 }} className="no-print">
             <button className="btn btn-rose" data-burst="1" onClick={() => copy(location.href)}>
               <span data-sheen="1" className="sheen" />
               <Copy size={19} />
-              {pick('نسخ رابط المتابعة', 'Copy tracking link')}
+              {pick('انسخ لينك المتابعة', 'Copy tracking link')}
             </button>
             <a href={wa(msg)} target="_blank" rel="noopener" className="btn btn-outline">
               <WhatsappLogo size={20} />
-              {pick('لديك سؤال؟ راسلنا على واتساب', 'Questions? Chat on WhatsApp')}
+              {pick('عندك سؤال؟ كلّمنا على واتساب', 'Questions? Chat on WhatsApp')}
             </a>
           </div>
         </div>
 
         {!cancelled && !priceKnown && (
           <section className="card card-pad" style={{ marginTop: 'clamp(28px,5vw,44px)', textAlign: 'center' }}>
-            <b style={{ fontWeight: 600 }}>{pick('نجهّز سعر طلبك…', 'We’re preparing your price…')}</b>
-            <p style={{ margin: '6px 0 0', fontSize: 14, color: 'var(--ink-muted)' }}>{pick('سيظهر هنا فور تأكيده، والصفحة تتحدّث تلقائيًا.', 'It will appear here as soon as we confirm it — this page updates by itself.')}</p>
+            <b style={{ fontWeight: 600 }}>{pick('بنجهّز سعر طلبك…', 'We’re preparing your price…')}</b>
+            <p style={{ margin: '6px 0 0', fontSize: 14, color: 'var(--ink-muted)' }}>{pick('هيظهر هنا أول ما نأكده، والصفحة بتتحدّث لوحدها.', 'It will appear here as soon as we confirm it — this page updates by itself.')}</p>
           </section>
         )}
         {!cancelled && o.quote && (
@@ -139,7 +139,7 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
             {o.quote.note && <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--ink-muted)' }}>{o.quote.note}</p>}
             {o.payment.status === 'unpaid' && (
               <p style={{ margin: '10px 0 0', fontSize: 14 }}>
-                {o.payment.method === 'cod' ? pick('ستدفع نقدًا عند الاستلام.', 'You’ll pay cash on receipt.') : pick('حوّل المبلغ باستخدام بيانات الدفع بالأسفل، ثم أرسل لنا صورة إيصال التحويل على واتساب.', 'Transfer to the payment details below, then send us the receipt on WhatsApp.')}
+                {o.payment.method === 'cod' ? pick('هتدفع كاش وانت بتستلم.', 'You’ll pay cash on receipt.') : pick('حوّل المبلغ على بيانات الدفع اللي تحت، وابعتلنا صورة التحويل على واتساب.', 'Transfer to the payment details below, then send us the receipt on WhatsApp.')}
               </p>
             )}
           </section>
@@ -152,7 +152,7 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
               {pick('حالة الطلب', 'Order status')}
             </h2>
             {cancelled ? (
-              <p style={{ margin: 0, color: 'var(--ink-muted)' }}>{pick('أُلغي الطلب في ', 'Cancelled on ') + fmtDate(at('cancelled') || o.updatedAt, lang, { day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' })}</p>
+              <p style={{ margin: 0, color: 'var(--ink-muted)' }}>{pick('الطلب اتلغى يوم ', 'Cancelled on ') + fmtDate(at('cancelled') || o.updatedAt, lang, { day: 'numeric', month: 'long', hour: 'numeric', minute: '2-digit' })}</p>
             ) : (
               <div className="timeline">
                 {flow.map((s, i) => {
@@ -206,12 +206,12 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
             ))}
             <div className="totals" hidden={!showPrices}>
               <div className="r">
-                <span>{pick('المجموع الفرعي', 'Subtotal')}</span>
+                <span>{pick('المجموع', 'Subtotal')}</span>
                 <b>{fmt(o.subtotal)}</b>
               </div>
               <div className="r">
                 <span>{o.fulfillment.type === 'delivery' ? pick('التوصيل', 'Delivery') : pick('الاستلام', 'Pick-up')}</span>
-                <b>{o.deliveryFee ? fmt(o.deliveryFee) : pick('مجانًا', 'Free')}</b>
+                <b>{o.deliveryFee ? fmt(o.deliveryFee) : pick('مجاناً', 'Free')}</b>
               </div>
               {o.discount > 0 && (
                 <div className="r">
@@ -228,7 +228,7 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
             </div>
             {!!o.refImages?.length && (
               <div style={{ marginTop: 18 }}>
-                <span className="field-label">{pick('الصور التي أرسلتها', 'Your inspiration photos')}</span>
+                <span className="field-label">{pick('الصور اللي بعتّها', 'Your inspiration photos')}</span>
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
                   {o.refImages.map((u) => (
                     <a key={u} href={u} target="_blank" rel="noopener" style={{ width: 72, height: 72, borderRadius: 14, overflow: 'hidden', display: 'block', background: 'var(--blush-tile)' }}>
@@ -250,14 +250,14 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
               <div className="summary-box">
                 <span className="field-label">{pick('الدفع', 'Payment')}</span>
                 <b style={{ fontWeight: 600 }}>{t(PAYMENT_LABEL[o.payment.method])}</b>
-                <span style={{ fontSize: 13.5, color: o.payment.status === 'paid' ? '#5E7D40' : 'var(--ink-muted)' }}>{o.payment.status === 'paid' ? pick('تم الدفع ✓', 'Paid ✓') : pick('لم يُدفع بعد', 'Not paid yet')}</span>
+                <span style={{ fontSize: 13.5, color: o.payment.status === 'paid' ? '#5E7D40' : 'var(--ink-muted)' }}>{o.payment.status === 'paid' ? pick('اتدفع ✓', 'Paid ✓') : pick('لسه متدفعش', 'Not paid yet')}</span>
                 {payHint && (
                   <button onClick={() => copy(payHint)} style={{ marginTop: 4, display: 'inline-flex', gap: 6, alignItems: 'center', alignSelf: 'flex-start', border: '1px dashed var(--copper-line)', background: 'var(--paper)', borderRadius: 10, padding: '6px 10px', cursor: 'pointer', fontSize: 13.5, color: 'var(--cocoa)' }}>
                     <span className="ltr num">{payHint}</span>
                     <Copy size={14} />
                   </button>
                 )}
-                {payHint && <span style={{ fontSize: 12, color: 'var(--ink-muted)' }}>{pick('بعد التحويل، أرسل لنا صورة الإيصال على واتساب.', 'After transferring, send us the receipt on WhatsApp.')}</span>}
+                {payHint && <span style={{ fontSize: 12, color: 'var(--ink-muted)' }}>{pick('بعد التحويل ابعتلنا صورة التحويل على واتساب.', 'After transferring, send us the receipt on WhatsApp.')}</span>}
               </div>
             </div>
           </section>
@@ -266,7 +266,7 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
         {o.status === 'delivered' && <ReviewForm orderId={o.id} />}
 
         <p className="center no-print" style={{ marginTop: 34, fontSize: 14 }}>
-          <Link href="/">{pick('العودة إلى الموقع', 'Back to the site')}</Link>
+          <Link href="/">{pick('ارجع للموقع', 'Back to the site')}</Link>
           {user && (
             <>
               {' · '}
@@ -296,10 +296,10 @@ function ReviewForm({ orderId }: { orderId: string }) {
   return (
     <section className="card card-pad" style={{ marginTop: 18, textAlign: 'center' }}>
       <h2 className="card-title" style={{ justifyContent: 'center' }}>
-        {pick('هل أعجبك طلبك؟ شاركنا رأيك', 'Did you love it? Tell us')}
+        {pick('عجبك الطلب؟ قولنا رأيك', 'Did you love it? Tell us')}
       </h2>
       {state === 'done' || state === 'exists' ? (
-        <p style={{ margin: 0, color: 'var(--ink-muted)' }}>{pick('شكرًا من القلب! وصلنا رأيك 🤍', 'Thank you so much — we got your review 🤍')}</p>
+        <p style={{ margin: 0, color: 'var(--ink-muted)' }}>{pick('شكرًا من قلبنا! رأيك وصلنا 🤍', 'Thank you so much — we got your review 🤍')}</p>
       ) : (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12, maxWidth: 480, margin: '0 auto' }}>
           <div style={{ display: 'flex', justifyContent: 'center', gap: 6, color: '#C08A5E' }} className="ltr">
@@ -309,9 +309,9 @@ function ReviewForm({ orderId }: { orderId: string }) {
               </button>
             ))}
           </div>
-          <textarea className="input" rows={3} value={quote} onChange={(e) => setQuote(e.target.value)} placeholder={pick('التورتة كانت…', 'The cake was…')} maxLength={400} />
+          <textarea className="input" rows={3} value={quote} onChange={(e) => setQuote(e.target.value)} placeholder={pick('الطلب كان…', 'The cake was…')} maxLength={400} />
           <button className="btn btn-flat btn-md" onClick={send} disabled={state === 'busy' || quote.trim().length < 4} style={{ alignSelf: 'center' }}>
-            {pick('إرسال الرأي', 'Send review')}
+            {pick('ابعت رأيك', 'Send review')}
           </button>
         </div>
       )}

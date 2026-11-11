@@ -52,9 +52,9 @@ export function Account({ orders }: { orders: OrderCard[] }) {
     const r = await fetch('/api/account', { method: 'PATCH', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ name, phone, zoneId, address }) });
     const j = await r.json();
     setBusy(false);
-    if (!r.ok) return setErr(j.message ? t(j.message) : pick('حدث خطأ، حاول مرة أخرى', 'Something went wrong'));
+    if (!r.ok) return setErr(j.message ? t(j.message) : pick('حصلت مشكلة، جرّب تاني', 'Something went wrong'));
     setUser(j.user);
-    toast(pick('تم حفظ بياناتك', 'Your details were saved'));
+    toast(pick('اتحفظت بياناتك', 'Your details were saved'));
     router.refresh();
   };
   const savePw = async (e: React.FormEvent) => {
@@ -64,8 +64,8 @@ export function Account({ orders }: { orders: OrderCard[] }) {
     if (r.ok) {
       setPw({ current: '', next: '' });
       setUser({ ...user, hasPassword: true });
-      toast(pick('تم تغيير كلمة المرور', 'Password updated'));
-    } else setPwMsg(r.status === 403 ? pick('كلمة المرور الحالية غير صحيحة', 'Current password is wrong') : pick('يجب ألا تقل كلمة المرور عن ٨ أحرف', 'Use at least 8 characters'));
+      toast(pick('اتغيّر الباسورد', 'Password updated'));
+    } else setPwMsg(r.status === 403 ? pick('الباسورد الحالي غلط', 'Current password is wrong') : pick('الباسورد لازم يكون ٨ حروف على الأقل', 'Use at least 8 characters'));
   };
   const reorder = (o: OrderCard) => {
     let n = 0;
@@ -79,7 +79,7 @@ export function Account({ orders }: { orders: OrderCard[] }) {
       }
     });
     if (n) router.push('/checkout');
-    else toast(pick('هذه المنتجات لم تعد متاحة', 'Those items are no longer available'));
+    else toast(pick('المنتجات دي مبقتش متاحة', 'Those items are no longer available'));
   };
 
   return (
@@ -91,7 +91,7 @@ export function Account({ orders }: { orders: OrderCard[] }) {
             {user.avatar ? <img className="cover" src={user.avatar} alt="" referrerPolicy="no-referrer" /> : user.name.charAt(0)}
           </span>
           <div style={{ flex: 1, minWidth: 180 }}>
-            <h1 style={{ margin: 0, font: ar ? '600 26px/1.3 var(--f-messiri), serif' : '500 34px/1.1 var(--f-cormorant), serif' }}>{pick(`أهلًا ${user.name.split(' ')[0]}`, `Hi, ${user.name.split(' ')[0]}`)}</h1>
+            <h1 style={{ margin: 0, font: ar ? '600 26px/1.3 var(--f-messiri), serif' : '500 34px/1.1 var(--f-cormorant), serif' }}>{pick(`أهلاً يا ${user.name.split(' ')[0]}`, `Hi, ${user.name.split(' ')[0]}`)}</h1>
             <span className="ltr" style={{ color: 'var(--ink-muted)', fontSize: 14 }}>{user.email}</span>
             {user.google && <span style={{ marginInlineStart: 8, fontSize: 12, fontWeight: 600, padding: '2px 8px', borderRadius: 99, background: '#EEF3FD', color: '#3F5F86' }}>Google</span>}
           </div>
@@ -116,7 +116,7 @@ export function Account({ orders }: { orders: OrderCard[] }) {
         {tab === 'orders' &&
           (orders.length ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {active.length > 0 && <p style={{ margin: '0 4px', fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick(`لديك ${arCount(active.length, 'order')} قيد التنفيذ`, `${active.length} order(s) in progress`)}</p>}
+              {active.length > 0 && <p style={{ margin: '0 4px', fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick(`طلبات شغالة دلوقتي: ${active.length}`, `${active.length} order(s) in progress`)}</p>}
               {orders.map((o) => {
                 const [bg, fg] = STATUS_STYLE[o.status];
                 const first = o.items[0];
@@ -132,7 +132,7 @@ export function Account({ orders }: { orders: OrderCard[] }) {
                       </div>
                       <div style={{ fontSize: 14, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.items.map((i) => `${i.qty}× ${t(i.name)}`).join(lang === 'ar' ? '، ' : ', ')}</div>
                       <div style={{ fontSize: 12.5, color: 'var(--ink-muted)' }}>
-                        {pick('موعد التسليم ', 'Due ')}
+                        {pick('التسليم ', 'Due ')}
                         {fmtDate(o.fulfillment.date, lang, { weekday: 'short', day: 'numeric', month: 'short' })}
                         {(showPrices || o.quote) && (
                           <>
@@ -145,10 +145,10 @@ export function Account({ orders }: { orders: OrderCard[] }) {
                     <div style={{ display: 'flex', gap: 8 }}>
                       <button className="btn btn-ghost btn-sm" onClick={() => reorder(o)} data-burst="1">
                         <ArrowsClockwise size={17} />
-                        {pick('إعادة الطلب', 'Reorder')}
+                        {pick('اطلب تاني', 'Reorder')}
                       </button>
                       <Link href={`/order/${o.id}`} className="btn btn-flat btn-sm">
-                        {pick('تتبّع', 'Track')}
+                        {pick('تابع', 'Track')}
                         <FwdIcon size={16} />
                       </Link>
                     </div>
@@ -161,10 +161,10 @@ export function Account({ orders }: { orders: OrderCard[] }) {
               <div style={{ width: 90, height: 90, margin: '0 auto', borderRadius: '50%', background: 'var(--blush-tile)', display: 'grid', placeItems: 'center', color: 'var(--copper-icon)' }}>
                 <Receipt size={40} weight="light" />
               </div>
-              <h2 className="card-title" style={{ justifyContent: 'center', marginTop: 14 }}>{pick('لا توجد طلبات بعد', 'No orders yet')}</h2>
-              <p style={{ margin: '0 0 18px', color: 'var(--ink-muted)' }}>{pick('ستظهر هنا الطلبات التي تطلبها وأنت مسجّل الدخول.', 'Orders you place while signed in will show up here.')}</p>
+              <h2 className="card-title" style={{ justifyContent: 'center', marginTop: 14 }}>{pick('لسه مفيش طلبات', 'No orders yet')}</h2>
+              <p style={{ margin: '0 0 18px', color: 'var(--ink-muted)' }}>{pick('أي طلب تعمله وانت داخل بحسابك هيظهر هنا.', 'Orders you place while signed in will show up here.')}</p>
               <Link href="/#menu" className="btn btn-primary">
-                {pick('تصفّح المنيو', 'Browse the menu')}
+                {pick('شوف المنيو', 'Browse the menu')}
                 <FwdIcon />
               </Link>
             </div>
@@ -173,8 +173,8 @@ export function Account({ orders }: { orders: OrderCard[] }) {
         {tab === 'profile' && (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <form className="card card-pad" onSubmit={saveProfile} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <h2 className="card-title" style={{ margin: 0 }}>{pick('بيانات الطلب', 'Your order details')}</h2>
-              <p style={{ margin: 0, fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick('سنملؤها لك تلقائيًا عند إتمام الطلب.', 'We’ll fill these in for you at checkout.')}</p>
+              <h2 className="card-title" style={{ margin: 0 }}>{pick('بياناتك للطلبات', 'Your order details')}</h2>
+              <p style={{ margin: 0, fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick('هنملاها لك تلقائي وقت الطلب.', 'We’ll fill these in for you at checkout.')}</p>
               <div className="grid-2">
                 <label className="field">
                   <span>{pick('الاسم', 'Name')}</span>
@@ -209,24 +209,24 @@ export function Account({ orders }: { orders: OrderCard[] }) {
             <form className="card card-pad" onSubmit={savePw} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               <h2 className="card-title" style={{ margin: 0 }}>
                 <Lock size={22} color="#B97E5E" />
-                {user.hasPassword ? pick('تغيير كلمة المرور', 'Change password') : pick('إنشاء كلمة مرور', 'Set a password')}
+                {user.hasPassword ? pick('تغيير الباسورد', 'Change password') : pick('اعمل باسورد', 'Set a password')}
               </h2>
-              {!user.hasPassword && <p style={{ margin: 0, fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick('سجّلت باستخدام Google. أنشئ كلمة مرور إذا أردت تسجيل الدخول بالبريد الإلكتروني أيضًا.', 'You signed up with Google. Set a password to sign in with email too.')}</p>}
+              {!user.hasPassword && <p style={{ margin: 0, fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick('حسابك متسجّل بـ Google. لو عايز تدخل بالإيميل كمان اعمل باسورد.', 'You signed up with Google. Set a password to sign in with email too.')}</p>}
               <div className="grid-2">
                 {user.hasPassword && (
                   <label className="field">
-                    <span>{pick('كلمة المرور الحالية', 'Current password')}</span>
+                    <span>{pick('الباسورد الحالي', 'Current password')}</span>
                     <input className="input" type="password" value={pw.current} onChange={(e) => setPw({ ...pw, current: e.target.value })} autoComplete="current-password" />
                   </label>
                 )}
                 <label className="field">
-                  <span>{pick('كلمة المرور الجديدة', 'New password')}</span>
+                  <span>{pick('الباسورد الجديد', 'New password')}</span>
                   <input className="input" type="password" value={pw.next} onChange={(e) => setPw({ ...pw, next: e.target.value })} autoComplete="new-password" />
                 </label>
               </div>
               {pwMsg && <span className="err-text">{pwMsg}</span>}
               <button className="btn btn-ghost btn-md" disabled={pw.next.length < 8} style={{ alignSelf: 'flex-start' }}>
-                {pick('حفظ كلمة المرور', 'Save password')}
+                {pick('حفظ الباسورد', 'Save password')}
               </button>
             </form>
           </div>

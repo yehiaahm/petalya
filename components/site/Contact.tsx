@@ -10,18 +10,18 @@ const ICONS = { ClockCountdown, Truck, Storefront } as const;
 
 export function Contact() {
   const { ar, t, pick, wa, data, track, reduced } = useSite();
-  const help = wa(pick('أهلًا Petalya! أحتاج مساعدة بخصوص طلب.', "Hi Petalya! I need a hand with an order."));
+  const help = wa(pick('أهلاً Petalya! محتاج مساعدة في طلب.', "Hi Petalya! I need a hand with an order."));
   return (
     <section id="contact" className="section" style={{ padding: 'clamp(80px,11vw,130px) 0 0' }}>
       <div className="wrap w1160">
         <div data-reveal="1" className="cta-block on-dark">
           <div className="eyebrow dark">
-            <span>{pick('لنحتفل معًا', "Let's celebrate")}</span>
+            <span>{pick('يلا نحتفل', "Let's celebrate")}</span>
           </div>
           <h2 className="h2 dark">
             {ar ? (
               <>
-                جاهز <span className="accent">للاحتفال؟</span>
+                جاهز <span className="accent">تحتفل؟</span>
               </>
             ) : (
               <>
@@ -30,7 +30,7 @@ export function Contact() {
             )}
           </h2>
           <p className="lead-dark" style={{ marginInline: 'auto' }}>
-            {pick('اطلب من الموقع في دقيقة: اختر تورتتك من المنيو أو صمّمها بنفسك. وإذا احتجت مساعدة أو كانت لديك فكرة خاصة، راسلنا على واتساب.', "Order on the site in a minute — pick a cake or design your own. Need a hand or have a special idea? Message us on WhatsApp.")}
+            {pick('اطلب من الموقع في دقيقة: اختار الـ Cake من المنيو أو صمّمه بنفسك. ولو محتاج مساعدة أو عندك فكرة خاصة، كلّمنا على واتساب.', "Order on the site in a minute — pick a cake or design your own. Need a hand or have a special idea? Message us on WhatsApp.")}
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12, marginTop: 30 }}>
             <a
@@ -48,7 +48,7 @@ export function Contact() {
             </a>
             <a href={help} target="_blank" rel="noopener" className="btn btn-dark-outline" style={{ padding: '0 26px' }} onClick={() => track('whatsapp_click', { source: 'contact' })}>
               <WhatsappLogo size={21} />
-              {pick('تحتاج مساعدة؟ واتساب', 'Need help? WhatsApp')}
+              {pick('محتاج مساعدة؟ واتساب', 'Need help? WhatsApp')}
             </a>
             <a href={data.settings.instagramUrl} target="_blank" rel="noopener" className="btn btn-dark-outline" style={{ padding: '0 26px' }}>
               <InstagramLogo size={21} />
@@ -97,13 +97,13 @@ export function Footer() {
       <div aria-hidden="true" data-shine="1" className="giant shine-text">
         Petalya
       </div>
-      <p style={{ margin: '10px 0 0', fontSize: 15, color: 'var(--ink-muted)' }}>{pick('تُحضَّر طازجة وبكل حب · أمنية الجندي', 'Freshly made with love · by Omnia El Gendy')}</p>
+      <p style={{ margin: '10px 0 0', fontSize: 15, color: 'var(--ink-muted)' }}>{pick('معمولة طازة وبكل حب · أمنية الجندي', 'Freshly made with love · by Omnia El Gendy')}</p>
       <div className="links">
         <a href={data.settings.instagramUrl} target="_blank" rel="noopener">
           <InstagramLogo size={17} />
           Instagram
         </a>
-        <a href={wa(pick('أهلًا Petalya!', 'Hi Petalya!'))} target="_blank" rel="noopener">
+        <a href={wa(pick('أهلاً Petalya!', 'Hi Petalya!'))} target="_blank" rel="noopener">
           <WhatsappLogo size={17} />
           WhatsApp
         </a>
@@ -121,7 +121,7 @@ export function Footer() {
         )}
         <a href={'tel:+' + data.settings.whatsapp}>
           <Phone size={17} />
-          {pick('اتصل بنا', 'Call us')}
+          {pick('كلّمنا', 'Call us')}
         </a>
         <Link href="/track">{pick('تتبّع طلبك', 'Track your order')}</Link>
         <Link href="/links">{pick('روابطنا', 'Links')}</Link>

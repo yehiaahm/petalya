@@ -30,12 +30,12 @@ export function ReviewShots({ shots }: { shots: string[] }) {
     <section id="chats" className="section shots">
       <div className="wrap w1080 center">
         <div data-reveal="1" className="eyebrow">
-          <span>{pick('من المحادثات مباشرةً', 'Straight from the chat')}</span>
+          <span>{pick('من الشات على طول', 'Straight from the chat')}</span>
         </div>
         <h2 data-reveal="1" className="h2">
           {ar ? (
             <>
-              رسائلهم <span className="accent">بعد التورتة</span>
+              رسايلهم <span className="accent">بعد الـ Cake</span>
             </>
           ) : (
             <>
@@ -44,7 +44,7 @@ export function ReviewShots({ shots }: { shots: string[] }) {
           )}
         </h2>
         <p data-reveal="1" className="intro">
-          {pick('رسائل حقيقية من عملائنا. اضغط على أي رسالة لعرضها كاملة.', 'Real messages from our customers. Tap any one to read it in full.')}
+          {pick('رسايل حقيقية من عملائنا. اضغط على أي رسالة تشوفها كاملة.', 'Real messages from our customers. Tap any one to read it in full.')}
         </p>
       </div>
 
@@ -73,7 +73,7 @@ export function ReviewShots({ shots }: { shots: string[] }) {
 
       <p className="shots-hint">
         <ChatsCircle size={18} />
-        {pick('تتوقف الصور عند تمرير المؤشر عليها', 'Hover to pause')}
+        {pick('الصور بتقف لما تقف عليها بالماوس', 'Hover to pause')}
       </p>
 
       {open !== null && <Viewer shots={shots} index={open} setIndex={setOpen} onClose={close} />}

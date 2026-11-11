@@ -76,7 +76,7 @@ export function InstallBanner() {
         <img src="/icons/icon-192.png" alt="" width={44} height={44} />
         <div className="txt">
           <b>{pick('ثبّت تطبيق Petalya', 'Install the Petalya app')}</b>
-          <span>{pick('افتحه من الشاشة الرئيسية مثل أي تطبيق.', 'Open it from your home screen like any app.')}</span>
+          <span>{pick('افتحه من شاشة موبايلك زي أي تطبيق.', 'Open it from your home screen like any app.')}</span>
         </div>
       </div>
       {steps ? (
@@ -84,10 +84,10 @@ export function InstallBanner() {
           {pwa.ios ? (
             <>
               <li>
-                {pick('اضغط زر المشاركة', 'Tap the Share button')} <Export size={15} weight="bold" />
+                {pick('اضغط زرار المشاركة', 'Tap the Share button')} <Export size={15} weight="bold" />
               </li>
               <li>
-                {pick('اختر «إضافة إلى الشاشة الرئيسية»', 'Choose “Add to Home Screen”')} <PlusSquare size={15} weight="bold" />
+                {pick('اختار «إضافة إلى الشاشة الرئيسية»', 'Choose “Add to Home Screen”')} <PlusSquare size={15} weight="bold" />
               </li>
               <li>{pick('اضغط «إضافة»', 'Tap “Add”')}</li>
             </>
@@ -96,7 +96,7 @@ export function InstallBanner() {
               <li>
                 {pick('افتح قائمة المتصفح', 'Open the browser menu')} <DotsThreeVertical size={15} weight="bold" />
               </li>
-              <li>{pick('اختر «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»', 'Choose “Install app” or “Add to Home screen”')}</li>
+              <li>{pick('اختار «تثبيت التطبيق» أو «إضافة إلى الشاشة الرئيسية»', 'Choose “Install app” or “Add to Home screen”')}</li>
             </>
           )}
         </ol>
@@ -107,7 +107,7 @@ export function InstallBanner() {
         </button>
       )}
       <button className="never" onClick={never}>
-        {pick('لا تُظهر هذا مرة أخرى', "Don't show this again")}
+        {pick('متظهرليش تاني', "Don't show this again")}
       </button>
     </aside>
   );

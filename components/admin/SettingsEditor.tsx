@@ -11,7 +11,7 @@ const TABS = [
   { k: 'store', label: 'المتجر', icon: Storefront },
   { k: 'delivery', label: 'التوصيل والاستلام', icon: Moped },
   { k: 'payment', label: 'الدفع', icon: CreditCard },
-  { k: 'builder', label: 'أسعار «صمّم تورتتك»', icon: Cake },
+  { k: 'builder', label: 'أسعار «صمّم الـ Cake»', icon: Cake },
   { k: 'security', label: 'الأمان والبيانات', icon: Lock },
 ] as const;
 
@@ -81,7 +81,7 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
                 <div className="tgl-row" style={{ paddingTop: 0 }}>
                   <div>
                     <b>إظهار الأسعار في الموقع</b>
-                    <small>عند إيقافه لا يعرض الموقع أي أسعار (في المنيو و«صمّم تورتتك» وصفحة الطلب)، ويُحدَّد السعر على واتساب</small>
+                    <small>عند إيقافه لا يعرض الموقع أي أسعار (في المنيو و«صمّم الـ Cake» وصفحة الطلب)، ويُحدَّد السعر على واتساب</small>
                   </div>
                   <Toggle on={s.showPrices} onChange={(v) => up({ showPrices: v })} />
                 </div>
@@ -108,7 +108,7 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
                 </div>
               </div>
               <div className="a-card a-pad ai-row">
-                <Field label="أيام التحضير للتورت حسب الطلب" hint="تحدد أقرب موعد يمكن للعميل اختياره عند تصميم تورتة">
+                <Field label="أيام التحضير للـ Custom Cakes" hint="أقرب ميعاد يقدر العميل يختاره لما يصمّم Cake">
                   <NumInput value={s.leadDays} onChange={(n) => up({ leadDays: n })} suffix="يوم" />
                 </Field>
                 <Field label="أيام التحضير لبقية المنتجات" hint="يمكنك تغييرها لكل منتج على حدة من صفحة المنتج">
@@ -188,27 +188,27 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
             <div className="a-card a-pad">
               <div className="tgl-row" style={{ paddingTop: 0 }}>
                 <div>
-                  <b>الدفع عند الاستلام</b>
+                  <b>كاش عند الاستلام</b>
                   <small>يدفع العميل نقدًا للمندوب أو عند الاستلام من المطبخ</small>
                 </div>
                 <Toggle on={s.payments.cod.enabled} onChange={(v) => up({ payments: { ...s.payments, cod: { enabled: v } } })} />
               </div>
               <div className="tgl-row">
                 <div>
-                  <b>إنستاباي</b>
+                  <b>InstaPay</b>
                   <small>يظهر العنوان للعميل في صفحة الطلب ليحوّل عليه</small>
                 </div>
                 <Toggle on={s.payments.instapay.enabled} onChange={(v) => up({ payments: { ...s.payments, instapay: { ...s.payments.instapay, enabled: v } } })} />
               </div>
               {s.payments.instapay.enabled && (
-                <Field label="عنوان إنستاباي">
+                <Field label="عنوان InstaPay">
                   <input className="ai ltr" value={s.payments.instapay.handle} onChange={(e) => up({ payments: { ...s.payments, instapay: { ...s.payments.instapay, handle: e.target.value } } })} placeholder="name@instapay" />
                 </Field>
               )}
               <div className="tgl-row">
                 <div>
                   <b>محفظة إلكترونية</b>
-                  <small>فودافون كاش أو أي محفظة أخرى</small>
+                  <small>Vodafone Cash أو أي محفظة تانية</small>
                 </div>
                 <Toggle on={s.payments.wallet.enabled} onChange={(v) => up({ payments: { ...s.payments, wallet: { ...s.payments.wallet, enabled: v } } })} />
               </div>
@@ -225,13 +225,13 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
               <div className="a-card a-pad">
                 <div className="tgl-row" style={{ paddingTop: 0 }}>
                   <div>
-                    <b>قسم «صمّم تورتتك»</b>
+                    <b>قسم «صمّم الـ Cake»</b>
                     <small>عند إيقافه يختفي القسم من الموقع</small>
                   </div>
                   <Toggle on={b.enabled} onChange={(v) => upB({ enabled: v })} />
                 </div>
                 <p className="muted small" style={{ margin: '8px 0 0', display: 'flex', gap: 6, alignItems: 'center' }}>
-                  <Sparkle size={14} /> السعر = سعر الحجم + (زيادة النكهة × عدد الأدوار) + الزينة
+                  <Sparkle size={14} /> السعر = سعر الحجم + (زيادة النكهة × عدد الأدوار) + الديكور
                 </p>
               </div>
               <div className="a-card a-pad">
@@ -274,7 +274,7 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
                 </div>
               </div>
               <div className="a-card a-pad">
-                <b style={{ display: 'block', marginBottom: 12 }}>الزينة</b>
+                <b style={{ display: 'block', marginBottom: 12 }}>الديكور</b>
                 <div className="sortable">
                   {b.decorations.map((d, i) => (
                     <div key={d.id} className="sort-row" style={{ flexWrap: 'wrap' }}>

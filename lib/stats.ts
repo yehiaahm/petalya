@@ -62,7 +62,7 @@ export function computeStats(db: DB, events: TrackEvent[], days = 30) {
   cur.forEach((o) =>
     o.items.forEach((it) => {
       const k = it.kind === 'custom' ? 'custom' : it.productId || it.name.ar;
-      const name = it.kind === 'custom' ? 'تورت حسب الطلب («صمّم تورتتك»)' : it.name.ar;
+      const name = it.kind === 'custom' ? 'Custom Cakes («صمّم الـ Cake»)' : it.name.ar;
       const row = top.get(k) || { name, qty: 0, revenue: 0, image: it.image };
       row.qty += it.qty;
       row.revenue += it.qty * it.unitPrice;

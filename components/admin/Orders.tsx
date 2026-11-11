@@ -143,7 +143,7 @@ export function Orders({ orders }: { orders: Order[] }) {
                       <td className="hide-md" style={{ maxWidth: 240 }}>
                         <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.items.map((i) => i.name.ar).join('، ')}</div>
                         <div className="faint small">
-                          {arCount(n, 'item')}{o.items.some((i) => i.kind === 'custom') && <span style={{ color: 'var(--copper-text)', fontWeight: 600 }}> · تشمل تورتة حسب الطلب</span>}
+                          {arCount(n, 'item')}{o.items.some((i) => i.kind === 'custom') && <span style={{ color: 'var(--copper-text)', fontWeight: 600 }}> · فيها Custom Cake</span>}
                         </div>
                       </td>
                       <td className="c-due">
@@ -157,7 +157,7 @@ export function Orders({ orders }: { orders: Order[] }) {
                         {egp(o.total)}
                       </td>
                       <td className="hide-md">
-                        <span className={'pill plain ' + (o.payment.status === 'paid' ? 'pay-paid' : 'pay-unpaid')}>{o.payment.status === 'paid' ? 'مدفوع' : o.payment.method === 'cod' ? 'نقدًا' : o.payment.method === 'instapay' ? 'إنستاباي' : 'محفظة'}</span>
+                        <span className={'pill plain ' + (o.payment.status === 'paid' ? 'pay-paid' : 'pay-unpaid')}>{o.payment.status === 'paid' ? 'مدفوع' : o.payment.method === 'cod' ? 'نقدًا' : o.payment.method === 'instapay' ? 'InstaPay' : 'محفظة'}</span>
                       </td>
                       <td className="c-status">
                         <StatusPill s={o.status} />

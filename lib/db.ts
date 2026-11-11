@@ -60,13 +60,14 @@ function migrate(db: DB): DB {
 
 /** Swaps untouched seed wording for the revised Arabic copy (see copy-updates.ts). Edited text is never matched. */
 function reviseSeedCopy(db: DB) {
-  const fix = (l?: { ar: string } | null) => {
-    const next = l && AR_COPY_UPDATES.get(l.ar);
+  const fix = (l?: { ar: string } | null, map: Map<string, string> = AR_COPY_UPDATES.text) => {
+    const next = l && map.get(l.ar);
     if (next) l.ar = next;
   };
   db.categories?.forEach((c) => fix(c.name));
   db.products?.forEach((p) => (fix(p.name), fix(p.desc)));
   db.gallery?.forEach((g) => (fix(g.title), fix(g.occasion), fix(g.note)));
+  db.reviews?.forEach((r) => (fix(r.quote), fix(r.occasion)));
   const s = db.settings;
   fix(s.closedMessage);
   fix(s.pickupAddress);
@@ -74,9 +75,9 @@ function reviseSeedCopy(db: DB) {
   const b = s.builder;
   b.occasions?.forEach((o) => (fix(o.name), fix(o.topper)));
   b.sizes?.forEach((z) => (fix(z.name), fix(z.serves)));
-  b.flavours?.forEach((f) => fix(f.name));
-  b.colours?.forEach((c) => fix(c.name));
-  b.decorations?.forEach((d) => fix(d.name));
+  b.flavours?.forEach((f) => fix(f.name, AR_COPY_UPDATES.flavour));
+  b.colours?.forEach((c) => fix(c.name, AR_COPY_UPDATES.colour));
+  b.decorations?.forEach((d) => fix(d.name, AR_COPY_UPDATES.decoration));
 }
 
 export async function readDB(): Promise<DB> {

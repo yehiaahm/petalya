@@ -19,7 +19,7 @@ export function TrackForm() {
     setBusy(true);
     const r = await fetch('/api/orders/lookup', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ code, phone }) });
     setBusy(false);
-    if (!r.ok) return setErr(pick('لم نجد طلبًا بهذا الرقم. تأكد من رقم الطلب ورقم الموبايل.', 'We couldn’t find that order — check the order number and phone.'));
+    if (!r.ok) return setErr(pick('مش لاقيين طلب بالرقم ده — اتأكد من رقم الطلب والموبايل.', 'We couldn’t find that order — check the order number and phone.'));
     router.push('/order/' + (await r.json()).id);
   };
   return (
@@ -29,7 +29,7 @@ export function TrackForm() {
         <div className="center">
           <div className="eyebrow"><span>{pick('تابع طلبك', 'Follow your order')}</span></div>
           <h1 className="h2" style={{ fontSize: ar ? 'clamp(32px,7vw,48px)' : 'clamp(40px,8vw,60px)' }}>
-            {ar ? <>أين وصل <span className="accent">طلبك؟</span></> : <>Where’s <em className="accent">my</em> cake?</>}
+            {ar ? <>طلبك <span className="accent">فين؟</span></> : <>Where’s <em className="accent">my</em> cake?</>}
           </h1>
         </div>
         <form onSubmit={submit} className="card card-pad" style={{ marginTop: 30, display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -44,7 +44,7 @@ export function TrackForm() {
           {err && <span className="err-text">{err}</span>}
           <button className="btn btn-flat btn-md" disabled={busy} data-burst="1">
             <MagnifyingGlass size={19} />
-            {pick('ابحث عن طلبي', 'Find my order')}
+            {pick('دوّر على طلبي', 'Find my order')}
           </button>
         </form>
       </main>

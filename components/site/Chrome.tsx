@@ -67,7 +67,7 @@ export function Header({ home = false }: { home?: boolean }) {
     scrollToId(id, reduced);
     history.replaceState(null, '', id === 'top' ? '/' : '#' + id);
   };
-  const help = wa(pick('أهلًا Petalya! أحتاج مساعدة بخصوص طلب.', "Hi Petalya! I need a hand with an order."));
+  const help = wa(pick('أهلاً Petalya! محتاج مساعدة في طلب.', "Hi Petalya! I need a hand with an order."));
 
   return (
     <>
@@ -96,7 +96,7 @@ export function Header({ home = false }: { home?: boolean }) {
           )}
           <Link href="/#menu" data-burst="1" className="order-now" onClick={(e) => go(e, 'menu')}>
             <ShoppingBagOpen size={19} />
-            {pick('اطلب الآن', 'Order now')}
+            {pick('اطلب دلوقتي', 'Order now')}
           </Link>
           <button className="icon-btn menu-btn" onClick={() => setOpen(true)} aria-label="Menu" aria-expanded={open}>
             <List size={22} />
@@ -123,7 +123,7 @@ export function Header({ home = false }: { home?: boolean }) {
           {count > 0 && (
             <Link href="/checkout" className="btn btn-flat" tabIndex={open ? 0 : -1} onClick={() => setOpen(false)}>
               <ShoppingBagOpen size={21} />
-              {pick(`أكمل طلبك (${count})`, `Complete your order (${count})`)}
+              {pick(`كمّل طلبك (${count})`, `Complete your order (${count})`)}
             </Link>
           )}
           <Link href="/#menu" data-burst="1" className="btn btn-rose" tabIndex={open ? 0 : -1} onClick={(e) => go(e, 'menu')}>
@@ -161,10 +161,10 @@ export function Fab() {
   const { wa, pick, count, track } = useSite();
   return (
     <a
-      href={wa(pick('أهلًا Petalya! أحتاج مساعدة بخصوص طلب.', "Hi Petalya! I need a hand with an order."))}
+      href={wa(pick('أهلاً Petalya! محتاج مساعدة في طلب.', "Hi Petalya! I need a hand with an order."))}
       target="_blank"
       rel="noopener"
-      aria-label={pick('تحتاج مساعدة؟ راسلنا على واتساب', 'Need help? Chat on WhatsApp')}
+      aria-label={pick('محتاج مساعدة؟ كلّمنا على واتساب', 'Need help? Chat on WhatsApp')}
       data-burst="1"
       className={'fab' + (count ? ' hide' : '')}
       onClick={() => track('whatsapp_click', { source: 'fab' })}
@@ -189,17 +189,17 @@ export function CartBar() {
       </div>
       <button
         className="clear"
-        aria-label={pick('إفراغ الطلب', 'Clear')}
+        aria-label={pick('امسح الطلب', 'Clear')}
         tabIndex={count ? 0 : -1}
         onClick={() => {
           clear();
-          toast(pick('تم إفراغ الطلب', 'Order cleared'));
+          toast(pick('اتمسح الطلب', 'Order cleared'));
         }}
       >
         <Trash size={19} />
       </button>
       <Link href="/checkout" data-burst="1" className="send" tabIndex={count ? 0 : -1}>
-        {pick('إتمام الطلب', 'Checkout')}
+        {pick('كمّل الطلب', 'Checkout')}
         <FwdIcon size={17} />
       </Link>
     </div>

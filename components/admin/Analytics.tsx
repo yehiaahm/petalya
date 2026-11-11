@@ -7,7 +7,7 @@ import { AreaChart, BarList, Donut, Funnel } from './charts';
 import { Empty, PageHeader } from './ui';
 import { arCount } from '@/lib/ar';
 
-const WA_SRC: Record<string, string> = { fab: 'الزر العائم', gallery: 'معرض الشغل', header: 'أعلى الصفحة', builder: 'صمّم تورتتك', contact: 'قسم التواصل', links: 'صفحة الروابط', menu: 'المنيو' };
+const WA_SRC: Record<string, string> = { fab: 'الزر العائم', gallery: 'معرض الشغل', header: 'أعلى الصفحة', builder: 'صمّم الـ Cake', contact: 'قسم التواصل', links: 'صفحة الروابط', menu: 'المنيو' };
 const DEV: Record<string, [string, string]> = { mobile: ['موبايل', '#C9776A'], desktop: ['كمبيوتر', '#9A6244'], tablet: ['تابلت', '#E2B08C'] };
 
 export function Analytics({ s, names }: { s: Stats; names: Record<string, string> }) {
@@ -127,7 +127,7 @@ export function Analytics({ s, names }: { s: Stats; names: Record<string, string
           <div className="hd">
             <h2>الأكثر إضافةً إلى الطلبات</h2>
           </div>
-          <div className="a-pad">{s.added.length ? <BarList rows={s.added.map((a) => ({ k: a.k === 'custom-cake' ? 'تورتة حسب الطلب' : names[a.k] ?? a.k, v: a.v }))} /> : <Empty icon={<ShoppingBagOpen size={28} />} title="لا يوجد شيء بعد" />}</div>
+          <div className="a-pad">{s.added.length ? <BarList rows={s.added.map((a) => ({ k: a.k === 'custom-cake' ? 'Custom Cake' : names[a.k] ?? a.k, v: a.v }))} /> : <Empty icon={<ShoppingBagOpen size={28} />} title="لا يوجد شيء بعد" />}</div>
         </div>
       </div>
     </>

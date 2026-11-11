@@ -104,7 +104,7 @@ export function Reviews({ reviews }: { reviews: Review[] }) {
         <h2 data-reveal="1" className="h2">
           {ar ? (
             <>
-              كلمات <span className="accent">أحلى من السكر</span>
+              كلام <span className="accent">أحلى من السكر</span>
             </>
           ) : (
             <>

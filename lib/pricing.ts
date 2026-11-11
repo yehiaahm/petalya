@@ -47,7 +47,7 @@ export function designSummary(cfg: BuilderConfig, d: CustomDesign): { k: L; v: L
     { k: { ar: 'الحجم', en: 'Size' }, v: { ar: `${r.size.name.ar} — ${r.size.serves.ar}`, en: `${r.size.name.en} · ${r.size.serves.en}` } },
     { k: { ar: 'النكهة', en: 'Flavour' }, v: r.flavour.name },
     { k: { ar: 'لون الكريمة', en: 'Colour' }, v: r.colour.name },
-    { k: { ar: 'الزينة', en: 'Décor' }, v: decor },
+    { k: { ar: 'الديكور', en: 'Décor' }, v: decor },
     { k: { ar: 'الكتابة', en: 'Message' }, v: { ar: msg, en: msg } },
     { k: { ar: 'التاريخ', en: 'Date' }, v: date },
   ];
@@ -75,8 +75,8 @@ export const STATUS_LABEL: Record<string, L> = {
 };
 
 export const PAYMENT_LABEL: Record<string, L> = {
-  cod: { ar: 'الدفع عند الاستلام', en: 'Cash on delivery' },
-  instapay: { ar: 'إنستاباي', en: 'InstaPay' },
+  cod: { ar: 'كاش عند الاستلام', en: 'Cash on delivery' },
+  instapay: { ar: 'InstaPay', en: 'InstaPay' },
   wallet: { ar: 'محفظة إلكترونية', en: 'Mobile wallet' },
 };
 

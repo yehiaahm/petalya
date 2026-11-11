@@ -134,9 +134,9 @@ function GalleryModal({ item, products, onClose, onSave }: { item: GalleryItem; 
       <BiInput label="العنوان (على الصورة)" value={g.title} onChange={(v) => setG({ ...g, title: v })} max={80} />
       <BiInput label="المناسبة" value={g.occasion} onChange={(v) => setG({ ...g, occasion: v })} max={60} />
       <BiInput label="القصة (خلف الصورة)" value={g.note} onChange={(v) => setG({ ...g, note: v })} multiline max={300} />
-      <Field label="المنتج الذي يضيفه زر «اطلب مثلها» إلى الطلب" hint="إذا تركته فارغًا، سينقل الزر العميل إلى قسم «صمّم تورتتك».">
+      <Field label="المنتج الذي يضيفه زر «اطلب زيها» إلى الطلب" hint="إذا تركته فارغًا، سينقل الزر العميل إلى قسم «صمّم الـ Cake».">
         <select className="ai" value={g.productId || ''} onChange={(e) => setG({ ...g, productId: e.target.value || undefined })}>
-          <option value="">— «صمّم تورتتك» (بدون ربط بمنتج) —</option>
+          <option value="">— «صمّم الـ Cake» (بدون ربط بمنتج) —</option>
           {products.map((pr) => (
             <option key={pr.id} value={pr.id}>
               {pr.name}
@@ -178,7 +178,7 @@ export function ReviewShotsEditor({ shots }: { shots: string[] }) {
         <div>
           <b style={{ fontWeight: 700, fontSize: 17 }}>صور محادثات العملاء</b>
           <p className="muted small" style={{ margin: '4px 0 0' }}>
-            لقطات محادثات العملاء التي تتحرك في قسم «رسائلهم بعد التورتة»، ويضغط عليها الزائر ليراها بحجم كامل. ترتيبها هنا هو ترتيبها في الموقع.
+            لقطات محادثات العملاء التي تتحرك في قسم «رسايلهم بعد الـ Cake»، ويضغط عليها الزائر ليراها بحجم كامل. ترتيبها هنا هو ترتيبها في الموقع.
           </p>
         </div>
         <button className="ab primary" disabled={!dirty || busy} onClick={save}>
@@ -624,7 +624,7 @@ export function Customers({ rows: initial }: { rows: CustomerRow[] }) {
               className="ab wa"
               target="_blank"
               rel="noopener"
-              href={`https://wa.me/${temp.phone.replace(/^0/, '20')}?text=${encodeURIComponent(`أهلًا ${temp.name.split(' ')[0]}! هذه كلمة مرور مؤقتة لحسابك على موقع Petalya: ${temp.password}\nسجّل الدخول بها، ثم غيّرها من صفحة «بياناتي».`)}`}
+              href={`https://wa.me/${temp.phone.replace(/^0/, '20')}?text=${encodeURIComponent(`أهلاً ${temp.name.split(' ')[0]}! ده باسورد مؤقت لحسابك على موقع Petalya: ${temp.password}\nادخل بيه وغيّره من صفحة «بياناتي».`)}`}
             >
               أرسلها على واتساب
             </a>

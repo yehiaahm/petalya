@@ -7,28 +7,28 @@ type Section = { title: [string, string]; body: [string, string][] };
 
 const SECTIONS: Section[] = [
   {
-    title: ['البيانات التي نجمعها', 'What we collect'],
+    title: ['بنجمع إيه', 'What we collect'],
     body: [
-      ['عند الطلب: اسمك، ورقم موبايلك، وعنوان التوصيل، وتفاصيل الطلب.', 'When you order: your name, mobile number, delivery address and the order details.'],
-      ['عند إنشاء حساب: اسمك وبريدك الإلكتروني، وكلمة مرور محفوظة بصيغة مشفّرة (لا يمكننا الاطلاع عليها).', 'When you create an account: your name and email, and a password stored only as a secure hash (we can’t read it).'],
-      ['عند تسجيل الدخول باستخدام Google: يشاركنا Google اسمك وبريدك الإلكتروني وصورة حسابك فقط، ولا نصل إلى أي بيانات أخرى في حسابك.', 'When you sign in with Google: Google shares only your name, email address and profile picture. We get no other access to your Google account.'],
-      ['إحصائيات زيارات بسيطة (الصفحات التي فُتحت)، بدون إعلانات أو أدوات تتبّع من جهات أخرى.', 'Simple visit statistics (which pages were opened), with no ads and no third-party trackers.'],
+      ['لما تطلب: اسمك، رقم موبايلك، عنوان التوصيل، وتفاصيل الطلب.', 'When you order: your name, mobile number, delivery address and the order details.'],
+      ['لما تعمل حساب: اسمك وإيميلك، وباسورد محفوظ بشكل مشفّر (إحنا نفسنا مش بنقدر نشوفه).', 'When you create an account: your name and email, and a password stored only as a secure hash (we can’t read it).'],
+      ['لما تدخل بـ Google: Google بيبعتلنا اسمك وإيميلك وصورة حسابك بس، ومش بنوصل لأي حاجة تانية في حسابك.', 'When you sign in with Google: Google shares only your name, email address and profile picture. We get no other access to your Google account.'],
+      ['إحصائيات زيارة بسيطة (الصفحات اللي اتفتحت)، من غير إعلانات ولا أدوات تتبّع من شركات تانية.', 'Simple visit statistics (which pages were opened), with no ads and no third-party trackers.'],
     ],
   },
   {
-    title: ['كيف نستخدمها', 'How we use it'],
+    title: ['بنستخدمها في إيه', 'How we use it'],
     body: [
-      ['لتحضير طلبك وتوصيله والتواصل معك بشأنه (غالبًا على واتساب).', 'To prepare and deliver your order and contact you about it (usually on WhatsApp).'],
-      ['لملء بياناتك تلقائيًا في طلباتك القادمة، وعرض طلباتك السابقة.', 'To fill in your details automatically next time and show you your past orders.'],
-      ['لا نبيع بياناتك ولا نشاركها مع أي جهة، إلا ما يلزم لتوصيل طلبك.', 'We never sell or share your data with anyone, except what delivery requires.'],
+      ['عشان نجهّز طلبك ونوصّله ونكلّمك عليه (غالبًا على واتساب).', 'To prepare and deliver your order and contact you about it (usually on WhatsApp).'],
+      ['عشان نملالك بياناتك تلقائي في الطلبات الجاية ونوريك طلباتك القديمة.', 'To fill in your details automatically next time and show you your past orders.'],
+      ['مش بنبيع بياناتك ولا بنشاركها مع حد، غير اللي محتاجينه للتوصيل.', 'We never sell or share your data with anyone, except what delivery requires.'],
     ],
   },
   {
     title: ['حقوقك', 'Your choices'],
     body: [
-      ['يمكنك تعديل بياناتك من صفحة حسابك في أي وقت.', 'You can edit your details from your account page at any time.'],
-      ['إذا أردت حذف حسابك وبياناتك، راسلنا على واتساب وسنحذفها.', 'To have your account and data deleted, message us on WhatsApp and we’ll remove it.'],
-      ['يمكنك إلغاء صلاحية وصول Petalya إلى حسابك على Google من myaccount.google.com/permissions.', 'You can remove Petalya’s access from your Google account at myaccount.google.com/permissions.'],
+      ['تقدر تعدّل بياناتك من صفحة حسابك في أي وقت.', 'You can edit your details from your account page at any time.'],
+      ['لو عايز نمسح حسابك وبياناتك، ابعتلنا على واتساب وهنمسحها.', 'To have your account and data deleted, message us on WhatsApp and we’ll remove it.'],
+      ['تقدر تشيل صلاحية Petalya من حساب Google بتاعك من myaccount.google.com/permissions.', 'You can remove Petalya’s access from your Google account at myaccount.google.com/permissions.'],
     ],
   },
 ];
@@ -57,9 +57,9 @@ export function Privacy() {
             </section>
           ))}
           <p style={{ margin: 0, color: 'var(--ink-muted)' }}>
-            {pick('لديك سؤال؟ ', 'Questions? ')}
-            <a href={wa(pick('أهلًا Petalya! لدي سؤال بخصوص الخصوصية.', 'Hi Petalya! I have a privacy question.'))} target="_blank" rel="noopener">
-              {pick('راسلنا على واتساب', 'Message us on WhatsApp')}
+            {pick('عندك سؤال؟ ', 'Questions? ')}
+            <a href={wa(pick('أهلاً Petalya! عندي سؤال عن الخصوصية.', 'Hi Petalya! I have a privacy question.'))} target="_blank" rel="noopener">
+              {pick('كلّمنا على واتساب', 'Message us on WhatsApp')}
             </a>
           </p>
         </div>

@@ -16,14 +16,14 @@ export function defaultSettings(): Settings {
     storeOpen: true,
     showPrices: false,
     closedMessage: {
-      ar: 'نأخذ إجازة قصيرة، وسنعود لاستقبال الطلبات قريبًا جدًا.',
+      ar: 'واخدين إجازة قصيرة — وهنرجع ناخد طلبات قريب جدًا.',
       en: 'We are taking a short break — orders will reopen very soon.',
     },
     leadDays: b.rules.minLeadDays,
     standardLeadDays: 1,
     deliveryEnabled: true,
     pickupEnabled: true,
-    pickupAddress: { ar: 'مطبخ Petalya — بموعد مسبق', en: 'Petalya kitchen — by appointment' },
+    pickupAddress: { ar: 'مطبخ Petalya — بميعاد مسبق', en: 'Petalya kitchen — by appointment' },
     zones: [
       { id: 'z-nasr', name: { ar: 'مدينة نصر', en: 'Nasr City' }, fee: 60, active: true },
       { id: 'z-heliopolis', name: { ar: 'مصر الجديدة', en: 'Heliopolis' }, fee: 60, active: true },
@@ -33,9 +33,9 @@ export function defaultSettings(): Settings {
       { id: 'z-october', name: { ar: '٦ أكتوبر والشيخ زايد', en: '6th of October & Zayed' }, fee: 120, active: true },
     ],
     timeSlots: [
-      { id: 'morning', name: { ar: 'صباحًا (١٠ – ١٢)', en: 'Morning (10 – 12)' } },
-      { id: 'afternoon', name: { ar: 'ظهرًا (١٢ – ٤)', en: 'Afternoon (12 – 4)' } },
-      { id: 'evening', name: { ar: 'مساءً (٤ – ٩)', en: 'Evening (4 – 9)' } },
+      { id: 'morning', name: { ar: 'الصبح (١٠ – ١٢)', en: 'Morning (10 – 12)' } },
+      { id: 'afternoon', name: { ar: 'الضهر (١٢ – ٤)', en: 'Afternoon (12 – 4)' } },
+      { id: 'evening', name: { ar: 'بالليل (٤ – ٩)', en: 'Evening (4 – 9)' } },
     ],
     payments: {
       cod: { enabled: true },

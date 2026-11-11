@@ -32,16 +32,16 @@ function customerMessage(o: Order, status: OrderStatus, trackUrl: string, pay: {
     o.payment.status === 'unpaid' && o.payment.method !== 'cod'
       ? en
         ? `\nPlease transfer ${o.total.toLocaleString('en-US')} EGP to ${o.payment.method === 'instapay' ? pay.instapay : pay.wallet} and send us the receipt.`
-        : `\nبرجاء تحويل ${o.total.toLocaleString('en-US')} ج.م على ${o.payment.method === 'instapay' ? 'إنستاباي ' + pay.instapay : 'المحفظة ' + pay.wallet}، ثم إرسال صورة إيصال التحويل هنا.`
+        : `\nياريت تحوّل ${o.total.toLocaleString('en-US')} ج.م على ${o.payment.method === 'instapay' ? 'InstaPay ' + pay.instapay : 'المحفظة ' + pay.wallet} وتبعتلنا صورة التحويل هنا.`
       : '';
   const m: Record<string, [string, string]> = {
-    new: [`أهلًا ${first}! استلمنا طلبك ${o.code} 🤍 سنراجعه ونؤكده لك خلال وقت قصير.`, `Hi ${first}! We received your order ${o.code} 🤍 We'll confirm shortly.`],
-    confirmed: [`أهلًا ${first}! تم تأكيد طلبك ${o.code} ✨ موعده ${dayLabel(o.fulfillment.date, { weekday: 'long', day: 'numeric', month: 'long' })}.${priceLine}${payLine}`, `Hi ${first}! Your order ${o.code} is confirmed ✨ See you on ${new Date(o.fulfillment.date + 'T12:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}.${priceLine}${payLine}`],
-    preparing: [`طلبك ${o.code} قيد التحضير الآن في مطبخنا 🎂`, `Your order ${o.code} is being made in our kitchen right now 🎂`],
-    ready: [o.fulfillment.type === 'pickup' ? `طلبك ${o.code} جاهز للاستلام 🎉` : `طلبك ${o.code} جاهز، وسيخرج للتوصيل قريبًا 🎉`, o.fulfillment.type === 'pickup' ? `Your order ${o.code} is ready for pick-up 🎉` : `Your order ${o.code} is ready and will be out for delivery soon 🎉`],
-    out_for_delivery: [`طلبك ${o.code} في الطريق إليك 🛵`, `Your order ${o.code} is on its way 🛵`],
-    delivered: [`نتمنى أن يكون طلبك قد نال إعجابك يا ${first} 🤍 يسعدنا أن تشاركنا رأيك:`, `We hope you loved it, ${first} 🤍 If you have a minute, tell us what you think:`],
-    cancelled: [`أهلًا ${first}، نأسف لإبلاغك بأنه تم إلغاء طلبك ${o.code}. نحن هنا لأي استفسار.`, `Hi ${first}, unfortunately your order ${o.code} was cancelled. We're here if you have any questions.`],
+    new: [`أهلاً ${first}! استلمنا طلبك ${o.code} 🤍 هنراجعه ونأكدلك في أسرع وقت.`, `Hi ${first}! We received your order ${o.code} 🤍 We'll confirm shortly.`],
+    confirmed: [`أهلاً ${first}! طلبك ${o.code} اتأكد ✨ ميعاده ${dayLabel(o.fulfillment.date, { weekday: 'long', day: 'numeric', month: 'long' })}.${priceLine}${payLine}`, `Hi ${first}! Your order ${o.code} is confirmed ✨ See you on ${new Date(o.fulfillment.date + 'T12:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}.${priceLine}${payLine}`],
+    preparing: [`طلبك ${o.code} بيتحضّر دلوقتي في مطبخنا 🎂`, `Your order ${o.code} is being made in our kitchen right now 🎂`],
+    ready: [o.fulfillment.type === 'pickup' ? `طلبك ${o.code} جاهز للاستلام 🎉` : `طلبك ${o.code} جاهز وهيخرج للتوصيل قريب 🎉`, o.fulfillment.type === 'pickup' ? `Your order ${o.code} is ready for pick-up 🎉` : `Your order ${o.code} is ready and will be out for delivery soon 🎉`],
+    out_for_delivery: [`طلبك ${o.code} في الطريق ليك 🛵`, `Your order ${o.code} is on its way 🛵`],
+    delivered: [`نتمنى الطلب يكون عجبك يا ${first} 🤍 لو عندك دقيقة قولنا رأيك:`, `We hope you loved it, ${first} 🤍 If you have a minute, tell us what you think:`],
+    cancelled: [`أهلاً ${first}، للأسف طلبك ${o.code} اتلغى. لو عندك أي سؤال إحنا موجودين.`, `Hi ${first}, unfortunately your order ${o.code} was cancelled. We're here if you have any questions.`],
   };
   return (en ? m[status][1] : m[status][0]) + `\n${trackUrl}`;
 }
