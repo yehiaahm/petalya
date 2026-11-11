@@ -98,6 +98,14 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
                 <Field label="لينك إنستجرام">
                   <input className="ai ltr" value={s.instagramUrl} onChange={(e) => up({ instagramUrl: e.target.value })} />
                 </Field>
+                <div className="ai-row">
+                  <Field label="لينك تيك توك" hint="سيبه فاضي لو مش عايز يظهر في الموقع">
+                    <input className="ai ltr" placeholder="https://www.tiktok.com/@..." value={s.tiktokUrl} onChange={(e) => up({ tiktokUrl: e.target.value })} />
+                  </Field>
+                  <Field label="لينك فيسبوك" hint="سيبه فاضي لو مش عايز يظهر في الموقع">
+                    <input className="ai ltr" placeholder="https://www.facebook.com/..." value={s.facebookUrl} onChange={(e) => up({ facebookUrl: e.target.value })} />
+                  </Field>
+                </div>
               </div>
               <div className="a-card a-pad ai-row">
                 <Field label="أيام التحضير للتورت المخصوصة" hint="أقرب ميعاد يقدر العميل يختاره لما يصمّم تورتة">

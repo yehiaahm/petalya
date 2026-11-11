@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { scrollToId } from './Chrome';
-import { ClockCountdown, InstagramLogo, ShoppingBagOpen, Storefront, Truck, WhatsappLogo } from '@phosphor-icons/react';
+import { ClockCountdown, FacebookLogo, InstagramLogo, Phone, ShoppingBagOpen, Storefront, TiktokLogo, Truck, WhatsappLogo } from '@phosphor-icons/react';
 import { useSite } from './SiteProvider';
 import content from '@/lib/content.json';
 
@@ -54,6 +54,18 @@ export function Contact() {
               <InstagramLogo size={21} />
               <bdi dir="ltr">{data.settings.instagramHandle}</bdi>
             </a>
+            {data.settings.tiktokUrl && (
+              <a href={data.settings.tiktokUrl} target="_blank" rel="noopener" className="btn btn-dark-outline" style={{ padding: '0 26px' }}>
+                <TiktokLogo size={21} />
+                TikTok
+              </a>
+            )}
+            {data.settings.facebookUrl && (
+              <a href={data.settings.facebookUrl} target="_blank" rel="noopener" className="btn btn-dark-outline" style={{ padding: '0 26px' }}>
+                <FacebookLogo size={21} />
+                Facebook
+              </a>
+            )}
           </div>
         </div>
         <div className="info-grid">
@@ -94,6 +106,22 @@ export function Footer() {
         <a href={wa(pick('أهلاً Petalya!', 'Hi Petalya!'))} target="_blank" rel="noopener">
           <WhatsappLogo size={17} />
           WhatsApp
+        </a>
+        {data.settings.tiktokUrl && (
+          <a href={data.settings.tiktokUrl} target="_blank" rel="noopener">
+            <TiktokLogo size={17} />
+            TikTok
+          </a>
+        )}
+        {data.settings.facebookUrl && (
+          <a href={data.settings.facebookUrl} target="_blank" rel="noopener">
+            <FacebookLogo size={17} />
+            Facebook
+          </a>
+        )}
+        <a href={'tel:+' + data.settings.whatsapp}>
+          <Phone size={17} />
+          {pick('اتصل بينا', 'Call us')}
         </a>
         <Link href="/track">{pick('تتبّع طلبك', 'Track your order')}</Link>
         <Link href="/links">{pick('روابطنا', 'Links')}</Link>

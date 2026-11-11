@@ -11,6 +11,8 @@ export function defaultSettings(): Settings {
     whatsapp: content.brand.whatsappNumber,
     instagramUrl: content.brand.instagramUrl,
     instagramHandle: content.brand.instagramHandle,
+    tiktokUrl: content.brand.tiktokUrl,
+    facebookUrl: content.brand.facebookUrl,
     storeOpen: true,
     showPrices: false,
     closedMessage: {

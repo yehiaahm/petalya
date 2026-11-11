@@ -45,6 +45,8 @@ function migrate(db: DB): DB {
   // Fill in settings added after the database was created.
   const d = defaultSettings();
   db.settings = { ...d, ...db.settings, payments: { ...d.payments, ...db.settings.payments }, builder: { ...d.builder, ...db.settings.builder } };
+  // The shop's real number replaces the untouched placeholder from the design handoff (never an edited value).
+  if (db.settings.whatsapp === '201000000000') db.settings.whatsapp = d.whatsapp;
   db.coupons ??= [];
   db.counters ??= { order: 1000 };
   db.users ??= [];

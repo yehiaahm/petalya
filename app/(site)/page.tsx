@@ -11,7 +11,7 @@ export default async function Home() {
     image: '/assets/logo.png',
     servesCuisine: 'Cakes & cupcakes',
     areaServed: 'Cairo & Giza',
-    sameAs: [data.settings.instagramUrl],
+    sameAs: [data.settings.instagramUrl, data.settings.tiktokUrl, data.settings.facebookUrl].filter(Boolean),
     telephone: '+' + data.settings.whatsapp,
   };
   return (

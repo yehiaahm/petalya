@@ -94,12 +94,23 @@ export function cleanCoupons(list: unknown): Coupon[] {
   })).filter((c) => c.code);
 }
 
+/** An https link, or '' to clear it. Anything else keeps the previous value. */
+function socialUrl(v: unknown, prev: string) {
+  if (typeof v !== 'string') return prev ?? '';
+  const t = v.trim().slice(0, 200);
+  if (!t) return '';
+  return /^https:\/\//.test(t) ? t : prev ?? '';
+}
+
 export function cleanSettings(v: Partial<Settings>, prev: Settings): Settings {
   const b = v.builder ?? prev.builder;
   return {
     whatsapp: str(v.whatsapp, 20).replace(/\D/g, '') || prev.whatsapp,
     instagramUrl: /^https:\/\//.test(str(v.instagramUrl)) ? str(v.instagramUrl, 200) : prev.instagramUrl,
     instagramHandle: str(v.instagramHandle, 40) || prev.instagramHandle,
+    // Optional: an empty value removes the link from the site.
+    tiktokUrl: socialUrl(v.tiktokUrl, prev.tiktokUrl),
+    facebookUrl: socialUrl(v.facebookUrl, prev.facebookUrl),
     storeOpen: v.storeOpen !== false,
     showPrices: v.showPrices === true,
     closedMessage: lstr(v.closedMessage ?? prev.closedMessage, 200),

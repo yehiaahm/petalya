@@ -80,6 +80,8 @@ export type Settings = {
   whatsapp: string;
   instagramUrl: string;
   instagramHandle: string;
+  tiktokUrl: string;
+  facebookUrl: string;
   storeOpen: boolean;
   showPrices: boolean;
   closedMessage: L;

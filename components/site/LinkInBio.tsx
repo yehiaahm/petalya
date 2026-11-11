@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useRef } from 'react';
-import { BookOpenText, Cake, GlobeSimple, Heart, Images, InstagramLogo, MagnifyingGlass, ShareNetwork, ShoppingBagOpen, Truck, WhatsappLogo } from '@phosphor-icons/react';
+import { BookOpenText, Cake, FacebookLogo, GlobeSimple, Heart, Images, InstagramLogo, TiktokLogo, MagnifyingGlass, ShareNetwork, ShoppingBagOpen, Truck, WhatsappLogo } from '@phosphor-icons/react';
 import { useSite } from './SiteProvider';
 import { FwdIcon, LangToggle } from './Chrome';
 import { LogoRing } from './Hero';
@@ -207,6 +207,16 @@ export function LinkInBio() {
             <a href={data.settings.instagramUrl} target="_blank" rel="noopener" aria-label="Instagram" className="icon-btn" style={{ background: 'transparent' }}>
               <InstagramLogo size={20} />
             </a>
+            {data.settings.tiktokUrl && (
+              <a href={data.settings.tiktokUrl} target="_blank" rel="noopener" aria-label="TikTok" className="icon-btn" style={{ background: 'transparent' }}>
+                <TiktokLogo size={20} />
+              </a>
+            )}
+            {data.settings.facebookUrl && (
+              <a href={data.settings.facebookUrl} target="_blank" rel="noopener" aria-label="Facebook" className="icon-btn" style={{ background: 'transparent' }}>
+                <FacebookLogo size={20} />
+              </a>
+            )}
             <a href={general} target="_blank" rel="noopener" aria-label="WhatsApp" className="icon-btn" style={{ background: 'transparent' }}>
               <WhatsappLogo size={20} />
             </a>
