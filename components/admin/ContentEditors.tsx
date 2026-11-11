@@ -203,7 +203,7 @@ export function ReviewsEditor({ reviews }: { reviews: Review[] }) {
   return (
     <>
       {confirm.node}
-      <PageHeader title="آراء العملاء" sub="تظهر في الموقع الآراء المعتمدة فقط. يستطيع العميل كتابة رأيه بعد استلام طلبه.">
+      <PageHeader title="آراء العملاء" sub="قسم الآراء المكتوبة غير معروض في الموقع حاليًا، والآراء هنا للمتابعة فقط. يستطيع العميل كتابة رأيه بعد استلام طلبه.">
         <button className="ab primary" onClick={() => setEdit(blank)}>
           <Plus size={18} weight="bold" /> رأي جديد
         </button>

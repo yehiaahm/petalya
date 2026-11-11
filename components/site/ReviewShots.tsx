@@ -27,7 +27,7 @@ export function ReviewShots({ shots }: { shots: string[] }) {
   const dur = Math.max(30, shots.length * 10);
 
   return (
-    <section id="chats" className="section shots">
+    <section id="reviews" className="section shots">
       <div className="wrap w1080 center">
         <div data-reveal="1" className="eyebrow">
           <span>{pick('من الشات على طول', 'Straight from the chat')}</span>

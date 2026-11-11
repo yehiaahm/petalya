@@ -8,7 +8,6 @@ import { Gallery } from './Gallery';
 import { Menu } from './Menu';
 import { Flowers } from './Flowers';
 import { CakeBuilder } from './CakeBuilder';
-import { Reviews } from './Reviews';
 import { ReviewShots } from './ReviewShots';
 import { Contact } from './Contact';
 import { setupReveal, startLoops } from '@/lib/petals';
@@ -51,7 +50,6 @@ export function HomeClient() {
       <Menu tab={tab} setTab={setTab} />
       <Flowers photos={pool.length ? [photos[2] || pool[0], photos[3] || pool[1] || pool[0], photos[1] || pool[0]] : []} onBouquet={() => setTab(bouquetIdx)} />
       <CakeBuilder photos={pool.slice(0, 3)} />
-      <Reviews reviews={data.reviews} />
       <ReviewShots shots={data.reviewShots} />
       <Contact />
       <Fab />

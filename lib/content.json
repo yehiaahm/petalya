@@ -396,7 +396,7 @@
       { "icon": "Cake", "href": "#custom", "ar": { "title": "صمّم الـ Cake بتاعك", "desc": "اختار الحجم والنكهة والديكور" }, "en": { "title": "Design your cake", "desc": "Pick the size, flavour and décor" } },
       { "icon": "BookOpenText", "href": "#menu", "ar": { "title": "المنيو والأسعار", "desc": "Cakes و Cupcakes و Bouquets" }, "en": { "title": "Menu & prices", "desc": "Cakes, cupcakes and bouquets" } },
       { "icon": "Images", "href": "#work", "ar": { "title": "شغلنا", "desc": "من مطبخنا لمناسباتكم" }, "en": { "title": "Our work", "desc": "From our kitchen to your table" } },
-      { "icon": "Heart", "href": "#reviews", "ar": { "title": "آراء العملاء", "desc": "كلام أحلى من السكر" }, "en": { "title": "Reviews", "desc": "Sweet things they said" } },
+      { "icon": "Heart", "href": "#reviews", "ar": { "title": "آراء العملاء", "desc": "رسايل حقيقية من عملائنا" }, "en": { "title": "Reviews", "desc": "Sweet things they said" } },
       { "icon": "Truck", "href": "#contact", "ar": { "title": "التوصيل والاستلام", "desc": "القاهرة والجيزة" }, "en": { "title": "Delivery & pick-up", "desc": "Cairo & Giza" } }
     ],
     "kitchenHeading": { "ar": "من مطبخنا", "en": "From our kitchen" },
