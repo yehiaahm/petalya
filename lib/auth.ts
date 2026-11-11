@@ -5,6 +5,11 @@ import { readDB } from './db';
 import { safeEqual, sign } from './crypto';
 
 export const SESSION_COOKIE = 'petalya_admin';
+
+/** The admin login name: ADMIN_USERNAME when set (Railway → Variables), otherwise "admin". Compared case-insensitively. */
+export function adminUsername() {
+  return (process.env.ADMIN_USERNAME?.trim() || 'admin').slice(0, 60);
+}
 const MAX_AGE = 60 * 60 * 24 * 14;
 
 async function secret() {

@@ -5,6 +5,7 @@ import { Eye, EyeSlash, Lock } from '@phosphor-icons/react';
 import { LogoRing } from '@/components/site/Hero';
 
 export function LoginForm() {
+  const [user, setUser] = useState('');
   const [pw, setPw] = useState('');
   const [show, setShow] = useState(false);
   const [err, setErr] = useState('');
@@ -13,13 +14,13 @@ export function LoginForm() {
     e.preventDefault();
     setBusy(true);
     setErr('');
-    const r = await fetch('/api/admin/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ password: pw }) });
+    const r = await fetch('/api/admin/login', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ username: user, password: pw }) });
     if (r.ok) {
       location.href = '/admin';
       return;
     }
     setBusy(false);
-    setErr(r.status === 429 ? 'محاولات كثيرة. انتظر دقيقة ثم حاول مرة أخرى.' : 'كلمة المرور غير صحيحة.');
+    setErr(r.status === 429 ? 'محاولات كثيرة. انتظر دقيقة ثم حاول مرة أخرى.' : 'اسم المستخدم أو كلمة المرور غير صحيحة.');
   };
   return (
     <div className="adm login-bg" dir="rtl" lang="ar">
@@ -35,16 +36,20 @@ export function LoginForm() {
           <p className="muted" style={{ margin: '4px 0 0' }}>سجّل الدخول إلى لوحة تحكم Petalya</p>
         </div>
         <label className="af" style={{ textAlign: 'start' }}>
+          <span>اسم المستخدم</span>
+          <input className="ai ltr" type="text" name="username" value={user} onChange={(e) => setUser(e.target.value)} autoFocus autoComplete="username" autoCapitalize="none" autoCorrect="off" spellCheck={false} style={{ height: 50 }} />
+        </label>
+        <label className="af" style={{ textAlign: 'start' }}>
           <span>كلمة المرور</span>
           <div style={{ position: 'relative' }}>
-            <input className="ai" type={show ? 'text' : 'password'} value={pw} onChange={(e) => setPw(e.target.value)} autoFocus autoComplete="current-password" style={{ paddingInlineEnd: 44, height: 50 }} />
+            <input className="ai" type={show ? 'text' : 'password'} name="password" value={pw} onChange={(e) => setPw(e.target.value)} autoComplete="current-password" style={{ paddingInlineEnd: 44, height: 50 }} />
             <button type="button" onClick={() => setShow(!show)} aria-label={show ? 'إخفاء' : 'إظهار'} style={{ position: 'absolute', top: 0, bottom: 0, insetInlineEnd: 6, width: 38, border: 0, background: 'none', color: 'var(--ink-muted)', cursor: 'pointer' }}>
               {show ? <EyeSlash size={19} /> : <Eye size={19} />}
             </button>
           </div>
         </label>
         {err && <span className="small" style={{ color: 'var(--bad)' }}>{err}</span>}
-        <button className="ab primary" style={{ height: 50 }} disabled={busy || !pw}>
+        <button className="ab primary" style={{ height: 50 }} disabled={busy || !pw || !user.trim()}>
           <Lock size={18} />
           {busy ? 'جارٍ الدخول…' : 'تسجيل الدخول'}
         </button>

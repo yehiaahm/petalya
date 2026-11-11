@@ -18,7 +18,7 @@ npm start
 
 Copy `.env.example` to `.env` and set `ADMIN_PASSWORD` and `SESSION_SECRET` **before the first start** — the password is only read when the database is created. It can be changed later from Admin → Settings → Security.
 
-Default admin login (local only): `/admin` with password `petalya-admin`.
+Admin login: `/admin` with a **username** and password. The username is `ADMIN_USERNAME` (defaults to `admin` when it is not set, case-insensitive); it is read on every start, so changing it in the environment takes effect right away. Local default: `admin` / `petalya-admin`.
 
 ## What's where
 
@@ -97,6 +97,7 @@ Prices are always recalculated on the server from the database; the browser's pr
 2. Railway → **New Project → Deploy from GitHub repo**. It builds the `Dockerfile` and uses `railway.json` (health check on `/api/health`).
 3. Service → **Variables**. Run `npm run secrets` locally and paste the two values it prints:
    - `ADMIN_PASSWORD` — the first admin login (the app refuses to start in production without a strong one)
+   - `ADMIN_USERNAME` — the admin login name (optional, defaults to `admin`; pick something less guessable)
    - `SESSION_SECRET`
 4. Service → **Volumes → Add Volume**, mount path `/data`. Everything (orders, products, uploads, analytics) lives there — without the volume it is lost on every deploy.
 5. Service → **Settings → Networking → Generate Domain** (or add your own). The public address is picked up automatically from `RAILWAY_PUBLIC_DOMAIN`; set `APP_URL` only when you use a custom domain.

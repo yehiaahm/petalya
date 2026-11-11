@@ -8,4 +8,5 @@ const password = Array.from(randomBytes(18), (b) => alphabet[b % alphabet.length
 console.log('Paste these into Railway → your service → Variables:\n');
 console.log('SESSION_SECRET=' + randomBytes(48).toString('hex'));
 console.log('ADMIN_PASSWORD=' + password);
+console.log('ADMIN_USERNAME=choose-a-name   (optional; defaults to "admin")');
 console.log('\nADMIN_PASSWORD is the first admin login; change it later from Admin → Settings → Security.');
