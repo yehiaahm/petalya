@@ -30,12 +30,12 @@ export function ReviewShots({ shots }: { shots: string[] }) {
     <section id="chats" className="section shots">
       <div className="wrap w1080 center">
         <div data-reveal="1" className="eyebrow">
-          <span>{pick('من الشات مباشرة', 'Straight from the chat')}</span>
+          <span>{pick('من المحادثات مباشرةً', 'Straight from the chat')}</span>
         </div>
         <h2 data-reveal="1" className="h2">
           {ar ? (
             <>
-              كلامهم <span className="accent">بعد التورتة</span>
+              رسائلهم <span className="accent">بعد التورتة</span>
             </>
           ) : (
             <>
@@ -44,7 +44,7 @@ export function ReviewShots({ shots }: { shots: string[] }) {
           )}
         </h2>
         <p data-reveal="1" className="intro">
-          {pick('رسايل حقيقية من عملاءنا. اضغط على أي واحدة تشوفها كاملة.', 'Real messages from our customers. Tap any one to read it in full.')}
+          {pick('رسائل حقيقية من عملائنا. اضغط على أي رسالة لعرضها كاملة.', 'Real messages from our customers. Tap any one to read it in full.')}
         </p>
       </div>
 
@@ -58,10 +58,10 @@ export function ReviewShots({ shots }: { shots: string[] }) {
                 className="shot"
                 tabIndex={s === 0 ? 0 : -1}
                 aria-hidden={s === 0 ? undefined : true}
-                aria-label={pick(`افتح رأي العميل رقم ${i + 1}`, `Open customer message ${i + 1}`)}
+                aria-label={pick(`عرض رسالة العميل رقم ${i + 1}`, `Open customer message ${i + 1}`)}
                 onClick={(e) => show(i, e.currentTarget)}
               >
-                <img src={src} alt={s === 0 ? pick(`رسالة من عميلة رقم ${i + 1}`, `Customer message ${i + 1}`) : ''} loading="lazy" draggable={false} />
+                <img src={src} alt={s === 0 ? pick(`رسالة العميل رقم ${i + 1}`, `Customer message ${i + 1}`) : ''} loading="lazy" draggable={false} />
                 <span className="zoom" aria-hidden="true">
                   <ArrowsOutSimple size={17} weight="bold" />
                 </span>
@@ -73,7 +73,7 @@ export function ReviewShots({ shots }: { shots: string[] }) {
 
       <p className="shots-hint">
         <ChatsCircle size={18} />
-        {pick('الصور بتقف لما تقف عليها', 'Hover to pause')}
+        {pick('تتوقف الصور عند تمرير المؤشر عليها', 'Hover to pause')}
       </p>
 
       {open !== null && <Viewer shots={shots} index={open} setIndex={setOpen} onClose={close} />}
@@ -158,7 +158,7 @@ function Viewer({ shots, index, setIndex, onClose }: { shots: string[]; index: n
           <BackIcon size={22} />
         </button>
         <div className="v-frame">
-          <img key={index} className={dirRef.current > 0 ? 'in-next' : 'in-prev'} data-ar={ar ? '1' : undefined} src={shots[index]} alt={pick(`رسالة عميل ${index + 1} من ${n}`, `Customer message ${index + 1} of ${n}`)} draggable={false} />
+          <img key={index} className={dirRef.current > 0 ? 'in-next' : 'in-prev'} data-ar={ar ? '1' : undefined} src={shots[index]} alt={pick(`رسالة العميل ${index + 1} من ${n}`, `Customer message ${index + 1} of ${n}`)} draggable={false} />
         </div>
         <button type="button" className="v-nav" onClick={next} aria-label={pick('التالي', 'Next')} disabled={n < 2}>
           <FwdIcon size={22} />

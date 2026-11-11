@@ -63,7 +63,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
         <h2 data-reveal="1" className="h2">
           {ar ? (
             <>
-              شغل بيحكي <span className="accent">حكايتكم</span>
+              تورت تحكي <span className="accent">حكايتكم</span>
             </>
           ) : (
             <>
@@ -72,7 +72,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
           )}
         </h2>
         <p data-reveal="1" className="intro">
-          {pick('اسحب الصور واقلب أي واحدة — كل تورتة وراها مناسبة حلوة.', 'Swipe along the line and flip any photo — every cake has a sweet occasion behind it.')}
+          {pick('اسحب الصور واقلب أي صورة — وراء كل تورتة مناسبة جميلة.', 'Swipe along the line and flip any photo — every cake has a sweet occasion behind it.')}
         </p>
       </div>
       <div ref={scRef} onScroll={onScroll} className="gal-scroller">
@@ -108,7 +108,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
                             const p = g.productId ? data.products.find((x) => x.id === g.productId && !x.soldOut) : undefined;
                             if (p) {
                               add(p.id);
-                              toast(pick('اتضافت لطلبك', 'Added to your order'));
+                              toast(pick('تمت الإضافة إلى طلبك', 'Added to your order'));
                             } else {
                               track('gallery_design', { item: g.id });
                               scrollToId('custom', reduced);
@@ -116,7 +116,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
                           }}
                         >
                           <ShoppingBagOpen size={18} />
-                          {pick('اطلب زيها', 'Order one like it')}
+                          {pick('اطلب مثلها', 'Order one like it')}
                         </button>
                       </div>
                     </div>

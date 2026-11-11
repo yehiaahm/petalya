@@ -17,7 +17,7 @@ const NAV = [
   { href: '/admin/analytics', label: 'الزيارات والتحليلات', icon: ChartLineUp },
   { grp: 'المحتوى' },
   { href: '/admin/products', label: 'المنتجات والمنيو', icon: Cake },
-  { href: '/admin/gallery', label: 'معرض الشغل', icon: Images },
+  { href: '/admin/gallery', label: 'معرض الأعمال', icon: Images },
   { href: '/admin/reviews', label: 'آراء العملاء', icon: ChatCircleText, badge: 'reviews' },
   { href: '/admin/coupons', label: 'أكواد الخصم', icon: Ticket },
   { grp: 'الإدارة' },
@@ -120,11 +120,11 @@ export function AdminShell({ children, initial }: { children: React.ReactNode; i
           <div className="foot">
             <a href="/" target="_blank" rel="noopener">
               <Storefront size={20} />
-              افتح الموقع
+              عرض الموقع
             </a>
             <button onClick={logout}>
               <SignOut size={20} />
-              تسجيل خروج
+              تسجيل الخروج
             </button>
           </div>
         </aside>
@@ -142,7 +142,7 @@ export function AdminShell({ children, initial }: { children: React.ReactNode; i
               }}
             >
               <MagnifyingGlass size={18} />
-              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="دوّر على طلب، اسم أو رقم موبايل…" aria-label="بحث" />
+              <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="ابحث برقم الطلب أو الاسم أو الموبايل…" aria-label="بحث" />
             </form>
             <div style={{ flex: 1 }} />
             <Link href="/admin/orders?status=new" className="ab ghost icon" aria-label="الطلبات الجديدة" style={{ position: 'relative' }}>
@@ -171,7 +171,7 @@ export function AdminShell({ children, initial }: { children: React.ReactNode; i
               </span>
               <div style={{ marginTop: 10 }}>
                 <Link href={`/admin/orders/${alert.id}`} className="ab sm" style={{ background: 'var(--petal)', color: 'var(--cocoa-deep)' }} onClick={() => setAlert(null)}>
-                  افتح الطلب
+                  عرض الطلب
                 </Link>
               </div>
             </div>

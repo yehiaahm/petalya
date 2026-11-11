@@ -62,7 +62,7 @@ export function computeStats(db: DB, events: TrackEvent[], days = 30) {
   cur.forEach((o) =>
     o.items.forEach((it) => {
       const k = it.kind === 'custom' ? 'custom' : it.productId || it.name.ar;
-      const name = it.kind === 'custom' ? 'تورت مخصوصة (صمّم تورتتك)' : it.name.ar;
+      const name = it.kind === 'custom' ? 'تورت حسب الطلب («صمّم تورتتك»)' : it.name.ar;
       const row = top.get(k) || { name, qty: 0, revenue: 0, image: it.image };
       row.qty += it.qty;
       row.revenue += it.qty * it.unitPrice;
@@ -80,9 +80,9 @@ export function computeStats(db: DB, events: TrackEvent[], days = 30) {
   const sess = (type: string) => new Set(ev.filter((e) => e.type === type).map((e) => e.sid || String(e.t))).size;
   const funnel = [
     { k: 'زيارات', v: sess('page_view') },
-    { k: 'أضافوا للسلة', v: sess('add_to_cart') },
-    { k: 'فتحوا صفحة الطلب', v: sess('checkout_start') },
-    { k: 'طلبوا فعلاً', v: cur.length },
+    { k: 'أضافوا منتجًا للطلب', v: sess('add_to_cart') },
+    { k: 'فتحوا صفحة إتمام الطلب', v: sess('checkout_start') },
+    { k: 'أتمّوا الطلب', v: cur.length },
   ];
   const count = (pick: (e: TrackEvent) => string | undefined, filter: (e: TrackEvent) => boolean) => {
     const m = new Map<string, number>();

@@ -8,15 +8,16 @@ import type { Order, OrderStatus } from '@/lib/types';
 import { PAYMENT_LABEL, phoneToWa, STATUS_LABEL, waLink } from '@/lib/pricing';
 import { api, dayLabel, egp, relTime, StatusPill, Toggle, useAdmin, useConfirm } from './ui';
 import { CakeSwatch } from '@/components/site/Checkout';
+import { arCount } from '@/lib/ar';
 
 const ICON: Record<string, React.ComponentType<{ size?: number }>> = { new: Receipt, confirmed: CheckCircle, preparing: CookingPot, ready: Package, out_for_delivery: Moped, delivered: Gift };
 
 const NEXT_LABEL: Record<string, string> = {
-  new: 'أكّد الطلب',
-  confirmed: 'ابدأ التحضير',
+  new: 'تأكيد الطلب',
+  confirmed: 'بدء التحضير',
   preparing: 'الطلب جاهز',
   ready: 'خرج للتوصيل',
-  out_for_delivery: 'اتسلّم',
+  out_for_delivery: 'تم التسليم',
 };
 
 function customerMessage(o: Order, status: OrderStatus, trackUrl: string, pay: { instapay: string; wallet: string }) {
@@ -31,16 +32,16 @@ function customerMessage(o: Order, status: OrderStatus, trackUrl: string, pay: {
     o.payment.status === 'unpaid' && o.payment.method !== 'cod'
       ? en
         ? `\nPlease transfer ${o.total.toLocaleString('en-US')} EGP to ${o.payment.method === 'instapay' ? pay.instapay : pay.wallet} and send us the receipt.`
-        : `\nياريت تحوّل ${o.total.toLocaleString('en-US')} ج.م على ${o.payment.method === 'instapay' ? 'إنستاباي ' + pay.instapay : 'المحفظة ' + pay.wallet} وتبعتلنا صورة التحويل.`
+        : `\nبرجاء تحويل ${o.total.toLocaleString('en-US')} ج.م على ${o.payment.method === 'instapay' ? 'إنستاباي ' + pay.instapay : 'المحفظة ' + pay.wallet}، ثم إرسال صورة إيصال التحويل هنا.`
       : '';
   const m: Record<string, [string, string]> = {
-    new: [`أهلاً ${first}! استلمنا طلبك ${o.code} 🤍 هنراجعه ونأكدلك حالاً.`, `Hi ${first}! We received your order ${o.code} 🤍 We'll confirm shortly.`],
-    confirmed: [`أهلاً ${first}! طلبك ${o.code} اتأكد ✨ ميعاده ${dayLabel(o.fulfillment.date, { weekday: 'long', day: 'numeric', month: 'long' })}.${priceLine}${payLine}`, `Hi ${first}! Your order ${o.code} is confirmed ✨ See you on ${new Date(o.fulfillment.date + 'T12:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}.${priceLine}${payLine}`],
-    preparing: [`طلبك ${o.code} بيتحضّر دلوقتي في مطبخنا 🎂`, `Your order ${o.code} is being made in our kitchen right now 🎂`],
-    ready: [o.fulfillment.type === 'pickup' ? `طلبك ${o.code} جاهز للاستلام 🎉` : `طلبك ${o.code} جاهز وهيخرج للتوصيل قريب 🎉`, o.fulfillment.type === 'pickup' ? `Your order ${o.code} is ready for pick-up 🎉` : `Your order ${o.code} is ready and will be out for delivery soon 🎉`],
-    out_for_delivery: [`طلبك ${o.code} في الطريق ليك 🛵`, `Your order ${o.code} is on its way 🛵`],
-    delivered: [`نتمنى تكون التورتة عجبتك يا ${first} 🤍 لو عندك دقيقة قولنا رأيك:`, `We hope you loved it, ${first} 🤍 If you have a minute, tell us what you think:`],
-    cancelled: [`أهلاً ${first}، للأسف طلبك ${o.code} اتلغى. لو عندك أي سؤال احنا موجودين.`, `Hi ${first}, unfortunately your order ${o.code} was cancelled. We're here if you have any questions.`],
+    new: [`أهلًا ${first}! استلمنا طلبك ${o.code} 🤍 سنراجعه ونؤكده لك خلال وقت قصير.`, `Hi ${first}! We received your order ${o.code} 🤍 We'll confirm shortly.`],
+    confirmed: [`أهلًا ${first}! تم تأكيد طلبك ${o.code} ✨ موعده ${dayLabel(o.fulfillment.date, { weekday: 'long', day: 'numeric', month: 'long' })}.${priceLine}${payLine}`, `Hi ${first}! Your order ${o.code} is confirmed ✨ See you on ${new Date(o.fulfillment.date + 'T12:00').toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}.${priceLine}${payLine}`],
+    preparing: [`طلبك ${o.code} قيد التحضير الآن في مطبخنا 🎂`, `Your order ${o.code} is being made in our kitchen right now 🎂`],
+    ready: [o.fulfillment.type === 'pickup' ? `طلبك ${o.code} جاهز للاستلام 🎉` : `طلبك ${o.code} جاهز، وسيخرج للتوصيل قريبًا 🎉`, o.fulfillment.type === 'pickup' ? `Your order ${o.code} is ready for pick-up 🎉` : `Your order ${o.code} is ready and will be out for delivery soon 🎉`],
+    out_for_delivery: [`طلبك ${o.code} في الطريق إليك 🛵`, `Your order ${o.code} is on its way 🛵`],
+    delivered: [`نتمنى أن يكون طلبك قد نال إعجابك يا ${first} 🤍 يسعدنا أن تشاركنا رأيك:`, `We hope you loved it, ${first} 🤍 If you have a minute, tell us what you think:`],
+    cancelled: [`أهلًا ${first}، نأسف لإبلاغك بأنه تم إلغاء طلبك ${o.code}. نحن هنا لأي استفسار.`, `Hi ${first}, unfortunately your order ${o.code} was cancelled. We're here if you have any questions.`],
   };
   return (en ? m[status][1] : m[status][0]) + `\n${trackUrl}`;
 }
@@ -70,7 +71,7 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
       if (msg) toast(msg);
       router.refresh();
     } catch {
-      toast('حصلت مشكلة، جرّب تاني', true);
+      toast('حدث خطأ، حاول مرة أخرى', true);
     }
     setBusy(false);
   };
@@ -83,17 +84,17 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
   const at = (s: string) => o.history.filter((h) => h.status === s).pop()?.at;
 
   const setStatus = async (s: OrderStatus) => {
-    if (s === 'cancelled' && !(await confirm.ask('إلغاء الطلب؟', `الطلب ${o.code} هيتلغى والعميل هيشوف ده في صفحة المتابعة.`, 'إلغاء الطلب'))) return;
-    await patch({ status: s }, `الطلب بقى «${STATUS_LABEL[s].ar}»`);
+    if (s === 'cancelled' && !(await confirm.ask('إلغاء الطلب؟', `سيُلغى الطلب ${o.code}، وسيظهر ذلك للعميل في صفحة متابعة الطلب.`, 'إلغاء الطلب'))) return;
+    await patch({ status: s }, `تم تغيير حالة الطلب إلى «${STATUS_LABEL[s].ar}»`);
   };
   const del = async () => {
-    if (!(await confirm.ask('حذف الطلب نهائيًا؟', 'مش هتقدر ترجّعه تاني. لو عايز تحتفظ بالسجل استخدم «إلغاء» بدل الحذف.'))) return;
+    if (!(await confirm.ask('حذف الطلب نهائيًا؟', 'لا يمكن التراجع عن الحذف. للاحتفاظ بسجل الطلب، استخدم «إلغاء الطلب» بدلًا من الحذف.'))) return;
     await api(`/api/admin/orders/${o.id}`, 'DELETE');
-    toast('اتحذف الطلب');
+    toast('تم حذف الطلب');
     router.push('/admin/orders');
     router.refresh();
   };
-  const copy = (t: string) => navigator.clipboard.writeText(t).then(() => toast('اتنسخ'));
+  const copy = (t: string) => navigator.clipboard.writeText(t).then(() => toast('تم النسخ'));
 
   return (
     <>
@@ -107,10 +108,10 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
             <span className="ltr num">{o.code}</span>
             <StatusPill s={o.status} />
             {o.demo && <span className="pill plain st-cancelled">تجريبي</span>}
-            {o.userId && <span className="pill plain st-confirmed">عميل عنده حساب</span>}
+            {o.userId && <span className="pill plain st-confirmed">عميل لديه حساب</span>}
           </h1>
           <p>
-            اتعمل {relTime(o.createdAt)} · {new Date(o.createdAt).toLocaleString('ar-EG', { dateStyle: 'medium', timeStyle: 'short' })}
+            أُنشئ {relTime(o.createdAt)} · {new Date(o.createdAt).toLocaleString('ar-EG', { dateStyle: 'medium', timeStyle: 'short' })}
           </p>
         </div>
         <div className="acts no-print">
@@ -131,7 +132,7 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
               const Ic = ICON[s];
               const done = i < cur || (i === cur && s === 'delivered');
               return (
-                <button key={s} className={'s' + (i <= cur ? ' done' : '') + (i === cur && s !== 'delivered' ? ' cur' : '')} style={{ background: 'none', border: 0, cursor: 'pointer', font: 'inherit' }} onClick={() => i !== cur && setStatus(s)} disabled={busy} title={`غيّر لـ «${STATUS_LABEL[s].ar}»`}>
+                <button key={s} className={'s' + (i <= cur ? ' done' : '') + (i === cur && s !== 'delivered' ? ' cur' : '')} style={{ background: 'none', border: 0, cursor: 'pointer', font: 'inherit' }} onClick={() => i !== cur && setStatus(s)} disabled={busy} title={`تغيير الحالة إلى «${STATUS_LABEL[s].ar}»`}>
                   <span className="c">{done ? <Check size={18} weight="bold" /> : <Ic size={19} />}</span>
                   {STATUS_LABEL[s].ar}
                   {at(s) && i <= cur && <span className="faint" style={{ fontSize: 11, fontWeight: 400 }}>{relTime(at(s)!)}</span>}
@@ -148,7 +149,7 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
             )}
             <a href={waCustomer(o.status)} target="_blank" rel="noopener" className="ab wa" style={{ height: 46 }}>
               <WhatsappLogo size={19} />
-              ابعت تحديث للعميل
+              إرسال تحديث للعميل
             </a>
             <div style={{ flex: 1 }} />
             <button className="ab danger sm" onClick={() => setStatus('cancelled')} disabled={busy}>
@@ -160,13 +161,13 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
       ) : (
         <div className="a-card a-pad no-print" style={{ marginBottom: 16, display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', background: '#F4EEEA' }}>
           <XCircle size={24} color="#7A6A62" />
-          <b>الطلب ده اتلغى</b>
+          <b>تم إلغاء هذا الطلب</b>
           <div style={{ flex: 1 }} />
-          <button className="ab ghost sm" onClick={() => patch({ status: 'new' }, 'رجع الطلب تاني')}>
-            رجّع الطلب
+          <button className="ab ghost sm" onClick={() => patch({ status: 'new' }, 'تمت استعادة الطلب')}>
+            استعادة الطلب
           </button>
           <a href={waCustomer('cancelled')} target="_blank" rel="noopener" className="ab wa sm">
-            <WhatsappLogo size={16} /> بلّغ العميل
+            <WhatsappLogo size={16} /> إبلاغ العميل
           </a>
         </div>
       )}
@@ -176,7 +177,7 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
           <div className="a-card">
             <div className="hd">
               <h2>المنتجات</h2>
-              <span className="sub">{o.items.reduce((a, i) => a + i.qty, 0)} قطعة</span>
+              <span className="sub">{arCount(o.items.reduce((a, i) => a + i.qty, 0), 'item')}</span>
             </div>
             <div className="a-pad" style={{ paddingTop: 8 }}>
               {o.items.map((it, i) => (
@@ -206,10 +207,10 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
                 </div>
               ))}
               <div className="kv" style={{ marginTop: 12, paddingTop: 12, borderTop: '1px dashed rgba(185,126,94,.4)' }}>
-                <span>المجموع</span>
+                <span>المجموع الفرعي</span>
                 <span className="num" style={{ textAlign: 'end' }}>{egp(o.subtotal)}</span>
                 <span>التوصيل</span>
-                <span className="num" style={{ textAlign: 'end' }}>{o.deliveryFee ? egp(o.deliveryFee) : 'مجاناً'}</span>
+                <span className="num" style={{ textAlign: 'end' }}>{o.deliveryFee ? egp(o.deliveryFee) : 'مجانًا'}</span>
                 {o.discount > 0 && (
                   <>
                     <span>
@@ -233,7 +234,7 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
 
           {!!o.refImages?.length && (
             <div className="a-card a-pad">
-              <b style={{ display: 'block', marginBottom: 10 }}>صور من العميل ({o.refImages.length})</b>
+              <b style={{ display: 'block', marginBottom: 10 }}>صور أرسلها العميل ({o.refImages.length})</b>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(110px, 1fr))', gap: 10 }}>
                 {o.refImages.map((u) => (
                   <a key={u} href={u} target="_blank" rel="noopener" style={{ display: 'block', aspectRatio: '1', borderRadius: 14, overflow: 'hidden', background: 'var(--blush-panel)' }}>
@@ -247,9 +248,9 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
 
         <div className="a-grid">
           <div className="a-card a-pad no-print" style={o.quote ? undefined : { background: '#FFF6E6', borderColor: 'rgba(217,163,74,.35)' }}>
-            <b style={{ display: 'block', marginBottom: 4 }}>{o.quote ? 'السعر اللي العميل شايفه ✓' : 'السعر النهائي — العميل مستنيه'}</b>
+            <b style={{ display: 'block', marginBottom: 4 }}>{o.quote ? 'السعر الظاهر للعميل ✓' : 'السعر النهائي — العميل بانتظاره'}</b>
             <p className="small faint" style={{ margin: '0 0 10px' }}>
-              العميل مش بيشوف أي سعر في الموقع غير اللي بتأكده هنا. أول ما تأكد، الطلب بيتحوّل «اتأكد» والسعر وطريقة الدفع بيظهروا في صفحة متابعته.
+              لا يرى العميل أي سعر في الموقع إلا السعر الذي تؤكده هنا. بمجرد التأكيد تتحول حالة الطلب إلى «تم التأكيد»، ويظهر السعر وطريقة الدفع في صفحة المتابعة.
             </p>
             <div className="af">
               <span>السعر النهائي (ج.م) — شامل التوصيل</span>
@@ -257,15 +258,15 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
             </div>
             <div className="af" style={{ marginTop: 10 }}>
               <span>رسالة للعميل (اختياري)</span>
-              <input className="ai" value={priceNote} maxLength={300} onChange={(e) => setPriceNote(e.target.value)} placeholder="مثلاً: السعر شامل التوبر والتوصيل" />
+              <input className="ai" value={priceNote} maxLength={300} onChange={(e) => setPriceNote(e.target.value)} placeholder="مثلًا: السعر يشمل التوبر والتوصيل" />
             </div>
             <button
               className="ab primary sm"
               style={{ marginTop: 12 }}
               disabled={busy || !price || (!!o.quote && Number(price) === o.quote.total && priceNote === (o.quote.note || ''))}
-              onClick={() => patch({ quote: { total: Number(price), note: priceNote } }, 'السعر اتأكد وظهر للعميل')}
+              onClick={() => patch({ quote: { total: Number(price), note: priceNote } }, 'تم تأكيد السعر وأصبح ظاهرًا للعميل')}
             >
-              <Check size={16} /> {o.quote ? 'حدّث السعر' : 'أكّد السعر وابعته للعميل'}
+              <Check size={16} /> {o.quote ? 'تحديث السعر' : 'تأكيد السعر وإرساله للعميل'}
             </button>
           </div>
 
@@ -312,10 +313,10 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
                   <span>العنوان</span>
                   <span style={{ display: 'flex', gap: 6, alignItems: 'flex-start' }}>
                     <span style={{ flex: 1 }}>{o.fulfillment.address}</span>
-                    <button className="ab ghost sm icon no-print" onClick={() => copy(`${o.fulfillment.zoneName?.ar} — ${o.fulfillment.address}\n${o.customer.name} ${o.customer.phone}`)} aria-label="انسخ العنوان للمندوب" title="انسخ للمندوب">
+                    <button className="ab ghost sm icon no-print" onClick={() => copy(`${o.fulfillment.zoneName?.ar} — ${o.fulfillment.address}\n${o.customer.name} ${o.customer.phone}`)} aria-label="نسخ العنوان للمندوب" title="نسخ للمندوب">
                       <Copy size={14} />
                     </button>
-                    <a className="ab ghost sm icon no-print" target="_blank" rel="noopener" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((o.fulfillment.address || '') + ' ' + (o.fulfillment.zoneName?.ar || ''))}`} aria-label="افتح في الخريطة" title="الخريطة">
+                    <a className="ab ghost sm icon no-print" target="_blank" rel="noopener" href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent((o.fulfillment.address || '') + ' ' + (o.fulfillment.zoneName?.ar || ''))}`} aria-label="فتح في الخرائط" title="الخرائط">
                       <MapPin size={14} />
                     </a>
                   </span>
@@ -328,15 +329,15 @@ export function OrderDetail({ order, pay }: { order: Order; pay: { instapay: str
             <div className="tgl-row" style={{ paddingTop: 0 }}>
               <div>
                 <b>{PAYMENT_LABEL[o.payment.method].ar}</b>
-                <small>{o.payment.status === 'paid' ? 'الفلوس وصلت ✓' : 'لسه متدفعش'}</small>
+                <small>{o.payment.status === 'paid' ? 'تم الدفع ✓' : 'لم يُدفع بعد'}</small>
               </div>
-              <Toggle on={o.payment.status === 'paid'} onChange={(v) => patch({ paid: v }, v ? 'اتسجّل إن الطلب مدفوع' : 'اتسجّل إن الطلب مش مدفوع')} label="مدفوع" />
+              <Toggle on={o.payment.status === 'paid'} onChange={(v) => patch({ paid: v }, v ? 'تم تسجيل الطلب كمدفوع' : 'تم تسجيل الطلب كغير مدفوع')} label="مدفوع" />
             </div>
             <div className="af" style={{ marginTop: 12 }}>
-              <span>ملاحظات داخلية (مش بتظهر للعميل)</span>
-              <textarea className="ai" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="مثلاً: العميل هيبعت صورة للتوبر…" />
+              <span>ملاحظات داخلية (لا تظهر للعميل)</span>
+              <textarea className="ai" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder="مثلًا: سيرسل العميل صورة للتوبر…" />
               {notes !== (o.adminNotes || '') && (
-                <button className="ab primary sm" style={{ alignSelf: 'flex-start' }} onClick={() => patch({ adminNotes: notes }, 'اتحفظت الملاحظات')}>
+                <button className="ab primary sm" style={{ alignSelf: 'flex-start' }} onClick={() => patch({ adminNotes: notes }, 'تم حفظ الملاحظات')}>
                   حفظ الملاحظات
                 </button>
               )}

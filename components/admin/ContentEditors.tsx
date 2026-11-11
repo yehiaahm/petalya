@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { ArrowDown, ArrowUp, ChatCircleText, Check, Copy, EyeSlash, Images, Key, PencilSimple, Plus, Star, Ticket, Trash, UserCircle } from '@phosphor-icons/react';
 import type { Coupon, GalleryItem, Review } from '@/lib/types';
+import { arCount } from '@/lib/ar';
 import { api, BiInput, egp, Empty, Field, ImageManager, Modal, NumInput, PageHeader, Toggle, useAdmin, useConfirm } from './ui';
 
 function useListSave<T>(url: string, initial: T[]) {
@@ -11,7 +12,7 @@ function useListSave<T>(url: string, initial: T[]) {
   const { toast } = useAdmin();
   const [list, setList] = useState(initial);
   const [busy, setBusy] = useState(false);
-  const save = async (next: T[], msg = 'اتحفظ') => {
+  const save = async (next: T[], msg = 'تم الحفظ') => {
     const prev = list;
     setList(next);
     setBusy(true);
@@ -21,7 +22,7 @@ function useListSave<T>(url: string, initial: T[]) {
       router.refresh();
     } catch {
       setList(prev);
-      toast('مقدرناش نحفظ', true);
+      toast('تعذّر الحفظ، حاول مرة أخرى', true);
     }
     setBusy(false);
   };
@@ -46,14 +47,14 @@ export function GalleryEditor({ items, products }: { items: GalleryItem[]; produ
 
   const commit = (g: GalleryItem) => {
     const exists = list.some((x) => x.id === g.id && g.id);
-    save(exists ? list.map((x) => (x.id === g.id ? g : x)) : [...list, { ...g, id: 'g-' + Date.now().toString(36), tilt: g.tilt || [-2.5, 2, -1.5, 3, -2][list.length % 5] }], exists ? 'اتحفظت الصورة' : 'اتضافت للمعرض');
+    save(exists ? list.map((x) => (x.id === g.id ? g : x)) : [...list, { ...g, id: 'g-' + Date.now().toString(36), tilt: g.tilt || [-2.5, 2, -1.5, 3, -2][list.length % 5] }], exists ? 'تم حفظ الصورة' : 'تمت إضافة الصورة إلى المعرض');
     setEdit(null);
   };
 
   return (
     <>
       {confirm.node}
-      <PageHeader title="معرض الشغل" sub="الصور المتعلّقة على الحبل في قسم «من مطبخنا». العميل بيقلب الصورة يشوف الحكاية ويطلب زيها.">
+      <PageHeader title="معرض الأعمال" sub="الصور المعلّقة على الحبل في قسم «من مطبخنا». يقلب العميل الصورة ليقرأ قصتها، ويمكنه طلب مثلها.">
         <button className="ab primary" onClick={() => setEdit(blank)}>
           <Plus size={18} weight="bold" /> صورة جديدة
         </button>
@@ -80,17 +81,17 @@ export function GalleryEditor({ items, products }: { items: GalleryItem[]; produ
                   <button className="ab soft sm" style={{ flex: 1 }} onClick={() => setEdit(g)}>
                     <PencilSimple size={15} /> تعديل
                   </button>
-                  <Toggle on={g.active} onChange={(v) => save(list.map((x) => (x.id === g.id ? { ...x, active: v } : x)), v ? 'الصورة ظاهرة' : 'الصورة اتخفت')} label="ظاهرة" />
-                  <button className="ab ghost sm icon" disabled={i === 0 || busy} onClick={() => save(move(list, i, -1), 'اتغيّر الترتيب')} aria-label="قدّم">
+                  <Toggle on={g.active} onChange={(v) => save(list.map((x) => (x.id === g.id ? { ...x, active: v } : x)), v ? 'الصورة ظاهرة الآن في الموقع' : 'تم إخفاء الصورة')} label="ظاهرة" />
+                  <button className="ab ghost sm icon" disabled={i === 0 || busy} onClick={() => save(move(list, i, -1), 'تم تغيير الترتيب')} aria-label="تقديم">
                     <ArrowUp size={14} style={{ transform: 'rotate(90deg)' }} />
                   </button>
-                  <button className="ab ghost sm icon" disabled={i === list.length - 1 || busy} onClick={() => save(move(list, i, 1), 'اتغيّر الترتيب')} aria-label="أخّر">
+                  <button className="ab ghost sm icon" disabled={i === list.length - 1 || busy} onClick={() => save(move(list, i, 1), 'تم تغيير الترتيب')} aria-label="تأخير">
                     <ArrowDown size={14} style={{ transform: 'rotate(90deg)' }} />
                   </button>
                   <button
                     className="ab danger sm icon"
                     aria-label="حذف"
-                    onClick={async () => (await confirm.ask('حذف الصورة؟', `«${g.title.ar}» هتختفي من المعرض.`)) && save(list.filter((x) => x.id !== g.id), 'اتحذفت')}
+                    onClick={async () => (await confirm.ask('حذف الصورة؟', `ستُحذف «${g.title.ar}» من المعرض.`)) && save(list.filter((x) => x.id !== g.id), 'تم حذف الصورة')}
                   >
                     <Trash size={15} />
                   </button>
@@ -101,7 +102,7 @@ export function GalleryEditor({ items, products }: { items: GalleryItem[]; produ
         </div>
       ) : (
         <div className="a-card">
-          <Empty icon={<Images size={30} />} title="المعرض فاضي" />
+          <Empty icon={<Images size={30} />} title="لا توجد صور في المعرض بعد" />
         </div>
       )}
       {edit && <GalleryModal item={edit} products={products} onClose={() => setEdit(null)} onSave={commit} />}
@@ -116,7 +117,7 @@ function GalleryModal({ item, products, onClose, onSave }: { item: GalleryItem; 
     <Modal
       open
       onClose={onClose}
-      title={item.id ? 'تعديل صورة' : 'صورة جديدة للمعرض'}
+      title={item.id ? 'تعديل الصورة' : 'إضافة صورة إلى المعرض'}
       width={640}
       footer={
         <>
@@ -132,10 +133,10 @@ function GalleryModal({ item, products, onClose, onSave }: { item: GalleryItem; 
       <ImageManager single images={g.image ? [g.image] : []} onChange={(v) => setG({ ...g, image: v[0] || '' })} />
       <BiInput label="العنوان (على الصورة)" value={g.title} onChange={(v) => setG({ ...g, title: v })} max={80} />
       <BiInput label="المناسبة" value={g.occasion} onChange={(v) => setG({ ...g, occasion: v })} max={60} />
-      <BiInput label="الحكاية (ضهر الصورة)" value={g.note} onChange={(v) => setG({ ...g, note: v })} multiline max={300} />
-      <Field label="المنتج اللي زرار «اطلب زيها» يضيفه للطلب" hint="لو سيبته فاضي الزرار هيودّي العميل لتصميم التورتة.">
+      <BiInput label="القصة (خلف الصورة)" value={g.note} onChange={(v) => setG({ ...g, note: v })} multiline max={300} />
+      <Field label="المنتج الذي يضيفه زر «اطلب مثلها» إلى الطلب" hint="إذا تركته فارغًا، سينقل الزر العميل إلى قسم «صمّم تورتتك».">
         <select className="ai" value={g.productId || ''} onChange={(e) => setG({ ...g, productId: e.target.value || undefined })}>
-          <option value="">— تصميم التورتة (من غير ربط) —</option>
+          <option value="">— «صمّم تورتتك» (بدون ربط بمنتج) —</option>
           {products.map((pr) => (
             <option key={pr.id} value={pr.id}>
               {pr.name}
@@ -143,7 +144,7 @@ function GalleryModal({ item, products, onClose, onSave }: { item: GalleryItem; 
           ))}
         </select>
       </Field>
-      <Field label={`ميلان الصورة على الحبل: ${g.tilt}°`}>
+      <Field label={`ميل الصورة على الحبل: ${g.tilt}°`}>
         <input type="range" min={-5} max={5} step={0.5} value={g.tilt} onChange={(e) => setG({ ...g, tilt: Number(e.target.value) })} />
       </Field>
     </Modal>
@@ -164,10 +165,10 @@ export function ReviewShotsEditor({ shots }: { shots: string[] }) {
       const next = await api<string[]>('/api/admin/review-shots', 'PUT', list);
       setSaved(next);
       setList(next);
-      toast('اتحفظت سكرينات الآراء');
+      toast('تم حفظ صور آراء العملاء');
       router.refresh();
     } catch {
-      toast('مقدرناش نحفظ', true);
+      toast('تعذّر الحفظ، حاول مرة أخرى', true);
     }
     setBusy(false);
   };
@@ -175,9 +176,9 @@ export function ReviewShotsEditor({ shots }: { shots: string[] }) {
     <div className="a-card a-pad" style={{ marginBottom: 22, display: 'flex', flexDirection: 'column', gap: 14 }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
         <div>
-          <b style={{ fontWeight: 700, fontSize: 17 }}>سكرينات آراء العملاء</b>
+          <b style={{ fontWeight: 700, fontSize: 17 }}>صور محادثات العملاء</b>
           <p className="muted small" style={{ margin: '4px 0 0' }}>
-            صور محادثات العملاء اللي بتتحرك في قسم «حلاوة بتتحكي» والعميل بيضغط عليها يشوفها كبيرة. الترتيب هنا هو ترتيبها في الموقع.
+            لقطات محادثات العملاء التي تتحرك في قسم «رسائلهم بعد التورتة»، ويضغط عليها الزائر ليراها بحجم كامل. ترتيبها هنا هو ترتيبها في الموقع.
           </p>
         </div>
         <button className="ab primary" disabled={!dirty || busy} onClick={save}>
@@ -196,21 +197,21 @@ export function ReviewsEditor({ reviews }: { reviews: Review[] }) {
   const [tab, setTab] = useState<'all' | Review['status']>(reviews.some((r) => r.status === 'pending') ? 'pending' : 'all');
   const [edit, setEdit] = useState<Review | null>(null);
   const shown = list.filter((r) => tab === 'all' || r.status === tab).sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-  const setStatus = (r: Review, status: Review['status']) => save(list.map((x) => (x.id === r.id ? { ...x, status } : x)), status === 'approved' ? 'الرأي ظاهر في الموقع' : 'الرأي اتخفى');
+  const setStatus = (r: Review, status: Review['status']) => save(list.map((x) => (x.id === r.id ? { ...x, status } : x)), status === 'approved' ? 'الرأي ظاهر الآن في الموقع' : 'تم إخفاء الرأي');
   const blank: Review = { id: '', name: { ar: '', en: '' }, occasion: { ar: '', en: '' }, quote: { ar: '', en: '' }, rating: 5, status: 'approved', createdAt: '' };
 
   return (
     <>
       {confirm.node}
-      <PageHeader title="آراء العملاء" sub="الآراء الموافق عليها بس هي اللي بتظهر في الكروت على الموقع. العملاء يقدروا يكتبوا رأيهم بعد ما الطلب يتسلّم.">
+      <PageHeader title="آراء العملاء" sub="تظهر في الموقع الآراء المعتمدة فقط. يستطيع العميل كتابة رأيه بعد استلام طلبه.">
         <button className="ab primary" onClick={() => setEdit(blank)}>
-          <Plus size={18} weight="bold" /> أضف رأي
+          <Plus size={18} weight="bold" /> رأي جديد
         </button>
       </PageHeader>
       <div className="a-tabs" style={{ marginBottom: 14 }}>
         {(
           [
-            ['pending', 'مستني موافقة'],
+            ['pending', 'بانتظار المراجعة'],
             ['approved', 'ظاهر'],
             ['hidden', 'مخفي'],
             ['all', 'الكل'],
@@ -248,18 +249,18 @@ export function ReviewsEditor({ reviews }: { reviews: Review[] }) {
               <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                 {r.status !== 'approved' && (
                   <button className="ab primary sm" onClick={() => setStatus(r, 'approved')}>
-                    <Check size={15} /> اعرضه
+                    <Check size={15} /> إظهار
                   </button>
                 )}
                 {r.status !== 'hidden' && (
                   <button className="ab ghost sm" onClick={() => setStatus(r, 'hidden')}>
-                    <EyeSlash size={15} /> اخفيه
+                    <EyeSlash size={15} /> إخفاء
                   </button>
                 )}
                 <button className="ab soft sm" onClick={() => setEdit(r)}>
                   <PencilSimple size={15} /> تعديل
                 </button>
-                <button className="ab danger sm icon" aria-label="حذف" onClick={async () => (await confirm.ask('حذف الرأي؟', 'مش هتقدر ترجّعه.')) && save(list.filter((x) => x.id !== r.id), 'اتحذف')}>
+                <button className="ab danger sm icon" aria-label="حذف" onClick={async () => (await confirm.ask('حذف الرأي؟', 'لا يمكن التراجع عن الحذف.')) && save(list.filter((x) => x.id !== r.id), 'تم حذف الرأي')}>
                   <Trash size={15} />
                 </button>
               </div>
@@ -268,7 +269,7 @@ export function ReviewsEditor({ reviews }: { reviews: Review[] }) {
         </div>
       ) : (
         <div className="a-card">
-          <Empty icon={<ChatCircleText size={30} />} title="مفيش آراء هنا" />
+          <Empty icon={<ChatCircleText size={30} />} title="لا توجد آراء هنا" />
         </div>
       )}
       {edit && (
@@ -276,7 +277,7 @@ export function ReviewsEditor({ reviews }: { reviews: Review[] }) {
           review={edit}
           onClose={() => setEdit(null)}
           onSave={(r) => {
-            save(r.id ? list.map((x) => (x.id === r.id ? r : x)) : [...list, { ...r, id: 'r-' + Date.now().toString(36), createdAt: new Date().toISOString() }], 'اتحفظ الرأي');
+            save(r.id ? list.map((x) => (x.id === r.id ? r : x)) : [...list, { ...r, id: 'r-' + Date.now().toString(36), createdAt: new Date().toISOString() }], 'تم حفظ الرأي');
             setEdit(null);
           }}
         />
@@ -329,7 +330,7 @@ export function CouponsEditor({ coupons }: { coupons: Coupon[] }) {
   return (
     <>
       {confirm.node}
-      <PageHeader title="أكواد الخصم" sub="اعمل كود لحملة على إنستجرام أو لعميلة مميزة — العميل بيكتبه في صفحة الطلب.">
+      <PageHeader title="أكواد الخصم" sub="أنشئ كود خصم لحملة على إنستجرام أو لعميلة مميزة، ويكتبه العميل في صفحة إتمام الطلب.">
         <button className="ab primary" onClick={() => setEdit(blank)}>
           <Plus size={18} weight="bold" /> كود جديد
         </button>
@@ -341,10 +342,10 @@ export function CouponsEditor({ coupons }: { coupons: Coupon[] }) {
               <tr>
                 <th>الكود</th>
                 <th>الخصم</th>
-                <th className="hide-sm">أقل طلب</th>
-                <th className="hide-sm">الاستخدام</th>
-                <th className="hide-sm">ينتهي</th>
-                <th>شغال</th>
+                <th className="hide-sm">الحد الأدنى للطلب</th>
+                <th className="hide-sm">مرات الاستخدام</th>
+                <th className="hide-sm">تاريخ الانتهاء</th>
+                <th>مفعّل</th>
                 <th />
               </tr>
             </thead>
@@ -364,15 +365,15 @@ export function CouponsEditor({ coupons }: { coupons: Coupon[] }) {
                       {c.uses}
                       {c.maxUses ? ` / ${c.maxUses}` : ''}
                     </td>
-                    <td className="hide-sm">{c.expiresAt ? <span style={{ color: expired ? 'var(--bad)' : undefined }}>{new Date(c.expiresAt + 'T12:00').toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' })}</span> : 'مفتوح'}</td>
+                    <td className="hide-sm">{c.expiresAt ? <span style={{ color: expired ? 'var(--bad)' : undefined }}>{new Date(c.expiresAt + 'T12:00').toLocaleDateString('ar-EG', { day: 'numeric', month: 'short', year: 'numeric' })}</span> : 'بدون تاريخ'}</td>
                     <td>
-                      <Toggle on={c.active} onChange={(v) => save(list.map((x) => (x.id === c.id ? { ...x, active: v } : x)), v ? 'الكود شغال' : 'الكود اتقفل')} label="شغال" />
+                      <Toggle on={c.active} onChange={(v) => save(list.map((x) => (x.id === c.id ? { ...x, active: v } : x)), v ? 'تم تفعيل الكود' : 'تم إيقاف الكود')} label="مفعّل" />
                     </td>
                     <td style={{ whiteSpace: 'nowrap' }}>
                       <button className="ab soft sm icon" onClick={() => setEdit(c)} aria-label="تعديل">
                         <PencilSimple size={15} />
                       </button>{' '}
-                      <button className="ab danger sm icon" aria-label="حذف" onClick={async () => (await confirm.ask(`حذف ${c.code}؟`, 'الكود هيبطل يشتغل فورًا.')) && save(list.filter((x) => x.id !== c.id), 'اتحذف الكود')}>
+                      <button className="ab danger sm icon" aria-label="حذف" onClick={async () => (await confirm.ask(`حذف ${c.code}؟`, 'سيتوقف الكود عن العمل فورًا.')) && save(list.filter((x) => x.id !== c.id), 'تم حذف الكود')}>
                         <Trash size={15} />
                       </button>
                     </td>
@@ -382,7 +383,7 @@ export function CouponsEditor({ coupons }: { coupons: Coupon[] }) {
             </tbody>
           </table>
         ) : (
-          <Empty icon={<Ticket size={30} />} title="مفيش أكواد لسه" />
+          <Empty icon={<Ticket size={30} />} title="لا توجد أكواد خصم بعد" />
         )}
       </div>
       {edit && (
@@ -391,7 +392,7 @@ export function CouponsEditor({ coupons }: { coupons: Coupon[] }) {
           taken={list.filter((x) => x.id !== edit.id).map((x) => x.code)}
           onClose={() => setEdit(null)}
           onSave={(c) => {
-            save(c.id ? list.map((x) => (x.id === c.id ? c : x)) : [...list, { ...c, id: 'cp-' + Date.now().toString(36), createdAt: new Date().toISOString() }], 'اتحفظ الكود');
+            save(c.id ? list.map((x) => (x.id === c.id ? c : x)) : [...list, { ...c, id: 'cp-' + Date.now().toString(36), createdAt: new Date().toISOString() }], 'تم حفظ الكود');
             setEdit(null);
           }}
         />
@@ -408,7 +409,7 @@ function CouponModal({ coupon, taken, onClose, onSave }: { coupon: Coupon; taken
     <Modal
       open
       onClose={onClose}
-      title={coupon.id ? 'تعديل كود' : 'كود خصم جديد'}
+      title={coupon.id ? 'تعديل الكود' : 'كود خصم جديد'}
       footer={
         <>
           <button className="ab ghost" onClick={onClose}>
@@ -420,13 +421,13 @@ function CouponModal({ coupon, taken, onClose, onSave }: { coupon: Coupon; taken
         </>
       }
     >
-      <Field label="الكود" hint={dup ? <span style={{ color: 'var(--bad)' }}>الكود ده موجود</span> : 'حروف إنجليزي وأرقام بس'}>
+      <Field label="الكود" hint={dup ? <span style={{ color: 'var(--bad)' }}>هذا الكود مستخدم بالفعل</span> : 'حروف إنجليزية وأرقام فقط'}>
         <input className="ai ltr" style={{ textTransform: 'uppercase', letterSpacing: '.06em', fontWeight: 700 }} value={c.code} onChange={(e) => setC({ ...c, code: e.target.value })} placeholder="EID20" />
       </Field>
       <div className="ai-row">
         <Field label="نوع الخصم">
           <select className="ai" value={c.type} onChange={(e) => setC({ ...c, type: e.target.value as Coupon['type'] })}>
-            <option value="percent">نسبة %</option>
+            <option value="percent">نسبة مئوية %</option>
             <option value="fixed">مبلغ ثابت</option>
           </select>
         </Field>
@@ -435,14 +436,14 @@ function CouponModal({ coupon, taken, onClose, onSave }: { coupon: Coupon; taken
         </Field>
       </div>
       <div className="ai-row">
-        <Field label="أقل قيمة للطلب">
+        <Field label="الحد الأدنى لقيمة الطلب">
           <NumInput value={c.minSubtotal} onChange={(n) => setC({ ...c, minSubtotal: n })} suffix="ج.م" />
         </Field>
-        <Field label="أقصى عدد مرات (اختياري)">
+        <Field label="الحد الأقصى لمرات الاستخدام (اختياري)">
           <NumInput value={c.maxUses ?? 0} onChange={(n) => setC({ ...c, maxUses: n || null })} />
         </Field>
       </div>
-      <Field label="ينتهي يوم (اختياري)">
+      <Field label="تاريخ الانتهاء (اختياري)">
         <input type="date" className="ai" value={c.expiresAt ?? ''} onChange={(e) => setC({ ...c, expiresAt: e.target.value || null })} />
       </Field>
     </Modal>
@@ -482,28 +483,28 @@ export function Customers({ rows: initial }: { rows: CustomerRow[] }) {
   const accounts = rows.filter((r) => r.account).length;
 
   const reset = async (r: CustomerRow) => {
-    if (!r.account || !(await confirm.ask('كلمة سر مؤقتة؟', `هنعمل كلمة سر جديدة لـ ${r.name} والقديمة هتبطل. ابعتها للعميل وخليه يغيّرها من حسابه.`, 'اعمل كلمة سر'))) return;
+    if (!r.account || !(await confirm.ask('إنشاء كلمة مرور مؤقتة؟', `سننشئ كلمة مرور جديدة لـ ${r.name}، وستتوقف القديمة عن العمل. أرسلها للعميل واطلب منه تغييرها من حسابه.`, 'إنشاء كلمة المرور'))) return;
     const j = await api<{ password: string }>(`/api/admin/users/${r.account.id}`, 'PATCH');
     setTemp({ name: r.name, phone: r.phone, email: r.account.email, password: j.password });
   };
   const remove = async (r: CustomerRow) => {
-    if (!r.account || !(await confirm.ask('حذف الحساب؟', `حساب ${r.account.email} هيتحذف. طلباته هتفضل محفوظة عندك.`))) return;
+    if (!r.account || !(await confirm.ask('حذف الحساب؟', `سيُحذف حساب ${r.account.email}، وستبقى طلباته محفوظة لديك.`))) return;
     await api(`/api/admin/users/${r.account.id}`, 'DELETE');
     setRows((l) => l.flatMap((x) => (x.key !== r.key ? [x] : x.orders ? [{ ...x, account: undefined }] : [])));
-    toast('اتحذف الحساب');
+    toast('تم حذف الحساب');
     router.refresh();
   };
 
   const tabs: [typeof tab, string, number][] = [
     ['all', 'الكل', rows.length],
-    ['accounts', 'عندهم حساب', accounts],
-    ['guests', 'طلبوا من غير حساب', rows.length - accounts],
+    ['accounts', 'لديهم حساب', accounts],
+    ['guests', 'طلبوا بدون حساب', rows.length - accounts],
   ];
 
   return (
     <>
       {confirm.node}
-      <PageHeader title="العملاء" sub={`${rows.length} عميل · ${accounts} عاملين حساب · ${repeat} رجعوا يطلبوا تاني (${rows.length ? Math.round((repeat / rows.length) * 100) : 0}%)`} />
+      <PageHeader title="العملاء" sub={`${arCount(rows.length, 'customer')} · ${accounts} لديهم حساب · ${repeat} طلبوا أكثر من مرة (${rows.length ? Math.round((repeat / rows.length) * 100) : 0}%)`} />
       <div className="a-tabs" style={{ marginBottom: 14 }}>
         {tabs.map(([k, l, c]) => (
           <button key={k} className={tab === k ? 'on' : ''} onClick={() => setTab(k)}>
@@ -513,11 +514,11 @@ export function Customers({ rows: initial }: { rows: CustomerRow[] }) {
       </div>
       <div className="a-card">
         <div style={{ display: 'flex', gap: 10, padding: 14, borderBottom: '1px solid var(--line)', flexWrap: 'wrap' }}>
-          <input className="ai" style={{ flex: '1 1 220px', height: 40 }} value={q} onChange={(e) => setQ(e.target.value)} placeholder="ابحث بالاسم أو الموبايل أو الإيميل" />
+          <input className="ai" style={{ flex: '1 1 220px', height: 40 }} value={q} onChange={(e) => setQ(e.target.value)} placeholder="ابحث بالاسم أو الموبايل أو البريد الإلكتروني" />
           <select className="ai" style={{ width: 180, height: 40 }} value={sort} onChange={(e) => setSort(e.target.value as typeof sort)}>
             <option value="last">آخر نشاط</option>
             <option value="spent">الأكثر إنفاقًا</option>
-            <option value="orders">الأكثر طلبات</option>
+            <option value="orders">الأكثر طلبًا</option>
           </select>
         </div>
         <div className="tbl-wrap">
@@ -546,7 +547,7 @@ export function Customers({ rows: initial }: { rows: CustomerRow[] }) {
                           <b style={{ fontWeight: 600 }}>{r.name}</b>
                           {r.orders > 2 && (
                             <span className="pill plain st-preparing" style={{ marginInlineStart: 8, height: 20 }}>
-                              عميل دايم
+                              عميل دائم
                             </span>
                           )}
                           <div className="faint small ltr num" style={{ textAlign: 'right' }}>
@@ -559,7 +560,7 @@ export function Customers({ rows: initial }: { rows: CustomerRow[] }) {
                       {r.account ? (
                         <div>
                           <span className="pill plain" style={{ background: r.account.google ? '#EEF3FD' : 'var(--blush-tile)', color: r.account.google ? '#3F5F86' : 'var(--copper-text)' }}>
-                            <UserCircle size={14} /> {r.account.google ? 'Google' : 'إيميل'}
+                            <UserCircle size={14} /> {r.account.google ? 'Google' : 'بريد إلكتروني'}
                           </span>
                           <div className="faint small ltr" style={{ textAlign: 'right', marginTop: 2 }}>
                             {r.account.email}
@@ -578,7 +579,7 @@ export function Customers({ rows: initial }: { rows: CustomerRow[] }) {
                     <td style={{ whiteSpace: 'nowrap' }} onClick={(e) => e.stopPropagation()}>
                       {r.account && (
                         <>
-                          <button className="ab soft sm icon" title="كلمة سر مؤقتة (لو العميل نسي كلمة السر)" aria-label="كلمة سر مؤقتة" onClick={() => reset(r)}>
+                          <button className="ab soft sm icon" title="كلمة مرور مؤقتة (إذا نسي العميل كلمة المرور)" aria-label="كلمة مرور مؤقتة" onClick={() => reset(r)}>
                             <Key size={15} />
                           </button>{' '}
                           <button className="ab danger sm icon" title="حذف الحساب" aria-label="حذف الحساب" onClick={() => remove(r)}>
@@ -592,29 +593,29 @@ export function Customers({ rows: initial }: { rows: CustomerRow[] }) {
               </tbody>
             </table>
           ) : (
-            <Empty icon={<UserCircle size={30} />} title="مفيش عملاء هنا" />
+            <Empty icon={<UserCircle size={30} />} title="لا يوجد عملاء هنا" />
           )}
         </div>
       </div>
       {temp && (
         <Modal
           open
-          title="كلمة السر المؤقتة"
+          title="كلمة المرور المؤقتة"
           onClose={() => setTemp(null)}
           footer={
             <button className="ab primary" onClick={() => setTemp(null)}>
-              تمام
+              تم
             </button>
           }
         >
           <p className="muted" style={{ margin: 0 }}>
-            ابعتها لـ {temp.name}. هيدخل بيها بالإيميل <b className="ltr">{temp.email}</b> ويغيّرها من «بياناتي».
+            أرسلها إلى {temp.name}. سيسجّل الدخول بها مع البريد الإلكتروني <b className="ltr">{temp.email}</b>، ثم يغيّرها من صفحة «بياناتي».
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '14px 16px', borderRadius: 14, background: 'var(--blush-panel)' }}>
             <b className="ltr num" style={{ fontSize: 20, letterSpacing: '.08em', flex: 1 }}>
               {temp.password}
             </b>
-            <button className="ab ghost sm" onClick={() => navigator.clipboard.writeText(temp.password).then(() => toast('اتنسخت'))}>
+            <button className="ab ghost sm" onClick={() => navigator.clipboard.writeText(temp.password).then(() => toast('تم النسخ'))}>
               <Copy size={15} /> نسخ
             </button>
           </div>
@@ -623,9 +624,9 @@ export function Customers({ rows: initial }: { rows: CustomerRow[] }) {
               className="ab wa"
               target="_blank"
               rel="noopener"
-              href={`https://wa.me/${temp.phone.replace(/^0/, '20')}?text=${encodeURIComponent(`أهلاً ${temp.name.split(' ')[0]}! دي كلمة سر مؤقتة لحسابك على موقع Petalya: ${temp.password}\nادخل بيها وغيّرها من صفحة «بياناتي».`)}`}
+              href={`https://wa.me/${temp.phone.replace(/^0/, '20')}?text=${encodeURIComponent(`أهلًا ${temp.name.split(' ')[0]}! هذه كلمة مرور مؤقتة لحسابك على موقع Petalya: ${temp.password}\nسجّل الدخول بها، ثم غيّرها من صفحة «بياناتي».`)}`}
             >
-              ابعتها على واتساب
+              أرسلها على واتساب
             </a>
           )}
         </Modal>

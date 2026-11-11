@@ -80,12 +80,12 @@ export function Flowers({ photos, onBouquet }: { photos: string[]; onBouquet: ()
       <div className="wrap w1240 cols">
         <div className="col">
           <div data-reveal="1" className="eyebrow dark start">
-            <span>{pick('هوسنا الحالي', 'Current obsession')}</span>
+            <span>{pick('شغفنا الحالي', 'Current obsession')}</span>
           </div>
           <h2 data-reveal="1" className="h2 dark">
             {ar ? (
               <>
-                مخبز من <span className="accent">الورد</span>
+                ورود <span className="accent">من الكريمة</span>
               </>
             ) : (
               <>
@@ -94,7 +94,7 @@ export function Flowers({ photos, onBouquet }: { photos: string[]; onBouquet: ()
             )}
           </h2>
           <p data-reveal="1" className="lead-dark">
-            {pick('ورد من الكريمة بيتعمل بتلة بتلة بإيدينا… بوكيهات كب كيك تتهادى، وتتاكل كمان.', 'Buttercream blooms, piped petal by petal by hand — cupcake bouquets made to be gifted, and eaten.')}
+            {pick('نشكّل كل وردة من الكريمة بتلةً بتلة بأيدينا… بوكيهات كب كيك تُهدى، وتُؤكل أيضًا.', 'Buttercream blooms, piped petal by petal by hand — cupcake bouquets made to be gifted, and eaten.')}
           </p>
           <div data-reveal="1" className="fchips">
             {chips.map((c) => (
@@ -116,7 +116,7 @@ export function Flowers({ photos, onBouquet }: { photos: string[]; onBouquet: ()
             </button>
             <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13.5, color: '#D9C2B4' }}>
               <HandSwipeRight size={20} color="#F2C6BD" />
-              {pick('اسحب الوردة عشان تلف', 'Drag the flower to spin it')}
+              {pick('اسحب الوردة لتدور', 'Drag the flower to spin it')}
             </span>
           </div>
         </div>

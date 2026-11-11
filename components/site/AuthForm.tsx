@@ -22,12 +22,12 @@ export function GoogleButton({ next, label }: { next: string; label: string }) {
 }
 
 const ERRORS: Record<string, [string, string]> = {
-  google_off: ['الدخول بجوجل لسه مش متفعّل على الموقع.', 'Google sign-in isn’t switched on yet.'],
-  google_cancelled: ['اتلغى الدخول بجوجل.', 'Google sign-in was cancelled.'],
-  google_state: ['الجلسة خلصت — جرّب تاني.', 'The sign-in session expired — please try again.'],
-  google_token: ['جوجل مرجّعش بيانات الدخول — جرّب تاني.', 'Google didn’t return a sign-in — please try again.'],
-  google_profile: ['مقدرناش نجيب بياناتك من جوجل.', 'We couldn’t read your Google profile.'],
-  google_failed: ['حصلت مشكلة في الدخول بجوجل — جرّب تاني.', 'Google sign-in failed — please try again.'],
+  google_off: ['تسجيل الدخول باستخدام Google غير مفعّل بعد.', 'Google sign-in isn’t switched on yet.'],
+  google_cancelled: ['تم إلغاء تسجيل الدخول باستخدام Google.', 'Google sign-in was cancelled.'],
+  google_state: ['انتهت مهلة تسجيل الدخول. حاول مرة أخرى.', 'The sign-in session expired — please try again.'],
+  google_token: ['لم يُرسل Google بيانات الدخول. حاول مرة أخرى.', 'Google didn’t return a sign-in — please try again.'],
+  google_profile: ['تعذّر الحصول على بياناتك من Google.', 'We couldn’t read your Google profile.'],
+  google_failed: ['تعذّر تسجيل الدخول باستخدام Google. حاول مرة أخرى.', 'Google sign-in failed — please try again.'],
 };
 
 export function AuthForm({ mode: initialMode, next, error, googleEnabled }: { mode: 'login' | 'register'; next: string; error?: string; googleEnabled: boolean }) {
@@ -56,7 +56,7 @@ export function AuthForm({ mode: initialMode, next, error, googleEnabled }: { mo
     if (!r.ok) {
       setBusy(false);
       setField(j.error || '');
-      setMsg(j.message ? (ar ? j.message.ar : j.message.en) : pick('حصلت مشكلة، جرّب تاني.', 'Something went wrong, please try again.'));
+      setMsg(j.message ? (ar ? j.message.ar : j.message.en) : pick('حدث خطأ، حاول مرة أخرى.', 'Something went wrong, please try again.'));
       return;
     }
     setUser(j.user);
@@ -81,7 +81,7 @@ export function AuthForm({ mode: initialMode, next, error, googleEnabled }: { mo
             {isLogin ? (
               ar ? (
                 <>
-                  أهلاً <span className="accent">تاني</span>
+                  أهلًا <span className="accent">بعودتك</span>
                 </>
               ) : (
                 <>
@@ -90,7 +90,7 @@ export function AuthForm({ mode: initialMode, next, error, googleEnabled }: { mo
               )
             ) : ar ? (
               <>
-                اعمل <span className="accent">حسابك</span>
+                أنشئ <span className="accent">حسابك</span>
               </>
             ) : (
               <>
@@ -98,7 +98,7 @@ export function AuthForm({ mode: initialMode, next, error, googleEnabled }: { mo
               </>
             )}
           </h1>
-          <p className="intro" style={{ marginTop: 10 }}>{pick('تابع طلباتك، واطلب تاني بضغطة، وبياناتك هتتحفظ للمرة الجاية.', 'Follow your orders, reorder in one tap, and skip typing your details next time.')}</p>
+          <p className="intro" style={{ marginTop: 10 }}>{pick('تابع طلباتك، وأعد الطلب بضغطة واحدة، واحفظ بياناتك للمرة القادمة.', 'Follow your orders, reorder in one tap, and skip typing your details next time.')}</p>
         </div>
 
         <div className="card card-pad" style={{ marginTop: 26, display: 'flex', flexDirection: 'column', gap: 14 }}>
@@ -108,21 +108,21 @@ export function AuthForm({ mode: initialMode, next, error, googleEnabled }: { mo
               {pick('تسجيل الدخول', 'Sign in')}
             </button>
             <button type="button" role="tab" aria-selected={!isLogin} className={!isLogin ? 'on' : ''} onClick={() => setMode('register')}>
-              {pick('حساب جديد', 'Sign up')}
+              {pick('إنشاء حساب', 'Sign up')}
             </button>
           </div>
 
           {googleEnabled ? (
-            <GoogleButton next={next} label={pick('كمّل بحساب جوجل', 'Continue with Google')} />
+            <GoogleButton next={next} label={pick('المتابعة باستخدام Google', 'Continue with Google')} />
           ) : (
             <p className="menu-note" style={{ margin: 0, justifyContent: 'flex-start', textAlign: 'start', fontSize: 12.5 }}>
               <Info size={15} color="#B97E5E" style={{ flex: 'none' }} />
-              {pick('الدخول بجوجل هيظهر هنا أول ما يتفعّل من إعدادات الموقع.', 'Google sign-in will appear here once it is set up.')}
+              {pick('سيظهر هنا خيار تسجيل الدخول باستخدام Google فور تفعيله.', 'Google sign-in will appear here once it is set up.')}
             </p>
           )}
           {googleEnabled && (
             <div className="or-line">
-              <span>{pick('أو بالإيميل', 'or with email')}</span>
+              <span>{pick('أو بالبريد الإلكتروني', 'or with email')}</span>
             </div>
           )}
 
@@ -134,11 +134,11 @@ export function AuthForm({ mode: initialMode, next, error, googleEnabled }: { mo
               </label>
             )}
             <label className="field">
-              <span>{pick('الإيميل', 'Email')}</span>
+              <span>{pick('البريد الإلكتروني', 'Email')}</span>
               <input className={'input ltr' + (field === 'email' || field === 'credentials' ? ' err' : '')} style={{ textAlign: ar ? 'right' : 'left' }} type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" placeholder="name@email.com" required />
             </label>
             <label className="field">
-              <span>{pick('كلمة السر', 'Password')}</span>
+              <span>{pick('كلمة المرور', 'Password')}</span>
               <div style={{ position: 'relative' }}>
                 <input
                   className={'input' + (field === 'password' || field === 'credentials' ? ' err' : '')}
@@ -153,7 +153,7 @@ export function AuthForm({ mode: initialMode, next, error, googleEnabled }: { mo
                   {show ? <EyeSlash size={19} /> : <Eye size={19} />}
                 </button>
               </div>
-              {!isLogin && <span style={{ fontSize: 12.5, fontWeight: 400 }}>{pick('٨ حروف على الأقل', 'At least 8 characters')}</span>}
+              {!isLogin && <span style={{ fontSize: 12.5, fontWeight: 400 }}>{pick('٨ أحرف على الأقل', 'At least 8 characters')}</span>}
             </label>
             {msg && (
               <div role="alert" style={{ padding: '11px 14px', borderRadius: 14, background: '#FBE4E0', color: '#8F3A2F', fontSize: 14 }}>
@@ -162,22 +162,22 @@ export function AuthForm({ mode: initialMode, next, error, googleEnabled }: { mo
             )}
             <button type="submit" className="btn btn-flat btn-md" disabled={busy} data-burst="1" style={{ width: '100%' }}>
               {isLogin ? <SignIn size={19} /> : <UserPlus size={19} />}
-              {busy ? pick('لحظة…', 'One moment…') : isLogin ? pick('ادخل', 'Sign in') : pick('اعمل الحساب', 'Create account')}
+              {busy ? pick('لحظة…', 'One moment…') : isLogin ? pick('تسجيل الدخول', 'Sign in') : pick('إنشاء الحساب', 'Create account')}
             </button>
           </form>
           {isLogin && (
             <p style={{ margin: 0, fontSize: 13, color: 'var(--ink-muted)', textAlign: 'center' }}>
-              {pick('نسيت كلمة السر؟ ', 'Forgot your password? ')}
-              {googleEnabled ? pick('ادخل بجوجل بنفس الإيميل، أو ', 'Use Google with the same email, or ') : ''}
-              <a href={wa(pick('أهلاً Petalya! نسيت كلمة سر حسابي على الموقع.', 'Hi Petalya! I forgot my account password.'))} target="_blank" rel="noopener">
-                {pick('كلّمنا على واتساب', 'message us on WhatsApp')}
+              {pick('نسيت كلمة المرور؟ ', 'Forgot your password? ')}
+              {googleEnabled ? pick('سجّل الدخول باستخدام Google بنفس البريد الإلكتروني، أو ', 'Use Google with the same email, or ') : ''}
+              <a href={wa(pick('أهلًا Petalya! نسيت كلمة المرور الخاصة بحسابي على الموقع.', 'Hi Petalya! I forgot my account password.'))} target="_blank" rel="noopener">
+                {pick('راسلنا على واتساب', 'message us on WhatsApp')}
               </a>
-              {pick(' وهنساعدك.', ' and we’ll help.')}
+              {pick(' وسنساعدك.', ' and we’ll help.')}
             </p>
           )}
         </div>
         <p className="center" style={{ marginTop: 20, fontSize: 14 }}>
-          <Link href={next.startsWith('/checkout') ? '/checkout' : '/'}>{next.startsWith('/checkout') ? pick('كمّل الطلب من غير حساب', 'Continue as a guest') : pick('ارجع للموقع', 'Back to the site')}</Link>
+          <Link href={next.startsWith('/checkout') ? '/checkout' : '/'}>{next.startsWith('/checkout') ? pick('أكمل الطلب بدون حساب', 'Continue as a guest') : pick('العودة إلى الموقع', 'Back to the site')}</Link>
         </p>
       </main>
     </div>

@@ -9,15 +9,15 @@ const err = (field: string, ar: string, en: string, status = 422) => Response.js
 
 export async function POST(req: Request) {
   const ip = 'reg:' + clientIp(req);
-  if (loginBlocked(ip) || rateLimited('register', ip, 10, 60 * 60_000)) return err('rate', 'محاولات كتير — جرّب بعد دقيقة.', 'Too many attempts — try again in a minute.', 429);
+  if (loginBlocked(ip) || rateLimited('register', ip, 10, 60 * 60_000)) return err('rate', 'محاولات كثيرة. حاول مرة أخرى بعد دقيقة.', 'Too many attempts — try again in a minute.', 429);
   const b = (await req.json().catch(() => ({}))) as { name?: string; email?: string; password?: string };
   const name = String(b.name || '').trim().slice(0, 80);
   const email = normEmail(b.email);
   const password = String(b.password || '');
-  if (password.length > MAX_PASSWORD) return err('password', 'كلمة السر طويلة جدًا.', 'That password is too long.');
-  if (name.length < 2) return err('name', 'اكتب اسمك.', 'Please enter your name.');
-  if (!validEmail(email)) return err('email', 'الإيميل مش مظبوط.', 'That email looks wrong.');
-  if (password.length < 8) return err('password', 'كلمة السر لازم ٨ حروف على الأقل.', 'Password must be at least 8 characters.');
+  if (password.length > MAX_PASSWORD) return err('password', 'كلمة المرور طويلة جدًا.', 'That password is too long.');
+  if (name.length < 2) return err('name', 'من فضلك اكتب اسمك.', 'Please enter your name.');
+  if (!validEmail(email)) return err('email', 'البريد الإلكتروني غير صحيح.', 'That email looks wrong.');
+  if (password.length < 8) return err('password', 'يجب ألا تقل كلمة المرور عن ٨ أحرف.', 'Password must be at least 8 characters.');
 
   const res = await mutate((db) => {
     if (db.users.some((u) => u.email === email)) return null;
@@ -28,7 +28,7 @@ export async function POST(req: Request) {
   });
   if (!res) {
     loginFailed(ip);
-    return err('email', 'الإيميل ده عنده حساب بالفعل — سجّل دخول.', 'This email already has an account — sign in instead.', 409);
+    return err('email', 'يوجد حساب بهذا البريد الإلكتروني. سجّل الدخول بدلًا من ذلك.', 'This email already has an account — sign in instead.', 409);
   }
   await createUserSession(res.id);
   return Response.json({ user: publicUser(res) });

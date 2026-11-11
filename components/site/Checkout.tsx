@@ -9,6 +9,7 @@ import { AccountButton, BackIcon, FwdIcon, LangToggle } from './Chrome';
 import { isoDay } from '@/lib/pricing';
 import { uploadReference } from '@/lib/client-image';
 import type { PaymentMethod } from '@/lib/types';
+import { arCount } from '@/lib/ar';
 
 type Coupon = { code: string; discount: number; type: string; value: number; minSubtotal: number };
 
@@ -119,7 +120,7 @@ export function Checkout() {
     if (r.ok) {
       setCoupon(r);
       setCouponIn('');
-    } else setCouponMsg(r.reason === 'min' ? (showPrices ? pick(`الكود ده للطلبات من ${fmt(r.min)}`, `This code needs a subtotal of ${fmt(r.min)}`) : pick('الكود ده مش متاح للطلب ده', 'This code does not apply to this order')) : pick('الكود ده مش شغال', 'That code isn’t valid'));
+    } else setCouponMsg(r.reason === 'min' ? (showPrices ? pick(`هذا الكود للطلبات بقيمة ${fmt(r.min)} أو أكثر`, `This code needs a subtotal of ${fmt(r.min)}`) : pick('هذا الكود لا ينطبق على هذا الطلب', 'This code does not apply to this order')) : pick('هذا الكود غير صالح', 'That code isn’t valid'));
   };
 
   const addRefs = async (files: FileList | null) => {
@@ -127,14 +128,14 @@ export function Checkout() {
     setRefMsg('');
     const room = 4 - refs.length;
     const picked = Array.from(files).filter((f) => f.type.startsWith('image/')).slice(0, room);
-    if (files.length > picked.length) setRefMsg(pick('أقصى حاجة ٤ صور.', 'Up to 4 photos.'));
+    if (files.length > picked.length) setRefMsg(pick('يمكنك رفع ٤ صور كحد أقصى.', 'Up to 4 photos.'));
     setUploading((n) => n + picked.length);
     for (const f of picked) {
       try {
         const url = await uploadReference(f);
         setRefs((r) => (r.length < 4 ? [...r, url] : r));
       } catch {
-        setRefMsg(pick('الصورة دي ماترفعتش — جرّب صورة تانية أو بعد شوية.', 'That photo could not be uploaded — try another or wait a moment.'));
+        setRefMsg(pick('تعذّر رفع هذه الصورة. جرّب صورة أخرى أو حاول بعد قليل.', 'That photo could not be uploaded — try another or wait a moment.'));
       }
       setUploading((n) => n - 1);
     }
@@ -143,16 +144,16 @@ export function Checkout() {
 
   const validate = () => {
     const e: Record<string, string> = {};
-    if (name.trim().length < 2) e.name = pick('اكتب اسمك', 'Enter your name');
+    if (name.trim().length < 2) e.name = pick('من فضلك اكتب اسمك', 'Enter your name');
     const p = phone.replace(/[\s-]/g, '').replace(/[٠-٩]/g, (c) => String(c.charCodeAt(0) - 0x660)).replace(/^\+?20/, '0');
-    if (!/^01[0125]\d{8}$/.test(p)) e.phone = pick('رقم موبايل مصري ١١ رقم يبدأ بـ 01', '11-digit Egyptian mobile starting with 01');
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = pick('الإيميل مش مظبوط', 'That email looks wrong');
+    if (!/^01[0125]\d{8}$/.test(p)) e.phone = pick('أدخل رقم موبايل مصريًا من ١١ رقمًا يبدأ بـ 01', '11-digit Egyptian mobile starting with 01');
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) e.email = pick('البريد الإلكتروني غير صحيح', 'That email looks wrong');
     if (type === 'delivery') {
-      if (!zone) e.zone = pick('اختار منطقتك', 'Choose your area');
+      if (!zone) e.zone = pick('اختر منطقتك', 'Choose your area');
       if (address.trim().length < 6) e.address = pick('اكتب العنوان بالتفصيل', 'Write the full address');
     }
-    if (!date) e.date = pick('اختار اليوم', 'Pick a day');
-    else if (date < minDate) e.date = pick(`أقرب ميعاد ${minDate}`, `Earliest date is ${minDate}`);
+    if (!date) e.date = pick('اختر اليوم', 'Pick a day');
+    else if (date < minDate) e.date = pick(`أقرب موعد متاح: ${minDate}`, `Earliest date is ${minDate}`);
     return e;
   };
 
@@ -185,7 +186,7 @@ export function Checkout() {
       const r = await fetch('/api/orders', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
       const j = await r.json();
       if (!r.ok) {
-        const msg = j.message ? t(j.message) : pick('حصلت مشكلة، جرّب تاني.', 'Something went wrong, please try again.');
+        const msg = j.message ? t(j.message) : pick('حدث خطأ، حاول مرة أخرى.', 'Something went wrong, please try again.');
         if (j.error && ['name', 'phone', 'email', 'zone', 'address', 'date'].includes(j.error)) setErrors({ [j.error]: msg });
         setServerErr(msg);
         setBusy(false);
@@ -194,7 +195,7 @@ export function Checkout() {
       clear();
       router.push(`/order/${j.id}?new=1`);
     } catch {
-      setServerErr(pick('مفيش اتصال بالإنترنت، جرّب تاني.', 'No connection — please try again.'));
+      setServerErr(pick('لا يوجد اتصال بالإنترنت. حاول مرة أخرى.', 'No connection — please try again.'));
       setBusy(false);
     }
   };
@@ -207,8 +208,8 @@ export function Checkout() {
           <div style={{ width: 120, height: 120, margin: '0 auto', borderRadius: '50%', background: 'var(--blush-tile)', display: 'grid', placeItems: 'center', color: 'var(--copper-icon)' }}>
             <ShoppingBagOpen size={52} weight="light" />
           </div>
-          <h1 className="h2" style={{ fontSize: 'clamp(30px,7vw,44px)' }}>{pick('طلبك لسه فاضي', 'Your bag is empty')}</h1>
-          <p className="intro">{pick('اختار من المنيو أو صمّم تورتتك بنفسك — وهتلاقيها هنا.', 'Pick something from the menu or design your own cake — it will show up here.')}</p>
+          <h1 className="h2" style={{ fontSize: 'clamp(30px,7vw,44px)' }}>{pick('طلبك فارغ حاليًا', 'Your bag is empty')}</h1>
+          <p className="intro">{pick('اختر من المنيو أو صمّم تورتتك بنفسك، وستجدها هنا.', 'Pick something from the menu or design your own cake — it will show up here.')}</p>
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginTop: 28 }}>
             <Link href="/#menu" className="btn btn-primary">
               {pick('تصفّح المنيو', 'Browse the menu')}
@@ -258,7 +259,7 @@ export function Checkout() {
           <div style={{ flex: '1 1 480px', minWidth: 0, display: 'flex', flexDirection: 'column', gap: 18 }}>
             {!user && (
               <div className="card" style={{ padding: '14px 18px', display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap', background: 'var(--blush-panel)' }}>
-                <span style={{ flex: 1, minWidth: 200, fontSize: 14 }}>{pick('عندك حساب؟ ادخل عشان نملا بياناتك وتتابع طلباتك من مكان واحد.', 'Have an account? Sign in to fill in your details and keep all your orders in one place.')}</span>
+                <span style={{ flex: 1, minWidth: 200, fontSize: 14 }}>{pick('لديك حساب؟ سجّل الدخول لنملأ بياناتك تلقائيًا وتتابع كل طلباتك من مكان واحد.', 'Have an account? Sign in to fill in your details and keep all your orders in one place.')}</span>
                 <Link href="/account/login?next=/checkout" className="btn btn-ghost btn-sm">
                   {pick('تسجيل الدخول', 'Sign in')}
                 </Link>
@@ -284,7 +285,7 @@ export function Checkout() {
               </div>
               <label className="field" data-field="email" style={{ marginTop: 12 }}>
                 <span>
-                  {pick('الإيميل', 'Email')} <span style={{ fontWeight: 400, color: 'var(--ink-faint)' }}>{pick('(اختياري)', '(optional)')}</span>
+                  {pick('البريد الإلكتروني', 'Email')} <span style={{ fontWeight: 400, color: 'var(--ink-faint)' }}>{pick('(اختياري)', '(optional)')}</span>
                 </span>
                 <input className={'input ltr' + (errors.email ? ' err' : '')} style={{ textAlign: ar ? 'right' : 'left' }} value={email} onChange={(e) => setEmail(e.target.value)} type="email" autoComplete="email" placeholder="name@email.com" />
                 {err('email')}
@@ -295,7 +296,7 @@ export function Checkout() {
             <section className="card card-pad">
               <h2 className="card-title">
                 <span className="step">2</span>
-                {pick('التوصيل والميعاد', 'Delivery & date')}
+                {pick('التوصيل والموعد', 'Delivery & date')}
               </h2>
               {nTypes > 1 && (
                 <div className="seg" style={{ marginBottom: 16 }} role="radiogroup">
@@ -331,7 +332,7 @@ export function Checkout() {
                   </div>
                   <label className="field" data-field="address" style={{ marginTop: 14 }}>
                     <span>{pick('العنوان بالتفصيل', 'Full address')}</span>
-                    <textarea className={'input' + (errors.address ? ' err' : '')} rows={2} value={address} onChange={(e) => setAddress(e.target.value)} autoComplete="street-address" placeholder={pick('الشارع، رقم العمارة، الدور، الشقة، علامة مميزة', 'Street, building, floor, flat, landmark')} />
+                    <textarea className={'input' + (errors.address ? ' err' : '')} rows={2} value={address} onChange={(e) => setAddress(e.target.value)} autoComplete="street-address" placeholder={pick('الشارع، رقم العمارة، الدور، الشقة، وعلامة مميزة', 'Street, building, floor, flat, landmark')} />
                     {err('address')}
                   </label>
                 </>
@@ -342,7 +343,7 @@ export function Checkout() {
                   </span>
                   <div>
                     <b style={{ fontWeight: 600 }}>{t(s.pickupAddress)}</b>
-                    <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--ink-muted)' }}>{pick('هنبعتلك اللوكيشن والميعاد على واتساب بعد ما نأكد الطلب.', 'We’ll send you the location and time on WhatsApp once we confirm.')}</p>
+                    <p style={{ margin: '4px 0 0', fontSize: 14, color: 'var(--ink-muted)' }}>{pick('سنرسل لك موقع الاستلام والموعد على واتساب بعد تأكيد الطلب.', 'We’ll send you the location and time on WhatsApp once we confirm.')}</p>
                   </div>
                 </div>
               )}
@@ -353,7 +354,7 @@ export function Checkout() {
                   {err('date') || (
                     <span style={{ fontSize: 12.5, color: 'var(--ink-muted)', display: 'flex', gap: 6, alignItems: 'center' }}>
                       <CalendarBlank size={14} />
-                      {lead > 1 ? pick(`طلبك محتاج ${lead} أيام تحضير`, `Your order needs ${lead} days to prepare`) : pick('أقرب ميعاد بكرة', 'Earliest: tomorrow')}
+                      {lead > 1 ? pick(`يحتاج طلبك إلى ${arCount(lead, 'day')} للتحضير`, `Your order needs ${lead} days to prepare`) : pick('أقرب موعد: غدًا', 'Earliest: tomorrow')}
                     </span>
                   )}
                 </label>
@@ -384,10 +385,10 @@ export function Checkout() {
                   const Ic = PayIc[m];
                   const sub =
                     m === 'cod'
-                      ? pick(type === 'pickup' ? 'ادفع كاش وانت بتستلم' : 'ادفع كاش للمندوب', type === 'pickup' ? 'Pay cash when you collect' : 'Pay the courier in cash')
+                      ? pick(type === 'pickup' ? 'ادفع نقدًا عند الاستلام' : 'ادفع نقدًا للمندوب', type === 'pickup' ? 'Pay cash when you collect' : 'Pay the courier in cash')
                       : m === 'instapay'
-                        ? pick('حوّل على إنستاباي بعد ما نأكد الطلب', 'Transfer via InstaPay after we confirm')
-                        : pick('فودافون كاش / أي محفظة بعد التأكيد', 'Vodafone Cash or any wallet after we confirm');
+                        ? pick('حوّل عبر إنستاباي بعد تأكيد الطلب', 'Transfer via InstaPay after we confirm')
+                        : pick('فودافون كاش أو أي محفظة أخرى بعد التأكيد', 'Vodafone Cash or any wallet after we confirm');
                   return (
                     <button type="button" key={m} role="radio" aria-checked={payment === m} className={'radio-card' + (payment === m ? ' on' : '')} onClick={() => setPayment(m)}>
                       <span className="dot" />
@@ -395,7 +396,7 @@ export function Checkout() {
                         <Ic size={22} />
                       </span>
                       <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.4 }}>
-                        <b style={{ fontWeight: 600 }}>{m === 'cod' ? pick('كاش عند الاستلام', 'Cash on delivery') : m === 'instapay' ? pick('إنستاباي', 'InstaPay') : pick('محفظة إلكترونية', 'Mobile wallet')}</b>
+                        <b style={{ fontWeight: 600 }}>{m === 'cod' ? pick('الدفع عند الاستلام', 'Cash on delivery') : m === 'instapay' ? pick('إنستاباي', 'InstaPay') : pick('محفظة إلكترونية', 'Mobile wallet')}</b>
                         <span style={{ fontSize: 13, color: 'var(--ink-muted)' }}>{sub}</span>
                       </span>
                     </button>
@@ -406,18 +407,18 @@ export function Checkout() {
                 <span>
                   {pick('ملاحظات', 'Notes')} <span style={{ fontWeight: 400, color: 'var(--ink-faint)' }}>{pick('(اختياري)', '(optional)')}</span>
                 </span>
-                <textarea className="input" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={pick('أي تفاصيل تحب نعرفها: ألوان الحفلة، حساسية من حاجة، صورة هتبعتها…', 'Anything we should know: party colours, allergies, a photo you’ll send…')} />
+                <textarea className="input" rows={3} value={notes} onChange={(e) => setNotes(e.target.value)} placeholder={pick('أي تفاصيل تهمّك: ألوان الحفلة، حساسية من مكوّن معيّن، صورة سترسلها…', 'Anything we should know: party colours, allergies, a photo you’ll send…')} />
               </label>
               <div className="field" style={{ marginTop: 16 }}>
                 <span>
-                  {pick('صور من خيالك', 'Inspiration photos')} <span style={{ fontWeight: 400, color: 'var(--ink-faint)' }}>{pick('(اختياري)', '(optional)')}</span>
+                  {pick('صور للإلهام', 'Inspiration photos')} <span style={{ fontWeight: 400, color: 'var(--ink-faint)' }}>{pick('(اختياري)', '(optional)')}</span>
                 </span>
-                <span style={{ fontSize: 13, color: 'var(--ink-muted)', fontWeight: 400 }}>{pick('ارفع صورة التورتة أو الديكور اللي نفسك فيه — لحد ٤ صور.', 'Upload the cake or décor you have in mind — up to 4 photos.')}</span>
+                <span style={{ fontSize: 13, color: 'var(--ink-muted)', fontWeight: 400 }}>{pick('ارفع صورًا للتورتة أو الزينة التي تتخيلها — حتى ٤ صور.', 'Upload the cake or décor you have in mind — up to 4 photos.')}</span>
                 <div className="ref-grid">
                   {refs.map((u) => (
                     <div key={u} className="ref-thumb">
                       <img className="cover" src={u} alt="" />
-                      <button type="button" aria-label={pick('شيل الصورة', 'Remove photo')} onClick={() => setRefs((r) => r.filter((x) => x !== u))}>
+                      <button type="button" aria-label={pick('إزالة الصورة', 'Remove photo')} onClick={() => setRefs((r) => r.filter((x) => x !== u))}>
                         <X size={13} weight="bold" />
                       </button>
                     </div>
@@ -443,7 +444,7 @@ export function Checkout() {
             <h2 className="card-title" style={{ justifyContent: 'space-between' }}>
               {pick('ملخّص الطلب', 'Order summary')}
               <span className="num" style={{ fontSize: 14, fontFamily: 'var(--f-plex)', color: 'var(--ink-muted)', fontWeight: 500 }}>
-                {lines.reduce((a, l) => a + l.qty, 0)} {pick('قطعة', 'items')}
+                {pick(arCount(lines.reduce((a, l) => a + l.qty, 0), 'item'), `${lines.reduce((a, l) => a + l.qty, 0)} items`)}
               </span>
             </h2>
             <div>
@@ -498,17 +499,17 @@ export function Checkout() {
             </div>
             {!showPrices && (
               <p style={{ margin: '14px 0 0', fontSize: 13.5, lineHeight: 1.7, color: 'var(--ink-muted)', textAlign: 'center' }}>
-                {pick('هنأكد معاك السعر النهائي والتوصيل على واتساب.', 'We will confirm the final price and delivery with you on WhatsApp.')}
+                {pick('سنؤكد معك السعر النهائي وتفاصيل التوصيل على واتساب.', 'We will confirm the final price and delivery with you on WhatsApp.')}
               </p>
             )}
             <div className="totals" hidden={!showPrices}>
               <div className="r">
-                <span>{pick('المجموع', 'Subtotal')}</span>
+                <span>{pick('المجموع الفرعي', 'Subtotal')}</span>
                 <b>{fmt(subtotal)}</b>
               </div>
               <div className="r">
                 <span>{type === 'delivery' ? pick('التوصيل', 'Delivery') + (zone ? ` · ${t(zone.name)}` : '') : pick('استلام من المطبخ', 'Pick-up')}</span>
-                <b>{type === 'delivery' ? (zone ? fmt(fee) : '—') : pick('مجاناً', 'Free')}</b>
+                <b>{type === 'delivery' ? (zone ? fmt(fee) : '—') : pick('مجانًا', 'Free')}</b>
               </div>
               {discount > 0 && (
                 <div className="r" style={{ color: '#6D8B4E' }}>
@@ -528,11 +529,11 @@ export function Checkout() {
             )}
             <button type="submit" className="btn btn-rose" data-burst="1" disabled={busy || uploading > 0 || !s.storeOpen} style={{ width: '100%', marginTop: 18 }} onPointerDown={(e) => burst(e.clientX, e.clientY, 8)}>
               <span data-sheen="3800" className="sheen" />
-              {busy ? pick('بنبعت طلبك…', 'Placing your order…') : showPrices ? pick(`أكّد الطلب · ${fmt(total)}`, `Place order · ${fmt(total)}`) : pick('أكّد الطلب', 'Place order')}
+              {busy ? pick('جارٍ إرسال طلبك…', 'Placing your order…') : showPrices ? pick(`تأكيد الطلب · ${fmt(total)}`, `Place order · ${fmt(total)}`) : pick('تأكيد الطلب', 'Place order')}
             </button>
             <p style={{ margin: '12px 0 0', fontSize: 12.5, color: 'var(--ink-muted)', display: 'flex', gap: 6, alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
               <Lock size={14} />
-              {pick('مش هتدفع حاجة دلوقتي — هنكلمك على واتساب نأكد التفاصيل.', 'Nothing is charged now — we’ll confirm the details with you on WhatsApp.')}
+              {pick('لن تدفع شيئًا الآن، وسنتواصل معك على واتساب لتأكيد التفاصيل.', 'Nothing is charged now — we’ll confirm the details with you on WhatsApp.')}
             </p>
           </aside>
         </form>

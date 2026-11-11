@@ -1,7 +1,7 @@
 import { readDB } from '@/lib/db';
 import { GalleryEditor } from '@/components/admin/ContentEditors';
 
-export const metadata = { title: 'معرض الشغل' };
+export const metadata = { title: 'معرض الأعمال' };
 
 export default async function Page() {
   const db = await readDB();

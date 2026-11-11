@@ -79,10 +79,10 @@ export function PhoneAlerts({ always = false }: { always?: boolean }) {
       const r = await api<{ devices: number }>('/api/admin/push', 'POST', sub.toJSON());
       setDevices(r.devices);
       setStatus('on');
-      toast('اشتغلت الإشعارات على الجهاز ده');
+      toast('تم تفعيل الإشعارات على هذا الجهاز');
       await api('/api/admin/push/test', 'POST');
     } catch {
-      toast('مقدرناش نفعّل الإشعارات', true);
+      toast('تعذّر تفعيل الإشعارات', true);
     } finally {
       setBusy(false);
     }
@@ -97,9 +97,9 @@ export function PhoneAlerts({ always = false }: { always?: boolean }) {
         await sub.unsubscribe();
       }
       setStatus('off');
-      toast('اتقفلت الإشعارات على الجهاز ده');
+      toast('تم إيقاف الإشعارات على هذا الجهاز');
     } catch {
-      toast('حصلت مشكلة', true);
+      toast('حدث خطأ، حاول مرة أخرى', true);
     } finally {
       setBusy(false);
     }
@@ -109,9 +109,9 @@ export function PhoneAlerts({ always = false }: { always?: boolean }) {
     setBusy(true);
     try {
       const r = await api<{ sent: number }>('/api/admin/push/test', 'POST');
-      toast(r.sent ? 'بعتنا إشعار تجربة' : 'مفيش جهاز مسجّل', !r.sent);
+      toast(r.sent ? 'تم إرسال إشعار تجريبي' : 'لا يوجد جهاز مسجَّل', !r.sent);
     } catch {
-      toast('مقدرناش نبعت', true);
+      toast('تعذّر الإرسال', true);
     } finally {
       setBusy(false);
     }
@@ -135,42 +135,42 @@ export function PhoneAlerts({ always = false }: { always?: boolean }) {
     <div className="a-card a-pad phone-alerts">
       <span className={'ic' + (status === 'on' ? ' on' : '')}>{status === 'on' ? <BellRinging size={24} weight="fill" /> : <BellSlash size={24} />}</span>
       <div className="body">
-        <b>{status === 'on' ? 'إشعارات الطلبات شغالة على موبايلك' : 'استقبل الطلبات الجديدة على الموبايل'}</b>
-        {status === 'on' && <p>أي طلب جديد هيوصلك إشعار فوراً زي رسالة الواتساب، حتى لو اللوحة مقفولة.{devices > 1 ? ` (${devices} أجهزة مسجّلة)` : ''}</p>}
-        {status === 'off' && <p>فعّل الإشعارات وهيجيلك تنبيه على الموبايل أول ما عميل يطلب، من غير ما تفتح اللوحة.</p>}
-        {status === 'blocked' && <p>الإشعارات متقفلة للموقع ده من إعدادات المتصفح. افتح إعدادات الموقع (علامة القفل جنب العنوان) واختار «السماح» للإشعارات، وبعدين ارجع هنا.</p>}
-        {status === 'unsupported' && !needsIosInstall && <p>المتصفح ده مبيدعمش الإشعارات. جرّب Chrome على أندرويد أو Safari على الآيفون بعد إضافة التطبيق للشاشة الرئيسية.</p>}
+        <b>{status === 'on' ? 'إشعارات الطلبات مفعّلة على موبايلك' : 'استقبل إشعارات الطلبات الجديدة على موبايلك'}</b>
+        {status === 'on' && <p>سيصلك إشعار فور وصول أي طلب جديد، مثل رسائل واتساب، حتى لو كانت لوحة التحكم مغلقة.{devices > 1 ? ` (عدد الأجهزة المسجَّلة: ${devices})` : ''}</p>}
+        {status === 'off' && <p>فعّل الإشعارات ليصلك تنبيه على الموبايل فور وصول أي طلب، دون الحاجة إلى فتح لوحة التحكم.</p>}
+        {status === 'blocked' && <p>الإشعارات محظورة لهذا الموقع من إعدادات المتصفح. افتح إعدادات الموقع (رمز القفل بجوار العنوان)، واختر «السماح» للإشعارات، ثم عُد إلى هنا.</p>}
+        {status === 'unsupported' && !needsIosInstall && <p>هذا المتصفح لا يدعم الإشعارات. جرّب Chrome على أندرويد، أو Safari على آيفون بعد إضافة التطبيق إلى الشاشة الرئيسية.</p>}
         {needsIosInstall && (
           <p>
-            على الآيفون لازم تضيف اللوحة للشاشة الرئيسية الأول: اضغط <Export size={15} weight="bold" style={{ verticalAlign: '-2px' }} /> مشاركة، وبعدين «إضافة إلى الشاشة الرئيسية» <PlusSquare size={15} weight="bold" style={{ verticalAlign: '-2px' }} />، وافتحها من الأيقونة وفعّل الإشعارات.
+            على آيفون، أضف لوحة التحكم إلى الشاشة الرئيسية أولًا: اضغط <Export size={15} weight="bold" style={{ verticalAlign: '-2px' }} /> مشاركة، ثم «إضافة إلى الشاشة الرئيسية» <PlusSquare size={15} weight="bold" style={{ verticalAlign: '-2px' }} />، ثم افتحها من الأيقونة وفعّل الإشعارات.
           </p>
         )}
         <div className="acts">
           {status === 'off' && !needsIosInstall && (
             <button className="ab primary" onClick={enable} disabled={busy}>
               <BellRinging size={18} />
-              {busy ? 'لحظة…' : 'فعّل الإشعارات'}
+              {busy ? 'جارٍ التفعيل…' : 'تفعيل الإشعارات'}
             </button>
           )}
           {canInstall && (
             <button className="ab ghost" onClick={() => void installApp()}>
               <DownloadSimple size={18} />
-              ثبّت التطبيق على الموبايل
+              تثبيت التطبيق على الموبايل
             </button>
           )}
           {status === 'on' && (
             <>
               <button className="ab ghost" onClick={test} disabled={busy}>
-                جرّب إشعار
+                إرسال إشعار تجريبي
               </button>
               <button className="ab ghost" onClick={disable} disabled={busy}>
-                إيقاف على الجهاز ده
+                إيقافها على هذا الجهاز
               </button>
             </>
           )}
           {!always && (
             <button className="ab ghost" onClick={dismiss}>
-              مش دلوقتي
+              ليس الآن
             </button>
           )}
         </div>

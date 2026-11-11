@@ -47,13 +47,13 @@ export const ar = (l?: L | null) => l?.ar || l?.en || '';
 
 export function relTime(iso: string) {
   const s = (Date.now() - new Date(iso).getTime()) / 1000;
-  // Egyptian Arabic counting: 1 → singular, 2 → dual, 3–10 → plural, 11+ → singular.
-  const say = (n: number, one: string, two: string, few: string) => (n === 1 ? `من ${one}` : n === 2 ? `من ${two}` : `من ${n} ${n <= 10 ? few : one}`);
-  if (s < 60) return 'دلوقتي';
-  if (s < 3600) return say(Math.floor(s / 60), 'دقيقة', 'دقيقتين', 'دقايق');
+  // Arabic counting: 1 → singular, 2 → dual, 3–10 → plural, 11+ → singular.
+  const say = (n: number, one: string, two: string, few: string) => (n === 1 ? `منذ ${one}` : n === 2 ? `منذ ${two}` : `منذ ${n} ${n <= 10 ? few : one}`);
+  if (s < 60) return 'الآن';
+  if (s < 3600) return say(Math.floor(s / 60), 'دقيقة', 'دقيقتين', 'دقائق');
   if (s < 86400) return say(Math.floor(s / 3600), 'ساعة', 'ساعتين', 'ساعات');
   const d = Math.floor(s / 86400);
-  if (d === 1) return 'امبارح';
+  if (d === 1) return 'أمس';
   if (d < 7) return say(d, 'يوم', 'يومين', 'أيام');
   return new Date(iso).toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' });
 }
@@ -160,7 +160,7 @@ export function BiInput({ label, value, onChange, multiline = false, max }: { la
       <span>{label}</span>
       <div className="bi">
         <div style={{ position: 'relative' }}>
-          <C className="ai" dir="rtl" value={value.ar} maxLength={max} onChange={(e) => onChange({ ...value, ar: e.target.value })} placeholder="بالعربي" rows={multiline ? 3 : undefined} />
+          <C className="ai" dir="rtl" value={value.ar} maxLength={max} onChange={(e) => onChange({ ...value, ar: e.target.value })} placeholder="بالعربية" rows={multiline ? 3 : undefined} />
         </div>
         <div>
           <C className="ai ltr" dir="ltr" value={value.en} maxLength={max} onChange={(e) => onChange({ ...value, en: e.target.value })} placeholder="In English" rows={multiline ? 3 : undefined} />
@@ -225,7 +225,7 @@ export function ImageManager({ images, onChange, max = 12, single = false }: { i
         const url = await uploadImage(f);
         onChange(single ? [url] : [...ref.current, url]);
       } catch {
-        toast('مقدرناش نرفع «' + f.name + '»', true);
+        toast('تعذّر رفع «' + f.name + '»', true);
       }
       setBusy((b) => b - 1);
     }
@@ -250,7 +250,7 @@ export function ImageManager({ images, onChange, max = 12, single = false }: { i
                 {!single && (
                   <span style={{ display: 'flex', gap: 4 }}>
                     {i > 0 && (
-                      <button type="button" onClick={() => move(i, -1)} aria-label="قدّم" title="قدّم">
+                      <button type="button" onClick={() => move(i, -1)} aria-label="تقديم" title="تقديم">
                         <ArrowUp size={14} style={{ transform: 'rotate(90deg)' }} />
                       </button>
                     )}
@@ -260,7 +260,7 @@ export function ImageManager({ images, onChange, max = 12, single = false }: { i
                       </button>
                     )}
                     {i < images.length - 1 && (
-                      <button type="button" onClick={() => move(i, 1)} aria-label="أخّر" title="أخّر">
+                      <button type="button" onClick={() => move(i, 1)} aria-label="تأخير" title="تأخير">
                         <ArrowDown size={14} style={{ transform: 'rotate(90deg)' }} />
                       </button>
                     )}
@@ -298,10 +298,10 @@ export function ImageManager({ images, onChange, max = 12, single = false }: { i
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10 }}>
             {images.length ? <UploadSimple size={22} color="#B97E5E" /> : <Camera size={26} color="#B97E5E" />}
             <span>
-              <b style={{ color: 'var(--cocoa)' }}>{single && images.length ? 'غيّر الصورة' : 'اسحب الصور هنا'}</b> أو اضغط للاختيار
+              <b style={{ color: 'var(--cocoa)' }}>{single && images.length ? 'تغيير الصورة' : 'اسحب الصور إلى هنا'}</b> أو اضغط لاختيارها
             </span>
           </div>
-          <small className="faint">JPG · PNG · WebP — بنصغّرها تلقائيًا عشان الموقع يفضل سريع</small>
+          <small className="faint">JPG · PNG · WebP — نصغّر حجمها تلقائيًا ليبقى الموقع سريعًا</small>
           <input ref={input} type="file" accept="image/*" multiple={!single} hidden onChange={(e) => e.target.files && add(e.target.files)} />
         </div>
       )}

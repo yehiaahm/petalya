@@ -212,7 +212,7 @@ export function SiteProvider({ data, initialLang, initialUser = null, children }
         const col = cfg.colours.find((c) => c.id === l.design.colourId);
         out.push({
           ...l,
-          name: { ar: `تورتة ${occ?.name.ar ?? ''} مخصوصة · ${size?.name.ar ?? ''}`, en: `Custom ${occ?.name.en ?? ''} cake · ${size?.name.en ?? ''}` },
+          name: { ar: `تورتة ${occ?.name.ar ?? ''} حسب الطلب · ${size?.name.ar ?? ''}`, en: `Custom ${occ?.name.en ?? ''} cake · ${size?.name.en ?? ''}` },
           unitPrice: designPrice(cfg, l.design),
           colour: col?.base,
         });

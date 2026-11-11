@@ -23,7 +23,7 @@ export default function manifest(): MetadataRoute.Manifest {
       { src: '/icons/maskable-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
     ],
     shortcuts: [
-      { name: 'اطلب دلوقتي', short_name: 'اطلب', url: '/#menu', icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
+      { name: 'اطلب الآن', short_name: 'اطلب', url: '/#menu', icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
       { name: 'تتبّع طلبك', short_name: 'تتبّع', url: '/track', icons: [{ src: '/icons/icon-192.png', sizes: '192x192' }] },
     ],
   };

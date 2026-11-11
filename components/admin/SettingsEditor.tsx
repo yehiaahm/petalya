@@ -31,10 +31,10 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
     setBusy(true);
     try {
       setS(await api<Settings>('/api/admin/settings', 'PUT', s));
-      toast('اتحفظت الإعدادات');
+      toast('تم حفظ الإعدادات');
       router.refresh();
     } catch {
-      toast('مقدرناش نحفظ', true);
+      toast('تعذّر الحفظ، حاول مرة أخرى', true);
     }
     setBusy(false);
   };
@@ -42,10 +42,10 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
   return (
     <>
       {confirm.node}
-      <PageHeader title="الإعدادات" sub="كل اللي بيتحكم في الموقع وطريقة الطلب">
+      <PageHeader title="الإعدادات" sub="كل ما يتحكم في الموقع وطريقة الطلب">
         <button className="ab primary" onClick={save} disabled={!dirty || busy}>
           <FloppyDisk size={18} />
-          {busy ? 'بنحفظ…' : dirty ? 'حفظ التغييرات' : 'محفوظ'}
+          {busy ? 'جارٍ الحفظ…' : dirty ? 'حفظ التغييرات' : 'تم الحفظ'}
         </button>
       </PageHeader>
 
@@ -71,47 +71,47 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
                 <div className="tgl-row" style={{ paddingTop: 0 }}>
                   <div>
                     <b>استقبال الطلبات</b>
-                    <small>اقفله في الإجازات — الموقع هيفضل شغال بس مش هيقبل طلبات</small>
+                    <small>أوقفه في الإجازات — سيظل الموقع متاحًا لكنه لن يستقبل طلبات</small>
                   </div>
                   <Toggle on={s.storeOpen} onChange={(v) => up({ storeOpen: v })} />
                 </div>
-                {!s.storeOpen && <BiInput label="الرسالة اللي هتظهر للعملاء" value={s.closedMessage} onChange={(v) => up({ closedMessage: v })} max={200} />}
+                {!s.storeOpen && <BiInput label="الرسالة التي ستظهر للعملاء" value={s.closedMessage} onChange={(v) => up({ closedMessage: v })} max={200} />}
               </div>
               <div className="a-card a-pad">
                 <div className="tgl-row" style={{ paddingTop: 0 }}>
                   <div>
                     <b>إظهار الأسعار في الموقع</b>
-                    <small>لو مقفول، الموقع مش بيعرض أي سعر (المنيو، التصميم، السلة، الطلب) والسعر بيتحدد على واتساب</small>
+                    <small>عند إيقافه لا يعرض الموقع أي أسعار (في المنيو و«صمّم تورتتك» وصفحة الطلب)، ويُحدَّد السعر على واتساب</small>
                   </div>
                   <Toggle on={s.showPrices} onChange={(v) => up({ showPrices: v })} />
                 </div>
               </div>
               <div className="a-card a-pad a-grid">
                 <div className="ai-row">
-                  <Field label="رقم واتساب (بالكود الدولي)" hint="مثلاً 201012345678 — كل أزرار واتساب في الموقع بتروح له">
+                  <Field label="رقم واتساب (بمفتاح الدولة)" hint="مثلًا 201012345678 — كل أزرار واتساب في الموقع توجّه إليه">
                     <input className="ai ltr num" value={s.whatsapp} onChange={(e) => up({ whatsapp: e.target.value })} />
                   </Field>
                   <Field label="حساب إنستجرام">
                     <input className="ai ltr" value={s.instagramHandle} onChange={(e) => up({ instagramHandle: e.target.value })} />
                   </Field>
                 </div>
-                <Field label="لينك إنستجرام">
+                <Field label="رابط إنستجرام">
                   <input className="ai ltr" value={s.instagramUrl} onChange={(e) => up({ instagramUrl: e.target.value })} />
                 </Field>
                 <div className="ai-row">
-                  <Field label="لينك تيك توك" hint="سيبه فاضي لو مش عايز يظهر في الموقع">
+                  <Field label="رابط تيك توك" hint="اتركه فارغًا إذا لم ترغب في ظهوره في الموقع">
                     <input className="ai ltr" placeholder="https://www.tiktok.com/@..." value={s.tiktokUrl} onChange={(e) => up({ tiktokUrl: e.target.value })} />
                   </Field>
-                  <Field label="لينك فيسبوك" hint="سيبه فاضي لو مش عايز يظهر في الموقع">
+                  <Field label="رابط فيسبوك" hint="اتركه فارغًا إذا لم ترغب في ظهوره في الموقع">
                     <input className="ai ltr" placeholder="https://www.facebook.com/..." value={s.facebookUrl} onChange={(e) => up({ facebookUrl: e.target.value })} />
                   </Field>
                 </div>
               </div>
               <div className="a-card a-pad ai-row">
-                <Field label="أيام التحضير للتورت المخصوصة" hint="أقرب ميعاد يقدر العميل يختاره لما يصمّم تورتة">
+                <Field label="أيام التحضير للتورت حسب الطلب" hint="تحدد أقرب موعد يمكن للعميل اختياره عند تصميم تورتة">
                   <NumInput value={s.leadDays} onChange={(n) => up({ leadDays: n })} suffix="يوم" />
                 </Field>
-                <Field label="أيام التحضير لباقي المنتجات" hint="ممكن تغيّرها لكل منتج لوحده من صفحة المنتج">
+                <Field label="أيام التحضير لبقية المنتجات" hint="يمكنك تغييرها لكل منتج على حدة من صفحة المنتج">
                   <NumInput value={s.standardLeadDays} onChange={(n) => up({ standardLeadDays: n })} suffix="يوم" />
                 </Field>
               </div>
@@ -123,15 +123,15 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
               <div className="a-card a-pad">
                 <div className="tgl-row" style={{ paddingTop: 0 }}>
                   <div>
-                    <b>توصيل للبيت</b>
-                    <small>العميل يختار منطقته والتكلفة بتتحسب تلقائي</small>
+                    <b>التوصيل للمنزل</b>
+                    <small>يختار العميل منطقته وتُحسب الرسوم تلقائيًا</small>
                   </div>
                   <Toggle on={s.deliveryEnabled} onChange={(v) => up({ deliveryEnabled: v || !s.pickupEnabled ? v : true })} />
                 </div>
                 <div className="tgl-row">
                   <div>
                     <b>استلام من المطبخ</b>
-                    <small>من غير مصاريف توصيل</small>
+                    <small>بدون رسوم توصيل</small>
                   </div>
                   <Toggle on={s.pickupEnabled} onChange={(v) => up({ pickupEnabled: v || !s.deliveryEnabled ? v : true })} />
                 </div>
@@ -139,7 +139,7 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
               </div>
               <div className="a-card a-pad">
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-                  <b>مناطق التوصيل والأسعار</b>
+                  <b>مناطق التوصيل ورسومها</b>
                   <button className="ab soft sm" onClick={() => up({ zones: [...s.zones, { id: 'z-' + Date.now().toString(36), name: { ar: '', en: '' }, fee: 60, active: true }] })}>
                     <Plus size={15} /> منطقة
                   </button>
@@ -165,7 +165,7 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
                   <b>مواعيد التسليم</b>
                   <button className="ab soft sm" onClick={() => up({ timeSlots: [...s.timeSlots, { id: 't-' + Date.now().toString(36), name: { ar: '', en: '' } }] })}>
-                    <Plus size={15} /> ميعاد
+                    <Plus size={15} /> موعد
                   </button>
                 </div>
                 <div className="sortable">
@@ -188,15 +188,15 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
             <div className="a-card a-pad">
               <div className="tgl-row" style={{ paddingTop: 0 }}>
                 <div>
-                  <b>كاش عند الاستلام</b>
-                  <small>العميل يدفع للمندوب أو وهو بيستلم</small>
+                  <b>الدفع عند الاستلام</b>
+                  <small>يدفع العميل نقدًا للمندوب أو عند الاستلام من المطبخ</small>
                 </div>
                 <Toggle on={s.payments.cod.enabled} onChange={(v) => up({ payments: { ...s.payments, cod: { enabled: v } } })} />
               </div>
               <div className="tgl-row">
                 <div>
                   <b>إنستاباي</b>
-                  <small>العنوان بيظهر للعميل في صفحة الطلب عشان يحوّل</small>
+                  <small>يظهر العنوان للعميل في صفحة الطلب ليحوّل عليه</small>
                 </div>
                 <Toggle on={s.payments.instapay.enabled} onChange={(v) => up({ payments: { ...s.payments, instapay: { ...s.payments.instapay, enabled: v } } })} />
               </div>
@@ -208,7 +208,7 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
               <div className="tgl-row">
                 <div>
                   <b>محفظة إلكترونية</b>
-                  <small>فودافون كاش أو أي محفظة</small>
+                  <small>فودافون كاش أو أي محفظة أخرى</small>
                 </div>
                 <Toggle on={s.payments.wallet.enabled} onChange={(v) => up({ payments: { ...s.payments, wallet: { ...s.payments.wallet, enabled: v } } })} />
               </div>
@@ -226,12 +226,12 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
                 <div className="tgl-row" style={{ paddingTop: 0 }}>
                   <div>
                     <b>قسم «صمّم تورتتك»</b>
-                    <small>لو قفلته القسم هيختفي من الموقع</small>
+                    <small>عند إيقافه يختفي القسم من الموقع</small>
                   </div>
                   <Toggle on={b.enabled} onChange={(v) => upB({ enabled: v })} />
                 </div>
                 <p className="muted small" style={{ margin: '8px 0 0', display: 'flex', gap: 6, alignItems: 'center' }}>
-                  <Sparkle size={14} /> السعر = سعر الحجم + (زيادة النكهة × عدد الأدوار) + الديكور
+                  <Sparkle size={14} /> السعر = سعر الحجم + (زيادة النكهة × عدد الأدوار) + الزينة
                 </p>
               </div>
               <div className="a-card a-pad">
@@ -274,7 +274,7 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
                 </div>
               </div>
               <div className="a-card a-pad">
-                <b style={{ display: 'block', marginBottom: 12 }}>الديكور</b>
+                <b style={{ display: 'block', marginBottom: 12 }}>الزينة</b>
                 <div className="sortable">
                   {b.decorations.map((d, i) => (
                     <div key={d.id} className="sort-row" style={{ flexWrap: 'wrap' }}>
@@ -299,7 +299,7 @@ export function SettingsEditor({ settings, hasDemo }: { settings: Settings; hasD
                         <BiInput label="المناسبة" value={o.name} onChange={(v) => upB({ occasions: b.occasions.map((x, k) => (k === i ? { ...x, name: v } : x)) })} max={40} />
                       </div>
                       <div style={{ flex: '1 1 240px' }}>
-                        <BiInput label="كلام التوبر" value={o.topper} onChange={(v) => upB({ occasions: b.occasions.map((x, k) => (k === i ? { ...x, topper: v } : x)) })} max={30} />
+                        <BiInput label="نص التوبر" value={o.topper} onChange={(v) => upB({ occasions: b.occasions.map((x, k) => (k === i ? { ...x, topper: v } : x)) })} max={30} />
                       </div>
                     </div>
                   ))}
@@ -325,44 +325,44 @@ function Security({ hasDemo, confirm }: { hasDemo: boolean; confirm: (t: string,
     setBusy(true);
     try {
       await api('/api/admin/password', 'POST', { current: cur, next });
-      toast('اتغيّرت كلمة السر');
+      toast('تم تغيير كلمة المرور');
       setCur('');
       setNext('');
     } catch (e) {
-      toast((e as { status?: number }).status === 403 ? 'كلمة السر الحالية غلط' : 'كلمة السر الجديدة لازم ٨ حروف على الأقل', true);
+      toast((e as { status?: number }).status === 403 ? 'كلمة المرور الحالية غير صحيحة' : 'يجب ألا تقل كلمة المرور الجديدة عن ٨ أحرف', true);
     }
     setBusy(false);
   };
   const demo = async (action: 'load' | 'clear') => {
-    if (action === 'clear' && !(await confirm('مسح البيانات التجريبية؟', 'الطلبات والزيارات التجريبية بس هي اللي هتتمسح. طلباتك الحقيقية مش هتتأثر.', 'مسح'))) return;
+    if (action === 'clear' && !(await confirm('حذف البيانات التجريبية؟', 'سيتم حذف الطلبات والزيارات التجريبية فقط، ولن تتأثر طلباتك الحقيقية.', 'حذف'))) return;
     setBusy(true);
     await api('/api/admin/demo', 'POST', { action });
-    toast(action === 'clear' ? 'اتمسحت البيانات التجريبية' : 'اتضافت بيانات تجريبية');
+    toast(action === 'clear' ? 'تم حذف البيانات التجريبية' : 'تمت إضافة بيانات تجريبية');
     router.refresh();
     setBusy(false);
   };
   return (
     <>
       <div className="a-card a-pad a-grid">
-        <b>تغيير كلمة السر</b>
+        <b>تغيير كلمة المرور</b>
         <div className="ai-row">
-          <Field label="كلمة السر الحالية">
+          <Field label="كلمة المرور الحالية">
             <input className="ai" type="password" value={cur} onChange={(e) => setCur(e.target.value)} autoComplete="current-password" />
           </Field>
-          <Field label="كلمة السر الجديدة" hint="٨ حروف على الأقل">
+          <Field label="كلمة المرور الجديدة" hint="٨ أحرف على الأقل">
             <input className="ai" type="password" value={next} onChange={(e) => setNext(e.target.value)} autoComplete="new-password" />
           </Field>
         </div>
         <button className="ab primary" style={{ justifySelf: 'start' }} disabled={busy || !cur || next.length < 8} onClick={change}>
-          <Lock size={16} /> غيّر كلمة السر
+          <Lock size={16} /> تغيير كلمة المرور
         </button>
       </div>
       <div className="a-card a-pad a-grid">
         <b>نسخة احتياطية</b>
-        <p className="muted small" style={{ margin: 0 }}>نزّل كل بيانات الموقع (المنتجات، الطلبات، الإعدادات) في ملف واحد. يُفضّل تعملها كل أسبوع.</p>
+        <p className="muted small" style={{ margin: 0 }}>نزّل كل بيانات الموقع (المنتجات والطلبات والإعدادات) في ملف واحد. يُفضَّل أن تفعل ذلك أسبوعيًا.</p>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           <a className="ab ghost" href="/api/admin/export">
-            <DownloadSimple size={17} /> نزّل نسخة احتياطية
+            <DownloadSimple size={17} /> تنزيل نسخة احتياطية
           </a>
           <a className="ab ghost" href="/api/admin/orders/export">
             <DownloadSimple size={17} /> الطلبات (Excel)
@@ -371,15 +371,15 @@ function Security({ hasDemo, confirm }: { hasDemo: boolean; confirm: (t: string,
       </div>
       <div className="a-card a-pad a-grid">
         <b>بيانات تجريبية</b>
-        <p className="muted small" style={{ margin: 0 }}>طلبات وزيارات وهمية عشان تجرّب لوحة التحكم. بتتعلّم «تجريبي» وتتمسح بضغطة من غير ما تلمس طلباتك الحقيقية.</p>
+        <p className="muted small" style={{ margin: 0 }}>طلبات وزيارات وهمية لتجربة لوحة التحكم. تحمل علامة «تجريبي»، ويمكن حذفها بضغطة دون المساس بطلباتك الحقيقية.</p>
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           {hasDemo ? (
             <button className="ab danger" onClick={() => demo('clear')} disabled={busy}>
-              <Trash size={16} /> امسح البيانات التجريبية
+              <Trash size={16} /> حذف البيانات التجريبية
             </button>
           ) : (
             <button className="ab soft" onClick={() => demo('load')} disabled={busy}>
-              <Sparkle size={16} /> ضيف بيانات تجريبية
+              <Sparkle size={16} /> إضافة بيانات تجريبية
             </button>
           )}
         </div>

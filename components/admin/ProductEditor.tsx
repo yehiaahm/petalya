@@ -34,25 +34,25 @@ export function ProductEditor({ product, categories }: { product: Product | null
 
   const save = async () => {
     setErr('');
-    if (!p.name.ar.trim() && !p.name.en.trim()) return setErr('اكتب اسم المنتج');
-    if (!p.price || p.price <= 0) return setErr('اكتب سعر المنتج');
+    if (!p.name.ar.trim() && !p.name.en.trim()) return setErr('أدخل اسم المنتج');
+    if (!p.price || p.price <= 0) return setErr('أدخل سعر المنتج');
     setBusy(true);
     try {
       const saved = isNew ? await api<Product>('/api/admin/products', 'POST', p) : await api<Product>(`/api/admin/products/${p.id}`, 'PATCH', p);
       setDirty(false);
-      toast(isNew ? 'المنتج اتضاف للمنيو 🎉' : 'اتحفظت التعديلات');
+      toast(isNew ? 'تمت إضافة المنتج إلى المنيو 🎉' : 'تم حفظ التعديلات');
       if (isNew) router.replace(`/admin/products/${saved.id}`);
       else setP(saved);
       router.refresh();
     } catch {
-      toast('مقدرناش نحفظ', true);
+      toast('تعذّر الحفظ، حاول مرة أخرى', true);
     }
     setBusy(false);
   };
   const del = async () => {
-    if (!(await confirm.ask(`حذف «${p.name.ar}»؟`, 'المنتج هيختفي من المنيو نهائيًا.'))) return;
+    if (!(await confirm.ask(`حذف «${p.name.ar}»؟`, 'سيُحذف المنتج من المنيو نهائيًا.'))) return;
     await api(`/api/admin/products/${p.id}`, 'DELETE');
-    toast('اتحذف المنتج');
+    toast('تم حذف المنتج');
     router.push('/admin/products');
     router.refresh();
   };
@@ -80,7 +80,7 @@ export function ProductEditor({ product, categories }: { product: Product | null
           )}
           <button className="ab primary" onClick={save} disabled={busy} style={{ minWidth: 140 }}>
             {isNew ? <Plus size={18} weight="bold" /> : <FloppyDisk size={18} />}
-            {busy ? 'بنحفظ…' : isNew ? 'أضف للمنيو' : 'حفظ التعديلات'}
+            {busy ? 'جارٍ الحفظ…' : isNew ? 'إضافة إلى المنيو' : 'حفظ التعديلات'}
           </button>
         </div>
       </div>
@@ -94,7 +94,7 @@ export function ProductEditor({ product, categories }: { product: Product | null
         <div className="a-grid" style={{ flex: '2 1 480px', minWidth: 0 }}>
           <div className="a-card a-pad a-grid">
             <BiInput label="اسم المنتج" value={p.name} onChange={(v) => set('name', v)} max={120} />
-            <BiInput label="الوصف (بيظهر تحت الاسم في المنيو)" value={p.desc} onChange={(v) => set('desc', v)} multiline max={600} />
+            <BiInput label="الوصف (يظهر أسفل الاسم في المنيو)" value={p.desc} onChange={(v) => set('desc', v)} multiline max={600} />
           </div>
 
           <div className="a-card a-pad">
@@ -102,7 +102,7 @@ export function ProductEditor({ product, categories }: { product: Product | null
               <b style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                 <Images size={20} color="#B97E5E" /> الصور
               </b>
-              <span className="faint small">أول صورة هي اللي بتظهر في المنيو · العميل يقدر يقلّب في الباقي</span>
+              <span className="faint small">الصورة الأولى هي التي تظهر في المنيو · ويمكن للعميل تصفّح بقية الصور</span>
             </div>
             <ImageManager images={p.images} onChange={(v) => set('images', v)} />
           </div>
@@ -112,7 +112,7 @@ export function ProductEditor({ product, categories }: { product: Product | null
               <Field label="السعر">
                 <NumInput value={p.price} onChange={(n) => set('price', n)} suffix="ج.م" />
               </Field>
-              <Field label="السعر قبل الخصم (اختياري)" hint="لو كتبته هيظهر مشطوب جنب السعر">
+              <Field label="السعر قبل الخصم (اختياري)" hint="إذا أدخلته، سيظهر مشطوبًا بجوار السعر">
                 <NumInput value={p.compareAt ?? 0} onChange={(n) => set('compareAt', n || null)} suffix="ج.م" />
               </Field>
             </div>
@@ -126,7 +126,7 @@ export function ProductEditor({ product, categories }: { product: Product | null
                   ))}
                 </select>
               </Field>
-              <Field label="أيام التحضير (اختياري)" hint="أقل عدد أيام قبل التسليم. سيبه فاضي للعادي.">
+              <Field label="أيام التحضير (اختياري)" hint="أقل عدد أيام قبل التسليم. اتركه فارغًا لاستخدام المدة المعتادة.">
                 <NumInput value={p.leadDays ?? 0} onChange={(n) => set('leadDays', n || null)} suffix="يوم" />
               </Field>
             </div>
@@ -138,21 +138,21 @@ export function ProductEditor({ product, categories }: { product: Product | null
             <div className="tgl-row">
               <div>
                 <b>ظاهر في الموقع</b>
-                <small>لو قفلته المنتج يختفي من المنيو بس مش بيتحذف</small>
+                <small>عند إيقافه يختفي المنتج من المنيو دون أن يُحذف</small>
               </div>
               <Toggle on={p.active} onChange={(v) => set('active', v)} />
             </div>
             <div className="tgl-row">
               <div>
                 <b>متاح للطلب</b>
-                <small>اقفله لو المنتج خلص النهارده</small>
+                <small>أوقفه إذا نفد المنتج اليوم</small>
               </div>
               <Toggle on={!p.soldOut} onChange={(v) => set('soldOut', !v)} />
             </div>
             <div className="tgl-row">
               <div>
                 <b>منتج مميز</b>
-                <small>بيتعلّم كمميز في لوحة التحكم</small>
+                <small>يظهر بعلامة «مميز» في لوحة التحكم</small>
               </div>
               <Toggle on={!!p.featured} onChange={(v) => set('featured', v)} />
             </div>
@@ -186,7 +186,7 @@ export function ProductEditor({ product, categories }: { product: Product | null
                       {p.compareAt && p.compareAt > p.price ? <s>{fmt(p.compareAt)}</s> : null}
                     </span>
                     {p.soldOut ? (
-                      <span className="soldout">{lang === 'ar' ? 'خلصت النهارده' : 'Sold out'}</span>
+                      <span className="soldout">{lang === 'ar' ? 'نفدت الكمية' : 'Sold out'}</span>
                     ) : (
                       <span className="add-btn">
                         <Plus size={16} weight="bold" />

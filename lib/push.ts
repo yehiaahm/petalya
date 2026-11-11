@@ -4,6 +4,7 @@ import { mutate, readDB } from './db';
 import { siteUrl } from './site';
 import { shortId } from './crypto';
 import type { Order, PushSub } from './types';
+import { arCount } from './ar';
 
 /**
  * Web Push for the owner's phone. VAPID keys come from the environment when set
@@ -99,7 +100,7 @@ export function notifyNewOrder(o: Order) {
   const how = o.fulfillment.type === 'delivery' ? 'توصيل' : 'استلام';
   return sendToOwner({
     title: `🎂 طلب جديد ${o.code}`,
-    body: `${o.customer.name} · ${egp(o.total)} · ${count} ${count === 1 ? 'منتج' : 'منتجات'} · ${how} ${o.fulfillment.date}`,
+    body: `${o.customer.name} · ${egp(o.total)} · ${arCount(count, 'product')} · ${how} ${o.fulfillment.date}`,
     url: `/admin/orders/${o.id}`,
     tag: `order-${o.id}`,
   });

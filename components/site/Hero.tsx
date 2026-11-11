@@ -137,7 +137,7 @@ export function Hero({ images }: { images: [string, string] }) {
         </div>
 
         <div data-intro="1" className="eyebrow" style={{ marginBottom: 16 }}>
-          <span>{pick('تورت وكب كيك · من أمنية الجندي', 'Cakes & cupcakes · by Omnia El Gendy')}</span>
+          <span>{pick('تورت وكب كيك · بتوقيع أمنية الجندي', 'Cakes & cupcakes · by Omnia El Gendy')}</span>
         </div>
         {ar ? (
           <h1 data-intro="1">
@@ -149,7 +149,7 @@ export function Hero({ images }: { images: [string, string] }) {
           </h1>
         )}
         <p data-intro="1" className="lead">
-          {pick('تورت مخصوصة لمناسبتك وكب كيك معمول باليد — طازة كل يوم، وبكل حب.', 'Custom cakes for your occasion and handcrafted cupcakes — freshly made, every day, with love.')}
+          {pick('تورت مصمَّمة خصيصًا لمناسبتك، وكب كيك مصنوع يدويًا، طازج كل يوم وبكل حب.', 'Custom cakes for your occasion and handcrafted cupcakes — freshly made, every day, with love.')}
         </p>
         <div data-intro="1" className="ctas">
           <a href="#custom" onClick={(e) => go(e, 'custom')} className="btn btn-primary" style={{ padding: '0 28px' }}>
@@ -167,7 +167,7 @@ export function Hero({ images }: { images: [string, string] }) {
             <span />
             <span />
           </span>
-          {pick('المس الشاشة… واتفرّج على البتلات', 'Touch anywhere — watch the petals fly')}
+          {pick('المس الشاشة… وشاهد البتلات تتطاير', 'Touch anywhere — watch the petals fly')}
         </div>
       </div>
     </section>

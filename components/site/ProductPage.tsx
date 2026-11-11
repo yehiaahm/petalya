@@ -7,6 +7,7 @@ import { useSite } from './SiteProvider';
 import { MiniHeader } from './Checkout';
 import { Price, QtyControl } from './Menu';
 import { FwdIcon } from './Chrome';
+import { arCount } from '@/lib/ar';
 
 export function ProductPage({ id }: { id: string }) {
   const { data, t, pick, count, toast } = useSite();
@@ -29,7 +30,7 @@ export function ProductPage({ id }: { id: string }) {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url());
-      toast(pick('اتنسخ اللينك', 'Link copied'));
+      toast(pick('تم نسخ الرابط', 'Link copied'));
     } catch {}
   };
 
@@ -64,14 +65,14 @@ export function ProductPage({ id }: { id: string }) {
             {count > 0 && (
               <Link href="/checkout" className="btn btn-flat btn-md" data-burst="1" style={{ alignSelf: 'flex-start' }}>
                 <ShoppingBagOpen size={20} />
-                {pick('أكمل الطلب', 'Go to checkout')}
+                {pick('إتمام الطلب', 'Go to checkout')}
                 <FwdIcon size={17} />
               </Link>
             )}
             {p.leadDays ? (
               <p className="menu-note" style={{ justifyContent: 'flex-start', textAlign: 'start', margin: 0 }}>
                 <Info size={16} color="#B97E5E" style={{ flex: 'none' }} />
-                {pick(`اطلبها قبل ميعادك بـ ${p.leadDays} أيام على الأقل.`, `Order at least ${p.leadDays} days ahead.`)}
+                {pick(`اطلبها قبل موعدك بـ ${arCount(p.leadDays, 'day')} على الأقل.`, `Order at least ${p.leadDays} days ahead.`)}
               </p>
             ) : null}
             <div className="pp-share">
@@ -81,11 +82,11 @@ export function ProductPage({ id }: { id: string }) {
               </button>
               <button className="btn btn-outline btn-sm" onClick={copy}>
                 <Copy size={18} />
-                {pick('انسخ اللينك', 'Copy link')}
+                {pick('نسخ الرابط', 'Copy link')}
               </button>
               <button className="btn btn-outline btn-sm" onClick={() => window.open(`https://wa.me/?text=${encodeURIComponent(shareText + ' ' + url())}`, '_blank', 'noopener')}>
                 <WhatsappLogo size={18} />
-                {pick('ابعتها لحد', 'Send to a friend')}
+                {pick('أرسلها لصديق', 'Send to a friend')}
               </button>
             </div>
           </div>
@@ -94,7 +95,7 @@ export function ProductPage({ id }: { id: string }) {
         {related.length > 0 && (
           <section style={{ marginTop: 'clamp(48px,8vw,80px)' }}>
             <h2 className="card-title" style={{ justifyContent: 'center', marginBottom: 20 }}>
-              {pick('كمان ممكن يعجبك', 'You may also like')}
+              {pick('قد يعجبك أيضًا', 'You may also like')}
             </h2>
             <div className="pp-related">
               {related.map((r) => (
@@ -108,7 +109,7 @@ export function ProductPage({ id }: { id: string }) {
         )}
 
         <p className="center" style={{ marginTop: 40, fontSize: 14 }}>
-          <Link href="/#custom">{pick('عايز تصميم مخصوص؟ صمّم تورتتك', 'Want something custom? Design your cake')}</Link>
+          <Link href="/#custom">{pick('تريد تصميمًا خاصًا؟ صمّم تورتتك', 'Want something custom? Design your cake')}</Link>
         </p>
       </main>
     </div>

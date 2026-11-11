@@ -67,7 +67,7 @@ export function LinkInBio() {
     try {
       if (navigator.share) return await navigator.share({ title: 'Petalya Cakes', text: pick('تورت أنيقة للحظات لا تُنسى', 'Elegant cakes for unforgettable moments'), url });
       await navigator.clipboard.writeText(url);
-      toast(pick('اتنسخ اللينك', 'Link copied'));
+      toast(pick('تم نسخ الرابط', 'Link copied'));
     } catch {}
   };
   const avatarTap = () => {
@@ -75,7 +75,7 @@ export function LinkInBio() {
     const r = avRef.current?.getBoundingClientRect();
     if (r) field.current?.burst(r.left + r.width / 2, r.top + r.height / 2, 30);
   };
-  const general = wa(pick('أهلاً Petalya! محتاج/ة مساعدة في طلب.', "Hi Petalya! I need a hand with an order."));
+  const general = wa(pick('أهلًا Petalya! أحتاج مساعدة بخصوص طلب.', "Hi Petalya! I need a hand with an order."));
 
   return (
     <div
@@ -143,9 +143,9 @@ export function LinkInBio() {
         >
           <span style={{ position: 'relative', flex: 'none', width: 96, height: 112, borderRadius: 18, overflow: 'hidden', background: '#3A2620' }}>{feature && <img className="cover" src={feature} alt="" />}</span>
           <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <span style={ar ? { font: '500 14px/1.4 var(--f-messiri), serif', color: '#F2C6BD' } : { fontSize: 10.5, fontWeight: 600, letterSpacing: '.24em', textTransform: 'uppercase', color: '#F2C6BD' }}>{pick('هوسنا الحالي', 'Current obsession')}</span>
-            <span style={ar ? { font: '600 25px/1.3 var(--f-messiri), serif' } : { font: 'italic 500 30px/1.05 var(--f-cormorant), serif' }}>{pick('مخبز الورد', 'Bakery of flowers')}</span>
-            <span style={{ fontSize: 13, lineHeight: 1.55, color: '#D9C2B4' }}>{pick('بوكيهات كب كيك شكلها ورد حقيقي', 'Cupcake bouquets that look like the real thing')}</span>
+            <span style={ar ? { font: '500 14px/1.4 var(--f-messiri), serif', color: '#F2C6BD' } : { fontSize: 10.5, fontWeight: 600, letterSpacing: '.24em', textTransform: 'uppercase', color: '#F2C6BD' }}>{pick('شغفنا الحالي', 'Current obsession')}</span>
+            <span style={ar ? { font: '600 25px/1.3 var(--f-messiri), serif' } : { font: 'italic 500 30px/1.05 var(--f-cormorant), serif' }}>{pick('ورود من الكريمة', 'Bakery of flowers')}</span>
+            <span style={{ fontSize: 13, lineHeight: 1.55, color: '#D9C2B4' }}>{pick('بوكيهات كب كيك تشبه الورد الحقيقي', 'Cupcake bouquets that look like the real thing')}</span>
           </span>
           <span style={{ flex: 'none', width: 36, height: 36, borderRadius: '50%', background: '#F2C6BD', color: '#2B1B16', display: 'grid', placeItems: 'center' }}>
             <FwdIcon size={17} />
@@ -177,7 +177,7 @@ export function LinkInBio() {
             </span>
             <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', lineHeight: 1.35 }}>
               <span style={{ fontSize: 16, fontWeight: 600 }}>{pick('تتبّع طلبك', 'Track your order')}</span>
-              <span style={{ fontSize: 13, color: 'var(--ink-muted)' }}>{pick('برقم الطلب والموبايل', 'With your order number and phone')}</span>
+              <span style={{ fontSize: 13, color: 'var(--ink-muted)' }}>{pick('برقم الطلب ورقم الموبايل', 'With your order number and phone')}</span>
             </span>
             <span style={{ color: '#B97E5E', display: 'grid' }}>
               <FwdIcon />
@@ -189,7 +189,7 @@ export function LinkInBio() {
           <span style={ar ? { font: '600 20px/1.3 var(--f-messiri), serif' } : { font: 'italic 500 26px/1.1 var(--f-cormorant), serif' }}>{pick('من مطبخنا', 'From our kitchen')}</span>
           <a href={data.settings.instagramUrl} target="_blank" rel="noopener" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13.5, fontWeight: 600 }}>
             <InstagramLogo size={17} />
-            {pick('شوف الكل', 'See all')}
+            {pick('عرض الكل', 'See all')}
           </a>
         </div>
         <div onPointerDown={() => strip.current?.pause()} onPointerUp={() => strip.current?.play()} onPointerLeave={() => strip.current?.play()} style={{ margin: '10px -18px 0', overflow: 'hidden', padding: '18px 0 26px' }}>
@@ -224,7 +224,7 @@ export function LinkInBio() {
               <GlobeSimple size={20} />
             </Link>
           </div>
-          <p style={{ margin: '16px 0 0', fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick('معمولة طازة وبكل حب · أمنية الجندي', 'Freshly made with love · by Omnia El Gendy')}</p>
+          <p style={{ margin: '16px 0 0', fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick('تُحضَّر طازجة وبكل حب · أمنية الجندي', 'Freshly made with love · by Omnia El Gendy')}</p>
           <p style={{ margin: '6px 0 0', fontSize: 11.5, color: 'var(--ink-faint)' }}>© {new Date().getFullYear()} Petalya Cakes</p>
         </footer>
       </main>

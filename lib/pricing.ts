@@ -47,7 +47,7 @@ export function designSummary(cfg: BuilderConfig, d: CustomDesign): { k: L; v: L
     { k: { ar: 'الحجم', en: 'Size' }, v: { ar: `${r.size.name.ar} — ${r.size.serves.ar}`, en: `${r.size.name.en} · ${r.size.serves.en}` } },
     { k: { ar: 'النكهة', en: 'Flavour' }, v: r.flavour.name },
     { k: { ar: 'لون الكريمة', en: 'Colour' }, v: r.colour.name },
-    { k: { ar: 'الديكور', en: 'Décor' }, v: decor },
+    { k: { ar: 'الزينة', en: 'Décor' }, v: decor },
     { k: { ar: 'الكتابة', en: 'Message' }, v: { ar: msg, en: msg } },
     { k: { ar: 'التاريخ', en: 'Date' }, v: date },
   ];
@@ -66,16 +66,16 @@ export const STATUS_FLOW = ['new', 'confirmed', 'preparing', 'ready', 'out_for_d
 
 export const STATUS_LABEL: Record<string, L> = {
   new: { ar: 'طلب جديد', en: 'Order received' },
-  confirmed: { ar: 'اتأكد', en: 'Confirmed' },
-  preparing: { ar: 'بيتحضّر', en: 'Being prepared' },
+  confirmed: { ar: 'تم التأكيد', en: 'Confirmed' },
+  preparing: { ar: 'قيد التحضير', en: 'Being prepared' },
   ready: { ar: 'جاهز', en: 'Ready' },
   out_for_delivery: { ar: 'في الطريق', en: 'Out for delivery' },
-  delivered: { ar: 'اتسلّم', en: 'Delivered' },
-  cancelled: { ar: 'اتلغى', en: 'Cancelled' },
+  delivered: { ar: 'تم التسليم', en: 'Delivered' },
+  cancelled: { ar: 'ملغي', en: 'Cancelled' },
 };
 
 export const PAYMENT_LABEL: Record<string, L> = {
-  cod: { ar: 'كاش عند الاستلام', en: 'Cash on delivery' },
+  cod: { ar: 'الدفع عند الاستلام', en: 'Cash on delivery' },
   instapay: { ar: 'إنستاباي', en: 'InstaPay' },
   wallet: { ar: 'محفظة إلكترونية', en: 'Mobile wallet' },
 };

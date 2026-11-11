@@ -1,6 +1,7 @@
 'use client';
 
 import { useId, useMemo, useRef, useState } from 'react';
+import { arCount } from '@/lib/ar';
 
 const shortDay = (d: string) => new Date(d + 'T12:00').toLocaleDateString('ar-EG', { day: 'numeric', month: 'short' });
 const longDay = (d: string) => new Date(d + 'T12:00').toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' });
@@ -113,7 +114,7 @@ export function AreaChart({ data, valueKey, format, height = 230, color = '#9A62
         <div className="tip" style={{ left: `${(x(hover) / W) * 100}%`, top: (y(hv) / H) * H - 10 }} dir="rtl">
           <b className="num">{format(hv)}</b>
           {new Date(String(data[hover].day) + 'T12:00').toLocaleDateString('ar-EG', { weekday: 'long', day: 'numeric', month: 'long' })}
-          {compareKey && <div style={{ color: '#F2C6BD' }}>{cmp[hover]} زيارة</div>}
+          {compareKey && <div style={{ color: '#F2C6BD' }}>{arCount(cmp[hover], 'visit')}</div>}
         </div>
       )}
     </div>

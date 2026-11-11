@@ -99,12 +99,12 @@ export function Reviews({ reviews }: { reviews: Review[] }) {
       <div className="scallop bottom" style={{ ['--sc' as string]: '#FBF5EE' }} aria-hidden="true" />
       <div className="wrap w1080 center">
         <div data-reveal="1" className="eyebrow">
-          <span>{pick('بيقولوا إيه', 'Kind words')}</span>
+          <span>{pick('آراء عملائنا', 'Kind words')}</span>
         </div>
         <h2 data-reveal="1" className="h2">
           {ar ? (
             <>
-              حلاوة <span className="accent">بتتحكي</span>
+              كلمات <span className="accent">أحلى من السكر</span>
             </>
           ) : (
             <>

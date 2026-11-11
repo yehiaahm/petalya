@@ -8,6 +8,7 @@ import { FwdIcon } from './Chrome';
 import { designPrice, designSummary, isoDay } from '@/lib/pricing';
 import type { CustomDesign } from '@/lib/types';
 import { prefersReduced } from '@/lib/petals';
+import { arCount } from '@/lib/ar';
 
 const FLAKES = [
   [[10, 26, 7, 20], [24, 64, 5, 45], [38, 20, 6, 10], [55, 58, 8, 70], [70, 28, 5, 15], [84, 62, 7, 40], [46, 80, 4, 60], [90, 34, 5, 25]],
@@ -116,12 +117,12 @@ export function CakeBuilder({ photos }: { photos: string[] }) {
   }
   const picks = decos.photos ? [[-38, 36, -13], [0, 50, 2], [36, 40, 12]].map((p, i) => ({ x: p[0], h: p[1], r: p[2], img: photos[i % Math.max(1, photos.length)] })) : [];
   const msgColor = col.messageColour || '#7E4A30';
-  const STEP_T = ar ? ['المناسبة إيه؟', 'محتاجين حجم قد إيه؟', 'النكهة واللون', 'نزيّنها بإيه؟', 'اللمسة الأخيرة'] : ['What’s the occasion?', 'How big should it be?', 'Flavour & colour', 'How shall we dress it?', 'Final touches'];
+  const STEP_T = ar ? ['ما المناسبة؟', 'ما الحجم الذي تحتاجه؟', 'النكهة واللون', 'بماذا نزيّنها؟', 'اللمسات الأخيرة'] : ['What’s the occasion?', 'How big should it be?', 'Flavour & colour', 'How shall we dress it?', 'Final touches'];
   const summary = designSummary(cfg, design);
   const minDate = isoDay(data.settings.leadDays);
   const dateBad = !!date && date < minDate;
   const buildMsg =
-    pick('أهلاً Petalya! صمّمت تورتتي على الموقع:\n', 'Hi Petalya! I designed my cake on your site:\n') +
+    pick('أهلًا Petalya! صمّمت تورتتي على الموقع:\n', 'Hi Petalya! I designed my cake on your site:\n') +
     summary.map((r) => '• ' + t(r.k) + ': ' + t(r.v)).join('\n') +
     (showPrices ? '\n' + pick('السعر التقريبي يبدأ من ', 'Estimated from ') + fmt(price) : '');
 
@@ -130,7 +131,7 @@ export function CakeBuilder({ photos }: { photos: string[] }) {
     addCustom(design);
     setAdded(true);
     burst(e.clientX, e.clientY, 22);
-    toast(pick('تورتتك اتضافت للطلب', 'Your cake was added to the order'));
+    toast(pick('تمت إضافة تورتتك إلى الطلب', 'Your cake was added to the order'));
     track('builder_complete', { price });
   };
 
@@ -153,7 +154,7 @@ export function CakeBuilder({ photos }: { photos: string[] }) {
             )}
           </h2>
           <p data-reveal="1" className="intro">
-            {pick('اختار المناسبة والحجم والنكهة والديكور، وشوف تورتتك بتتبني قدامك — وبعدين ضيفها لطلبك بضغطة.', 'Pick the occasion, size, flavour and décor — watch your cake come together, then add it to your order in one tap.')}
+            {pick('اختر المناسبة والحجم والنكهة والزينة، وشاهد تورتتك تتشكّل أمامك، ثم أضفها إلى طلبك بضغطة واحدة.', 'Pick the occasion, size, flavour and décor — watch your cake come together, then add it to your order in one tap.')}
           </p>
         </div>
         <div className="builder">
@@ -218,7 +219,7 @@ export function CakeBuilder({ photos }: { photos: string[] }) {
                 </button>
               ))}
             </div>
-            <span className="step-count">{ar ? `خطوة ${step + 1} من 5` : `Step ${step + 1} of 5`}</span>
+            <span className="step-count">{ar ? `الخطوة ${step + 1} من 5` : `Step ${step + 1} of 5`}</span>
             <h3 className="step-title">{STEP_T[step]}</h3>
 
             {step === 0 && (
@@ -302,7 +303,7 @@ export function CakeBuilder({ photos }: { photos: string[] }) {
                 <label className="field">
                   <span>{pick('تاريخ المناسبة', 'Celebration date')}</span>
                   <input type="date" className={'input' + (dateBad ? ' err' : '')} value={date} min={minDate} onChange={(e) => setDate(e.target.value)} />
-                  {dateBad && <span className="err-text">{pick(`محتاجين ${data.settings.leadDays} أيام على الأقل عشان نجهّزها.`, `We need at least ${data.settings.leadDays} days to make it.`)}</span>}
+                  {dateBad && <span className="err-text">{pick(`نحتاج إلى ${arCount(data.settings.leadDays, 'day')} على الأقل لتحضيرها.`, `We need at least ${data.settings.leadDays} days to make it.`)}</span>}
                 </label>
                 <div className="summary-box">
                   {summary.map((r) => (
@@ -336,20 +337,20 @@ export function CakeBuilder({ photos }: { photos: string[] }) {
               ) : added ? (
                 <Link href="/checkout" className="btn btn-flat btn-md" data-burst="1">
                   <CheckCircle size={20} weight="fill" color="#F2C6BD" />
-                  {pick('أكمل الطلب', 'Go to checkout')}
+                  {pick('إتمام الطلب', 'Go to checkout')}
                   <FwdIcon size={17} />
                 </Link>
               ) : (
                 <button className="btn btn-rose btn-md" data-burst="1" onClick={addToOrder} disabled={dateBad} style={{ padding: '0 22px' }}>
                   <ShoppingBagOpen size={20} />
-                  {pick('ضيفها لطلبي', 'Add to my order')}
+                  {pick('أضفها إلى طلبي', 'Add to my order')}
                 </button>
               )}
             </div>
             {step === 4 && (
               <a href={wa(buildMsg)} target="_blank" rel="noopener" onClick={() => track('whatsapp_click', { source: 'builder' })} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13.5, fontWeight: 600, alignSelf: 'flex-end' }}>
                 <WhatsappLogo size={17} />
-                {pick('محتاج تتكلم معانا الأول؟ ابعت التصميم على واتساب', 'Want to talk it through first? Send the design on WhatsApp')}
+                {pick('تريد التحدث معنا أولًا؟ أرسل التصميم على واتساب', 'Want to talk it through first? Send the design on WhatsApp')}
               </a>
             )}
           </div>

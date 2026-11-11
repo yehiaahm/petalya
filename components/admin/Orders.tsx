@@ -6,16 +6,17 @@ import { useMemo, useState } from 'react';
 import { CalendarBlank, DownloadSimple, Moped, Receipt, Storefront, X } from '@phosphor-icons/react';
 import type { Order, OrderStatus } from '@/lib/types';
 import { dayLabel, egp, Empty, relTime, StatusPill } from './ui';
+import { arCount } from '@/lib/ar';
 
 const TABS: { k: 'all' | 'active' | OrderStatus; label: string }[] = [
-  { k: 'active', label: 'شغالة' },
+  { k: 'active', label: 'الجارية' },
   { k: 'new', label: 'جديدة' },
-  { k: 'confirmed', label: 'اتأكدت' },
-  { k: 'preparing', label: 'بتتحضّر' },
+  { k: 'confirmed', label: 'مؤكَّدة' },
+  { k: 'preparing', label: 'قيد التحضير' },
   { k: 'ready', label: 'جاهزة' },
   { k: 'out_for_delivery', label: 'في الطريق' },
-  { k: 'delivered', label: 'اتسلّمت' },
-  { k: 'cancelled', label: 'اتلغت' },
+  { k: 'delivered', label: 'تم تسليمها' },
+  { k: 'cancelled', label: 'ملغاة' },
   { k: 'all', label: 'الكل' },
 ];
 
@@ -57,7 +58,7 @@ export function Orders({ orders }: { orders: Order[] }) {
         <div>
           <h1>الطلبات</h1>
           <p>
-            {list.length} طلب · {egp(total)}
+            {arCount(list.length, 'order')} · {egp(total)}
           </p>
         </div>
         <div className="acts">
@@ -90,13 +91,13 @@ export function Orders({ orders }: { orders: Order[] }) {
             )}
           </div>
           <select className="ai flt" style={{ height: 40, width: 150 }} value={type} onChange={(e) => setType(e.target.value as typeof type)} aria-label="النوع">
-            <option value="">توصيل واستلام</option>
-            <option value="delivery">توصيل بس</option>
-            <option value="pickup">استلام بس</option>
+            <option value="">التوصيل والاستلام</option>
+            <option value="delivery">التوصيل فقط</option>
+            <option value="pickup">الاستلام فقط</option>
           </select>
           <select className="ai flt" style={{ height: 40, width: 170 }} value={sort} onChange={(e) => setSort(e.target.value as typeof sort)} aria-label="الترتيب">
-            <option value="created">الأحدث أولاً</option>
-            <option value="due">الأقرب في التسليم</option>
+            <option value="created">الأحدث أولًا</option>
+            <option value="due">الأقرب موعدًا للتسليم</option>
           </select>
         </div>
         <div className="tbl-wrap">
@@ -142,7 +143,7 @@ export function Orders({ orders }: { orders: Order[] }) {
                       <td className="hide-md" style={{ maxWidth: 240 }}>
                         <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.items.map((i) => i.name.ar).join('، ')}</div>
                         <div className="faint small">
-                          {n} قطعة{o.items.some((i) => i.kind === 'custom') && <span style={{ color: 'var(--copper-text)', fontWeight: 600 }}> · فيها تورتة مخصوصة</span>}
+                          {arCount(n, 'item')}{o.items.some((i) => i.kind === 'custom') && <span style={{ color: 'var(--copper-text)', fontWeight: 600 }}> · تشمل تورتة حسب الطلب</span>}
                         </div>
                       </td>
                       <td className="c-due">
@@ -156,7 +157,7 @@ export function Orders({ orders }: { orders: Order[] }) {
                         {egp(o.total)}
                       </td>
                       <td className="hide-md">
-                        <span className={'pill plain ' + (o.payment.status === 'paid' ? 'pay-paid' : 'pay-unpaid')}>{o.payment.status === 'paid' ? 'مدفوع' : o.payment.method === 'cod' ? 'كاش' : o.payment.method === 'instapay' ? 'إنستاباي' : 'محفظة'}</span>
+                        <span className={'pill plain ' + (o.payment.status === 'paid' ? 'pay-paid' : 'pay-unpaid')}>{o.payment.status === 'paid' ? 'مدفوع' : o.payment.method === 'cod' ? 'نقدًا' : o.payment.method === 'instapay' ? 'إنستاباي' : 'محفظة'}</span>
                       </td>
                       <td className="c-status">
                         <StatusPill s={o.status} />
@@ -167,8 +168,8 @@ export function Orders({ orders }: { orders: Order[] }) {
               </tbody>
             </table>
           ) : (
-            <Empty icon={<Receipt size={30} />} title="مفيش طلبات هنا">
-              <span className="small">جرّب تغيّر الفلتر أو البحث.</span>
+            <Empty icon={<Receipt size={30} />} title="لا توجد طلبات هنا">
+              <span className="small">جرّب تغيير الفلتر أو كلمات البحث.</span>
             </Empty>
           )}
         </div>

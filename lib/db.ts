@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { DB, PublicData, TrackEvent } from './types';
 import { createSeed, defaultReviewShots, defaultSettings } from './seed';
+import { AR_COPY_UPDATES } from './copy-updates';
 
 export const DATA_DIR = process.env.PETALYA_DATA_DIR || path.join(process.cwd(), 'data');
 export const UPLOAD_DIR = path.join(DATA_DIR, 'uploads');
@@ -53,7 +54,29 @@ function migrate(db: DB): DB {
   db.push ??= { subs: [] };
   db.push.subs ??= [];
   db.reviewShots ??= defaultReviewShots();
+  reviseSeedCopy(db);
   return db;
+}
+
+/** Swaps untouched seed wording for the revised Arabic copy (see copy-updates.ts). Edited text is never matched. */
+function reviseSeedCopy(db: DB) {
+  const fix = (l?: { ar: string } | null) => {
+    const next = l && AR_COPY_UPDATES.get(l.ar);
+    if (next) l.ar = next;
+  };
+  db.categories?.forEach((c) => fix(c.name));
+  db.products?.forEach((p) => (fix(p.name), fix(p.desc)));
+  db.gallery?.forEach((g) => (fix(g.title), fix(g.occasion), fix(g.note)));
+  const s = db.settings;
+  fix(s.closedMessage);
+  fix(s.pickupAddress);
+  s.timeSlots?.forEach((t) => fix(t.name));
+  const b = s.builder;
+  b.occasions?.forEach((o) => (fix(o.name), fix(o.topper)));
+  b.sizes?.forEach((z) => (fix(z.name), fix(z.serves)));
+  b.flavours?.forEach((f) => fix(f.name));
+  b.colours?.forEach((c) => fix(c.name));
+  b.decorations?.forEach((d) => fix(d.name));
 }
 
 export async function readDB(): Promise<DB> {

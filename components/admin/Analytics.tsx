@@ -5,8 +5,9 @@ import { DeviceMobile, Desktop, DeviceTablet, Eye, ShoppingBagOpen, WhatsappLogo
 import type { Stats } from '@/lib/stats';
 import { AreaChart, BarList, Donut, Funnel } from './charts';
 import { Empty, PageHeader } from './ui';
+import { arCount } from '@/lib/ar';
 
-const WA_SRC: Record<string, string> = { fab: 'الزرار العائم', gallery: 'معرض الشغل', header: 'الهيدر', builder: 'صمّم تورتتك', contact: 'قسم التواصل', links: 'صفحة اللينكات', menu: 'القائمة' };
+const WA_SRC: Record<string, string> = { fab: 'الزر العائم', gallery: 'معرض الشغل', header: 'أعلى الصفحة', builder: 'صمّم تورتتك', contact: 'قسم التواصل', links: 'صفحة الروابط', menu: 'المنيو' };
 const DEV: Record<string, [string, string]> = { mobile: ['موبايل', '#C9776A'], desktop: ['كمبيوتر', '#9A6244'], tablet: ['تابلت', '#E2B08C'] };
 
 export function Analytics({ s, names }: { s: Stats; names: Record<string, string> }) {
@@ -16,11 +17,11 @@ export function Analytics({ s, names }: { s: Stats; names: Record<string, string
   const mobile = s.devices.find((d) => d.k === 'mobile')?.v ?? 0;
   return (
     <>
-      <PageHeader title="الزيارات والتحليلات" sub={`مين بيزور الموقع، جايين منين، وبيعملوا إيه · آخر ${s.days} يوم`}>
+      <PageHeader title="الزيارات والتحليلات" sub={`مَن يزور الموقع، ومن أين يأتي، وماذا يفعل · آخر ${arCount(s.days, 'day')}`}>
         <div className="a-tabs">
           {([7, 30, 90] as const).map((r) => (
             <button key={r} className={range === r ? 'on' : ''} onClick={() => setRange(r)}>
-              {r} يوم
+              {arCount(r, 'day')}
             </button>
           ))}
         </div>
@@ -35,7 +36,7 @@ export function Analytics({ s, names }: { s: Stats; names: Record<string, string
             </span>
           </div>
           <span className="val">{s.visitors.v.toLocaleString('en-US')}</span>
-          <div className="foot">{totalViews.toLocaleString('en-US')} مشاهدة صفحة</div>
+          <div className="foot">إجمالي مشاهدات الصفحات: {totalViews.toLocaleString('en-US')}</div>
         </div>
         <div className="a-card kpi">
           <div className="top">
@@ -45,17 +46,17 @@ export function Analytics({ s, names }: { s: Stats; names: Record<string, string
             </span>
           </div>
           <span className="val num">{s.conversion}%</span>
-          <div className="foot">من الزوّار عملوا طلب</div>
+          <div className="foot">من الزوّار أتمّوا طلبًا</div>
         </div>
         <div className="a-card kpi">
           <div className="top">
-            <span className="lbl">ضغطات واتساب</span>
+            <span className="lbl">نقرات واتساب</span>
             <span className="ic">
               <WhatsappLogo size={20} />
             </span>
           </div>
           <span className="val">{s.wa.reduce((a, w) => a + w.v, 0)}</span>
-          <div className="foot">عملاء فتحوا محادثة مباشرة</div>
+          <div className="foot">عملاء بدأوا محادثة مباشرة</div>
         </div>
         <div className="a-card kpi">
           <div className="top">
@@ -74,11 +75,11 @@ export function Analytics({ s, names }: { s: Stats; names: Record<string, string
           <div className="hd">
             <div>
               <h2>الزيارات اليومية</h2>
-              <span className="sub">زوّار مختلفين كل يوم</span>
+              <span className="sub">عدد الزوّار المختلفين يوميًا</span>
             </div>
           </div>
           <div style={{ padding: '10px 16px 18px' }}>
-            <AreaChart data={series} valueKey="visitors" format={(n) => `${n} زائر`} color="#C9776A" />
+            <AreaChart data={series} valueKey="visitors" format={(n) => arCount(n, 'visitor')} color="#C9776A" />
           </div>
         </div>
         <div className="a-card">
@@ -91,9 +92,9 @@ export function Analytics({ s, names }: { s: Stats; names: Record<string, string
         </div>
         <div className="a-card">
           <div className="hd">
-            <h2>الزوّار جايين منين؟</h2>
+            <h2>مصادر الزيارات</h2>
           </div>
-          <div className="a-pad">{s.sources.length ? <BarList rows={s.sources} format={(n) => n.toLocaleString('en-US')} /> : <Empty icon={<Eye size={28} />} title="لسه مفيش زيارات" />}</div>
+          <div className="a-pad">{s.sources.length ? <BarList rows={s.sources} format={(n) => n.toLocaleString('en-US')} /> : <Empty icon={<Eye size={28} />} title="لا توجد زيارات بعد" />}</div>
         </div>
         <div className="a-card">
           <div className="hd">
@@ -112,21 +113,21 @@ export function Analytics({ s, names }: { s: Stats; names: Record<string, string
                 }
               />
             ) : (
-              <Empty icon={<DeviceMobile size={28} />} title="مفيش بيانات" />
+              <Empty icon={<DeviceMobile size={28} />} title="لا توجد بيانات" />
             )}
           </div>
         </div>
         <div className="a-card">
           <div className="hd">
-            <h2>واتساب اتضغط منين؟</h2>
+            <h2>مصادر نقرات واتساب</h2>
           </div>
-          <div className="a-pad">{s.wa.length ? <BarList rows={s.wa.map((w) => ({ k: WA_SRC[w.k] ?? w.k, v: w.v }))} /> : <Empty icon={<WhatsappLogo size={28} />} title="مفيش ضغطات لسه" />}</div>
+          <div className="a-pad">{s.wa.length ? <BarList rows={s.wa.map((w) => ({ k: WA_SRC[w.k] ?? w.k, v: w.v }))} /> : <Empty icon={<WhatsappLogo size={28} />} title="لا توجد نقرات بعد" />}</div>
         </div>
         <div className="a-card">
           <div className="hd">
-            <h2>أكتر حاجات اتضافت للسلة</h2>
+            <h2>الأكثر إضافةً إلى الطلبات</h2>
           </div>
-          <div className="a-pad">{s.added.length ? <BarList rows={s.added.map((a) => ({ k: a.k === 'custom-cake' ? 'تورتة مخصوصة' : names[a.k] ?? a.k, v: a.v }))} /> : <Empty icon={<ShoppingBagOpen size={28} />} title="مفيش لسه" />}</div>
+          <div className="a-pad">{s.added.length ? <BarList rows={s.added.map((a) => ({ k: a.k === 'custom-cake' ? 'تورتة حسب الطلب' : names[a.k] ?? a.k, v: a.v }))} /> : <Empty icon={<ShoppingBagOpen size={28} />} title="لا يوجد شيء بعد" />}</div>
         </div>
       </div>
     </>

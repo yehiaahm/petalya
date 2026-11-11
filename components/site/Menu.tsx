@@ -5,14 +5,15 @@ import { useEffect, useRef, useState } from 'react';
 import { Cake, Images, Info, Minus, Plus, X } from '@phosphor-icons/react';
 import type { Product } from '@/lib/types';
 import { useSite } from './SiteProvider';
+import { arCount } from '@/lib/ar';
 
 export function QtyControl({ product, light = false }: { product: Product; light?: boolean }) {
   const { qtyOf, add, dec, pick } = useSite();
   const q = qtyOf(product.id);
-  if (product.soldOut) return <span className="soldout">{pick('خلصت النهارده', 'Sold out')}</span>;
+  if (product.soldOut) return <span className="soldout">{pick('نفدت الكمية', 'Sold out')}</span>;
   if (!q)
     return (
-      <button className="add-btn" data-burst="1" onClick={() => add(product.id)} aria-label={pick('أضف للطلب', 'Add to order')}>
+      <button className="add-btn" data-burst="1" onClick={() => add(product.id)} aria-label={pick('أضف إلى الطلب', 'Add to order')}>
         <Plus size={16} weight="bold" />
       </button>
     );
@@ -79,7 +80,7 @@ export function Menu({ tab, setTab }: { tab: number; setTab: (i: number) => void
           <h2 data-reveal="1" className="h2">
             {ar ? (
               <>
-                اختار <span className="accent">حلاوتك</span>
+                اختر <span className="accent">حلاوتك</span>
               </>
             ) : (
               <>
@@ -126,7 +127,7 @@ export function Menu({ tab, setTab }: { tab: number; setTab: (i: number) => void
         {showPrices && (
           <p className="menu-note">
             <Info size={16} color="#B97E5E" style={{ flex: 'none' }} />
-            {pick('الأسعار بداية من — والسعر النهائي حسب التصميم والحجم.', 'Prices are starting points — the final quote depends on design and size.')}
+            {pick('الأسعار المعروضة أسعار مبدئية، ويُحدَّد السعر النهائي حسب التصميم والحجم.', 'Prices are starting points — the final quote depends on design and size.')}
           </p>
         )}
       </div>
@@ -176,7 +177,7 @@ export function ProductSheet({ product, onClose }: { product: Product | null; on
         {p && (
           <>
             <div className="media">
-              <button className="icon-btn close" onClick={onClose} aria-label={pick('اقفل', 'Close')} tabIndex={open ? 0 : -1}>
+              <button className="icon-btn close" onClick={onClose} aria-label={pick('إغلاق', 'Close')} tabIndex={open ? 0 : -1}>
                 <X size={20} />
               </button>
               <div className="slides" ref={slides} onScroll={onScroll}>
@@ -213,7 +214,7 @@ export function ProductSheet({ product, onClose }: { product: Product | null; on
               {p.leadDays ? (
                 <p className="menu-note" style={{ justifyContent: 'flex-start', marginTop: 8, textAlign: 'start' }}>
                   <Info size={16} color="#B97E5E" style={{ flex: 'none' }} />
-                  {pick(`اطلبها قبل ميعادك بـ ${p.leadDays} أيام على الأقل.`, `Order at least ${p.leadDays} days ahead.`)}
+                  {pick(`اطلبها قبل موعدك بـ ${arCount(p.leadDays, 'day')} على الأقل.`, `Order at least ${p.leadDays} days ahead.`)}
                 </p>
               ) : null}
             </div>

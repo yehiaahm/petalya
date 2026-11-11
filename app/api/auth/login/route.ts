@@ -6,7 +6,7 @@ import { clientIp, MAX_PASSWORD } from '@/lib/net';
 
 export async function POST(req: Request) {
   const ip = 'user:' + clientIp(req);
-  if (loginBlocked(ip)) return Response.json({ error: 'rate', message: { ar: 'محاولات كتير — جرّب بعد دقيقة.', en: 'Too many attempts — try again in a minute.' } }, { status: 429 });
+  if (loginBlocked(ip)) return Response.json({ error: 'rate', message: { ar: 'محاولات كثيرة. حاول مرة أخرى بعد دقيقة.', en: 'Too many attempts — try again in a minute.' } }, { status: 429 });
   const b = (await req.json().catch(() => ({}))) as { email?: string; password?: string };
   const email = normEmail(b.email);
   const pw = String(b.password || '').slice(0, MAX_PASSWORD + 1);
@@ -20,8 +20,8 @@ export async function POST(req: Request) {
       {
         error: 'credentials',
         message: google
-          ? { ar: 'الحساب ده متعمل بجوجل — ادخل بزرار جوجل.', en: 'This account uses Google — continue with Google.' }
-          : { ar: 'الإيميل أو كلمة السر غلط.', en: 'Wrong email or password.' },
+          ? { ar: 'هذا الحساب مسجَّل باستخدام Google. سجّل الدخول عبر زر Google.', en: 'This account uses Google — continue with Google.' }
+          : { ar: 'البريد الإلكتروني أو كلمة المرور غير صحيحة.', en: 'Wrong email or password.' },
       },
       { status: 401 },
     );

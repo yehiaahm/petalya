@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { readDB } from '@/lib/db';
 import { ProductEditor } from '@/components/admin/ProductEditor';
 
-export const metadata = { title: 'منتج' };
+export const metadata = { title: 'تعديل منتج' };
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;

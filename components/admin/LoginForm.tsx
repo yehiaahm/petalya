@@ -19,7 +19,7 @@ export function LoginForm() {
       return;
     }
     setBusy(false);
-    setErr(r.status === 429 ? 'محاولات كتير — استنى دقيقة وجرّب تاني.' : 'كلمة السر مش صح.');
+    setErr(r.status === 429 ? 'محاولات كثيرة. انتظر دقيقة ثم حاول مرة أخرى.' : 'كلمة المرور غير صحيحة.');
   };
   return (
     <div className="adm login-bg" dir="rtl" lang="ar">
@@ -32,10 +32,10 @@ export function LoginForm() {
         </div>
         <div>
           <h1 style={{ fontSize: 26 }}>مرحبًا بعودتك</h1>
-          <p className="muted" style={{ margin: '4px 0 0' }}>تسجيل الدخول للوحة تحكم Petalya</p>
+          <p className="muted" style={{ margin: '4px 0 0' }}>سجّل الدخول إلى لوحة تحكم Petalya</p>
         </div>
         <label className="af" style={{ textAlign: 'start' }}>
-          <span>كلمة السر</span>
+          <span>كلمة المرور</span>
           <div style={{ position: 'relative' }}>
             <input className="ai" type={show ? 'text' : 'password'} value={pw} onChange={(e) => setPw(e.target.value)} autoFocus autoComplete="current-password" style={{ paddingInlineEnd: 44, height: 50 }} />
             <button type="button" onClick={() => setShow(!show)} aria-label={show ? 'إخفاء' : 'إظهار'} style={{ position: 'absolute', top: 0, bottom: 0, insetInlineEnd: 6, width: 38, border: 0, background: 'none', color: 'var(--ink-muted)', cursor: 'pointer' }}>
@@ -46,9 +46,9 @@ export function LoginForm() {
         {err && <span className="small" style={{ color: 'var(--bad)' }}>{err}</span>}
         <button className="ab primary" style={{ height: 50 }} disabled={busy || !pw}>
           <Lock size={18} />
-          {busy ? 'لحظة…' : 'دخول'}
+          {busy ? 'جارٍ الدخول…' : 'تسجيل الدخول'}
         </button>
-        <a href="/" className="small">← رجوع للموقع</a>
+        <a href="/" className="small">← العودة إلى الموقع</a>
       </form>
     </div>
   );
