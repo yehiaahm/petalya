@@ -65,7 +65,7 @@ export function LinkInBio() {
   const share = async () => {
     const url = location.origin + '/links';
     try {
-      if (navigator.share) return await navigator.share({ title: 'Petalya Cakes', text: pick('Cakes أنيقة لأحلى لحظاتك', 'Elegant cakes for unforgettable moments'), url });
+      if (navigator.share) return await navigator.share({ title: 'Petalya Cakes', text: pick('Cakes بتكمّل أحلى لحظاتك','Elegant cakes for unforgettable moments'), url });
       await navigator.clipboard.writeText(url);
       toast(pick('اتنسخ اللينك', 'Link copied'));
     } catch {}
@@ -143,7 +143,7 @@ export function LinkInBio() {
         >
           <span style={{ position: 'relative', flex: 'none', width: 96, height: 112, borderRadius: 18, overflow: 'hidden', background: '#3A2620' }}>{feature && <img className="cover" src={feature} alt="" />}</span>
           <span style={{ flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 4 }}>
-            <span style={ar ? { font: '500 14px/1.4 var(--f-messiri), serif', color: '#F2C6BD' } : { fontSize: 10.5, fontWeight: 600, letterSpacing: '.24em', textTransform: 'uppercase', color: '#F2C6BD' }}>{pick('هوسنا الحالي', 'Current obsession')}</span>
+            <span style={ar ? { font: '500 14px/1.4 var(--f-messiri), serif', color: '#F2C6BD' } : { fontSize: 10.5, fontWeight: 600, letterSpacing: '.24em', textTransform: 'uppercase', color: '#F2C6BD' }}>{pick('Current obsession', 'Current obsession')}</span>
             <span style={ar ? { font: '600 25px/1.3 var(--f-messiri), serif' } : { font: 'italic 500 30px/1.05 var(--f-cormorant), serif' }}>{pick('Cupcake Bouquets', 'Bakery of flowers')}</span>
             <span style={{ fontSize: 13, lineHeight: 1.55, color: '#D9C2B4' }}>{pick('Cupcakes شكلها ورد حقيقي', 'Cupcake bouquets that look like the real thing')}</span>
           </span>
@@ -186,7 +186,7 @@ export function LinkInBio() {
         </div>
 
         <div data-in="1" style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginTop: 30, padding: '0 4px' }}>
-          <span style={ar ? { font: '600 20px/1.3 var(--f-messiri), serif' } : { font: 'italic 500 26px/1.1 var(--f-cormorant), serif' }}>{pick('من مطبخنا', 'From our kitchen')}</span>
+          <span style={ar ? { font: '600 20px/1.3 var(--f-messiri), serif' } : { font: 'italic 500 26px/1.1 var(--f-cormorant), serif' }}>{pick('From our kitchen', 'From our kitchen')}</span>
           <a href={data.settings.instagramUrl} target="_blank" rel="noopener" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13.5, fontWeight: 600 }}>
             <InstagramLogo size={17} />
             {pick('شوف الكل', 'See all')}

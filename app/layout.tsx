@@ -12,7 +12,7 @@ const plex = IBM_Plex_Sans_Arabic({ subsets: ['arabic', 'latin'], weight: ['300'
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: { default: 'Petalya — Cakes & Cupcakes', template: '%s · Petalya' },
-  description: 'Cakes أنيقة لأحلى لحظاتك — Custom Cakes و Cupcakes معمولة بإيدينا، طازة وبكل حب. Elegant custom cakes and handcrafted cupcakes in Cairo.',
+  description: 'Cakes بتكمّل أحلى لحظاتك — Custom Cakes و Cupcakes بنعملها بإيدينا وبحب، طازة كل يوم. Elegant custom cakes and handcrafted cupcakes in Cairo.',
   applicationName: 'Petalya',
   appleWebApp: { capable: true, title: 'Petalya', statusBarStyle: 'default' },
   icons: { icon: '/icons/icon-192.png', apple: '/icons/apple-touch-icon.png' },

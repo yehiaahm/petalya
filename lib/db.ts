@@ -5,7 +5,7 @@ import path from 'node:path';
 import readline from 'node:readline';
 import type { DB, PublicData, TrackEvent } from './types';
 import { createSeed, defaultReviewShots, defaultSettings } from './seed';
-import { AR_COPY_UPDATES } from './copy-updates';
+import { AR_COPY_UPDATES, EN_COPY_UPDATES } from './copy-updates';
 import { compactEventLines, retentionFromEnv } from './retention';
 
 export const DATA_DIR = process.env.PETALYA_DATA_DIR || path.join(process.cwd(), 'data');
@@ -72,9 +72,12 @@ function migrate(db: DB): DB {
 
 /** Swaps untouched seed wording for the revised Arabic copy (see copy-updates.ts). Edited text is never matched. */
 function reviseSeedCopy(db: DB) {
-  const fix = (l?: { ar: string } | null, map: Map<string, string> = AR_COPY_UPDATES.text) => {
-    const next = l && map.get(l.ar);
+  const fix = (l?: { ar: string; en?: string } | null, map: Map<string, string> = AR_COPY_UPDATES.text) => {
+    if (!l) return;
+    const next = map.get(l.ar);
     if (next) l.ar = next;
+    const nextEn = l.en && EN_COPY_UPDATES.get(l.en);
+    if (nextEn) l.en = nextEn;
   };
   db.categories?.forEach((c) => fix(c.name));
   db.products?.forEach((p) => (fix(p.name), fix(p.desc)));

@@ -49,25 +49,24 @@
       "orderOnWhatsApp": { "ar": "اطلب على واتساب", "en": "Order on WhatsApp" }
     },
     "hero": {
-      "eyebrow": { "ar": "Cakes & Cupcakes · بإيد أمنية الجندي", "en": "Cakes & cupcakes · by Omnia El Gendy" },
+      "eyebrow": { "ar": "Cakes & Cupcakes · Omnia El Gendy", "en": "Cakes & cupcakes · by Omnia El Gendy" },
       "title": {
-        "ar": { "before": "Cakes أنيقة ", "accent": "لأحلى لحظاتك", "after": "" },
+        "ar": { "before": "Cakes بتكمّل ", "accent": "أحلى لحظاتك", "after": "" },
         "en": { "before": "Elegant cakes for ", "accent": "unforgettable", "after": " moments" }
       },
       "lead": {
-        "ar": "Custom Cakes على ذوقك لكل مناسبة، و Cupcakes معمولة بإيدينا — طازة كل يوم وبكل حب.",
+        "ar": "Custom Cakes على ذوقك لكل مناسبة، و Cupcakes بنعملها بإيدينا وبحب، طازة كل يوم.",
         "en": "Custom cakes for your occasion and handcrafted cupcakes — freshly made, every day, with love."
       },
       "primaryCta": { "ar": "صمّم الـ Cake بتاعك", "en": "Design your cake", "href": "#custom" },
-      "secondaryCta": { "ar": "شوف المنيو", "en": "Browse the menu", "href": "#menu" },
-      "hint": { "ar": "المس الشاشة وشوف البتلات بتطير", "en": "Touch anywhere — watch the petals fly" }
+      "secondaryCta": { "ar": "شوف المنيو", "en": "Browse the menu", "href": "#menu" }
     },
     "marquee": {
       "ar": ["أعياد ميلاد", "خطوبة", "كتب كتاب", "سبوع", "تخرّج", "Cupcake Bouquets", "Gender Reveal", "عيد الأم"],
       "en": ["Birthdays", "Engagements", "Weddings", "Baby showers", "Graduations", "Cupcake bouquets", "Gender reveals", "Mother’s Day"]
     },
     "work": {
-      "eyebrow": { "ar": "من مطبخنا", "en": "From our kitchen" },
+      "eyebrow": { "ar": "From our kitchen", "en": "From our kitchen" },
       "title": {
         "ar": { "before": "Cakes بتحكي ", "accent": "حكايتكم", "after": "" },
         "en": { "before": "Cakes that tell ", "accent": "your", "after": " story" }
@@ -81,7 +80,7 @@
     "menu": {
       "eyebrow": { "ar": "المنيو", "en": "The menu" },
       "title": {
-        "ar": { "before": "اختار ", "accent": "حلاوتك", "after": "" },
+        "ar": { "before": "اختار ", "accent": "اللي نفسك فيه", "after": "" },
         "en": { "before": "Choose your ", "accent": "sweet", "after": "" }
       },
       "addToOrder": { "ar": "ضيف للطلب", "en": "Add to order" },
@@ -91,14 +90,14 @@
       }
     },
     "flowers": {
-      "eyebrow": { "ar": "هوسنا الحالي", "en": "Current obsession" },
+      "eyebrow": { "ar": "Current obsession", "en": "Current obsession" },
       "title": {
-        "ar": { "before": "ورد من ", "accent": "Buttercream", "after": "" },
+        "ar": { "before": "Chantilly Cream ", "accent": "Flowers", "after": "" },
         "en": { "before": "A bakery of ", "accent": "flowers", "after": "" }
       },
       "lead": {
-        "ar": "ورد Buttercream بنعمله بتلة بتلة بإيدينا… Cupcake Bouquets تتهادى، وتتاكل كمان.",
-        "en": "Buttercream blooms, piped petal by petal by hand — cupcake bouquets made to be gifted, and eaten."
+        "ar": "بنعمل ورد الـ Chantilly Cream بتلة بتلة بإيدينا… Cupcake Bouquets تتهادى، وتتاكل كمان.",
+        "en": "Chantilly cream blooms, piped petal by petal by hand — cupcake bouquets made to be gifted, and eaten."
       },
       "chips": {
         "ar": ["Roses", "Peonies", "Hydrangeas", "Tulips", "Daisies"],
@@ -175,8 +174,8 @@
       "ar": {"title": "Bride in Bloom", "occasion": "Bridal Shower", "note": "فستان Fondant تحت قوس من ورد السكر."},
       "en": {"title": "Bride in Bloom", "occasion": "Bridal shower", "note": "A fondant gown beneath an arch of sugar blossoms."} },
     { "id": "g3", "productId": "b3", "image": "products/bouquet-grand-garden.webp", "tilt": -1.5,
-      "ar": {"title": "The Garden Bouquet", "occasion": "هدية", "note": "ورد Buttercream بألوان الربيع، متجمّع في Bouquet واحد."},
-      "en": {"title": "The Garden Bouquet", "occasion": "A gift", "note": "Buttercream blooms in spring colours, gathered into one bouquet."} },
+      "ar": {"title": "The Garden Bouquet", "occasion": "هدية", "note": "ورد Chantilly Cream بألوان الربيع، متجمّع في Bouquet واحد."},
+      "en": {"title": "The Garden Bouquet", "occasion": "A gift", "note": "Chantilly cream blooms in spring colours, gathered into one bouquet."} },
     { "id": "g4", "productId": "u1", "image": "assets/cupcake-tulle.png", "tilt": 3,
       "ar": {"title": "Bloom in tulle", "occasion": "لمسة صغيرة", "note": "Cupcake واحدة ملفوفة بالتول — أرق هدية."},
       "en": {"title": "A bloom in tulle", "occasion": "Little gesture", "note": "A single cupcake wrapped in tulle — the softest gift."} },
@@ -190,23 +189,23 @@
       "ar": {"title": "Strawberry Picnic", "occasion": "عيد ميلاد أطفال", "note": "كاروهات حمرا مع فراولة وكريز وبطيخ معمولين باليد."},
       "en": {"title": "Strawberry Picnic", "occasion": "Kids' birthday", "note": "Red gingham with handmade strawberries, cherries and watermelon."} },
     { "id": "g8", "productId": "u12", "image": "products/cupcake-stargazer-lily.webp", "tilt": 1.5,
-      "ar": {"title": "Stargazer Lily", "occasion": "Cupcakes", "note": "زنبقة بيضا بلمسات Pink، معمولة بتلة بتلة من الـ Buttercream."},
+      "ar": {"title": "Stargazer Lily", "occasion": "Cupcakes", "note": "زنبقة بيضا بلمسات Pink، معمولة بتلة بتلة من الـ Chantilly Cream."},
       "en": {"title": "Stargazer Lily", "occasion": "Cupcake", "note": "A white lily brushed with raspberry pink, piped petal by petal."} },
     { "id": "g9", "productId": "u5", "image": "products/cupcake-lilac-anemone.webp", "tilt": -2,
       "ar": {"title": "Lilac Anemone", "occasion": "Cupcakes", "note": "بتلات Lilac حوالين قلب أخضر بحبيبات صغيرة."},
       "en": {"title": "Lilac Anemone", "occasion": "Cupcake", "note": "Lilac petals around a beaded green heart."} },
     { "id": "g10", "productId": "u4", "image": "products/cupcake-mauve-dahlia.webp", "tilt": 2,
-      "ar": {"title": "Mauve Dahlia", "occasion": "Cupcakes", "note": "عشرات البتلات المدببة من الـ Buttercream بلون Mauve هادي."},
-      "en": {"title": "Mauve Dahlia", "occasion": "Cupcake", "note": "Dozens of pointed buttercream petals in dusty mauve."} }
+      "ar": {"title": "Mauve Dahlia", "occasion": "Cupcakes", "note": "عشرات البتلات المدببة من الـ Chantilly Cream بلون Mauve هادي."},
+      "en": {"title": "Mauve Dahlia", "occasion": "Cupcake", "note": "Dozens of pointed chantilly cream petals in dusty mauve."} }
   ],
   "menu": [
     { "id": "cakes", "ar": "Cakes", "en": "Cakes", "items": [
       { "id": "c1", "images": ["products/cake-golden-memories.webp"], "price": 1200,
-        "ar": {"name": "Golden Memories", "desc": "Buttercream بلون Sage مع Gold leaf وصور Polaroid لأحلى لحظاتكم · تكفي ١٢–١٥ فرد"},
-        "en": {"name": "Golden Memories", "desc": "Sage buttercream, gold leaf and pegged Polaroid prints of your favourite moments · serves 12–15"} },
+        "ar": {"name": "Golden Memories", "desc": "Chantilly Cream بلون Sage مع Gold leaf وصور Polaroid لأحلى لحظاتكم · تكفي ١٢–١٥ فرد"},
+        "en": {"name": "Golden Memories", "desc": "Sage chantilly cream, gold leaf and pegged Polaroid prints of your favourite moments · serves 12–15"} },
       { "id": "c4", "images": ["products/cake-pink-crown.webp"], "price": 950,
-        "ar": {"name": "The Pink Crown", "desc": "Buttercream بينك ناعم بحواف مكشكشة، ولؤلؤ، وتاج دهبي، وبرواز صورة · تكفي ٨–١٠ أفراد"},
-        "en": {"name": "The Pink Crown", "desc": "Blush buttercream with ruffled piping, pearls, a jewelled gold crown and a gold-piped photo frame · serves 8–10"} },
+        "ar": {"name": "The Pink Crown", "desc": "Chantilly Cream بينك ناعم بحواف مكشكشة، ولؤلؤ، وتاج دهبي، وبرواز صورة · تكفي ٨–١٠ أفراد"},
+        "en": {"name": "The Pink Crown", "desc": "Blush chantilly cream with ruffled piping, pearls, a jewelled gold crown and a gold-piped photo frame · serves 8–10"} },
       { "id": "c2", "images": ["products/cake-bride-in-bloom.webp"], "price": 1850,
         "ar": {"name": "Bride in Bloom", "desc": "فستان Fondant بفيونكة لامعة تحت قوس من ورد السكر، وحواليه Peonies · تكفي ١٥–٢٠ فرد"},
         "en": {"name": "Bride in Bloom", "desc": "A shimmering fondant gown and bow beneath an arch of sugar blossoms, framed by peonies · serves 15–20"} },
@@ -217,29 +216,29 @@
         "ar": {"name": "The Crossword", "desc": "كلامكم على شكل كلمات متقاطعة، مكتوب بالأزرق الملكي مع حافة دهبي · تكفي ١٠–١٢ فرد"},
         "en": {"name": "The Crossword", "desc": "Your words, crossword-style, piped in royal blue with a gold-edged top · serves 10–12"} },
       { "id": "c-golden-fairy", "images": ["products/cake-golden-fairy.webp", "products/cake-golden-fairy-2.webp"], "price": 1450,
-        "ar": { "name": "The Golden Fairy Cake", "desc": "Buttercream أصفر بتموّجات ناعمة، ورسمة Fairy على الواجهة، وأجنحة فراشة من السكر — بالاسم والسن اللي تختاروه." },
-        "en": { "name": "The Golden Fairy Cake", "desc": "Sunny buttercream ruffles, a fairy portrait and sugar butterfly wings — personalised with her name and age." } },
+        "ar": { "name": "The Golden Fairy Cake", "desc": "Chantilly Cream أصفر بتموّجات ناعمة، ورسمة Fairy على الواجهة، وأجنحة فراشة من السكر — بالاسم والسن اللي تختاروه." },
+        "en": { "name": "The Golden Fairy Cake", "desc": "Sunny chantilly cream ruffles, a fairy portrait and sugar butterfly wings — personalised with her name and age." } },
       { "id": "c-sunflower-gold", "images": ["products/cake-sunflower-gold.webp", "products/cake-sunflower-gold-2.webp", "products/cake-sunflower-gold-3.webp"], "price": 1250,
-        "ar": { "name": "Sunflower Gold Cake", "desc": "مئات النجوم من الـ Buttercream معمولة بإيد، وحواليها بتلات دهبي متشكّلة يدويًا." },
-        "en": { "name": "Sunflower Gold Cake", "desc": "Hundreds of hand-piped buttercream stars ringed with sculpted, gold-dusted petals." } },
+        "ar": { "name": "Sunflower Gold Cake", "desc": "مئات النجوم من الـ Chantilly Cream معمولة بإيد، وحواليها بتلات دهبي متشكّلة يدويًا." },
+        "en": { "name": "Sunflower Gold Cake", "desc": "Hundreds of hand-piped chantilly cream stars ringed with sculpted, gold-dusted petals." } },
       { "id": "c-raspberry-ribbon", "images": ["products/cake-raspberry-ribbon.webp"], "price": 1300,
-        "ar": { "name": "Raspberry Ribbon Cake", "desc": "ستايل Vintage بحواف Buttercream مزخرفة، وفيونكات ستان، وتاج من التوت الفريش." },
+        "ar": { "name": "Raspberry Ribbon Cake", "desc": "ستايل Vintage بحواف Chantilly Cream مزخرفة، وفيونكات ستان، وتاج من التوت الفريش." },
         "en": { "name": "Raspberry Ribbon Cake", "desc": "Vintage-style piping, satin ribbon bows and a crown of fresh raspberries." } },
       { "id": "c-cherry-picnic", "images": ["products/cake-cherry-picnic.webp", "products/cake-cherry-picnic-2.webp", "products/cake-cherry-picnic-3.webp"], "price": 1350,
         "ar": { "name": "Cherry Picnic Cake", "desc": "مفرش Fondant بحواف لؤلؤ فوق كاروهات بينك، وفوقه سبت شوكولاتة مليان كريز معمول باليد." },
         "en": { "name": "Cherry Picnic Cake", "desc": "A pearl-trimmed fondant tablecloth over pink gingham, topped with a handmade chocolate basket of cherries." } },
       { "id": "c-sage-garden", "images": ["products/cake-sage-garden.webp"], "price": 1200,
-        "ar": { "name": "Sage Garden Cake", "desc": "Buttercream بلون Sage بحواف رقيقة، و Bouquet ورد بالبينك والموف والأوف وايت." },
-        "en": { "name": "Sage Garden Cake", "desc": "Sage-green buttercream with scalloped piping and a hand-piped bouquet of pink, plum and ivory roses." } },
+        "ar": { "name": "Sage Garden Cake", "desc": "Chantilly Cream بلون Sage بحواف رقيقة، و Bouquet ورد بالبينك والموف والأوف وايت." },
+        "en": { "name": "Sage Garden Cake", "desc": "Sage-green chantilly cream with scalloped piping and a hand-piped bouquet of pink, plum and ivory roses." } },
       { "id": "c-blush-banter", "images": ["products/cake-blush-banter.webp", "products/cake-blush-banter-2.webp"], "price": 1100,
-        "ar": { "name": "Blush Banter Cake", "desc": "Buttercream بدرجات البينك بلمسة فرشاة وحافة Gold leaf، وفوقه كروت بجمل مضحكة وصورة — متصمم على هزاركم الخاص." },
-        "en": { "name": "Blush Banter Cake", "desc": "Pink brush-stroke buttercream with a gold-leaf edge and a crown of witty quote toppers — designed around your inside jokes." } },
+        "ar": { "name": "Blush Banter Cake", "desc": "Chantilly Cream بدرجات البينك بلمسة فرشاة وحافة Gold leaf، وفوقه كروت بجمل مضحكة وصورة — متصمم على هزاركم الخاص." },
+        "en": { "name": "Blush Banter Cake", "desc": "Pink brush-stroke chantilly cream with a gold-leaf edge and a crown of witty quote toppers — designed around your inside jokes." } },
       { "id": "c-ombre-rosette", "images": ["products/cake-ombre-rosette.webp"], "price": 950,
-        "ar": { "name": "Ombré Rosette Cake", "desc": "وردات Buttercream معمولة بإيد، متدرّجة من البينك الفاتح للون التوت." },
+        "ar": { "name": "Ombré Rosette Cake", "desc": "وردات Chantilly Cream معمولة بإيد، متدرّجة من البينك الفاتح للون التوت." },
         "en": { "name": "Ombré Rosette Cake", "desc": "Hand-piped rosettes that melt from soft blush to deep berry." } },
       { "id": "c-blooming-crown", "images": ["products/cake-blooming-crown.webp"], "price": 1150,
-        "ar": { "name": "Blooming Crown Cake", "desc": "تاج من ورد الـ Buttercream بألوان Pastel والمشمشي والأصفر، مع Topper دهبي مكتوب." },
-        "en": { "name": "Blooming Crown Cake", "desc": "A wreath of buttercream roses in peach, mint, pink and marigold, finished with a gold script topper." } },
+        "ar": { "name": "Blooming Crown Cake", "desc": "تاج من ورد الـ Chantilly Cream بألوان Pastel والمشمشي والأصفر، مع Topper دهبي مكتوب." },
+        "en": { "name": "Blooming Crown Cake", "desc": "A wreath of chantilly cream roses in peach, mint, pink and marigold, finished with a gold script topper." } },
       { "id": "c-crimson-rose", "images": ["products/cake-crimson-rose.webp"], "price": 1100,
         "ar": { "name": "Crimson Rose Cake", "desc": "ورد أحمر Velvet فوق جوانب بيضا متموّجة، مع Topper أكريليك دهبي مكتوب عليه Happy Birthday." },
         "en": { "name": "Crimson Rose Cake", "desc": "Velvety red roses above ruffled white sides, framed by a gold acrylic Happy Birthday plaque." } },
@@ -287,20 +286,20 @@
     ] },
     { "id": "bouquets", "ar": "Bouquets", "en": "Bouquets", "items": [
       { "id": "b3", "images": ["products/bouquet-grand-garden.webp", "products/bouquet-grand-garden-2.webp"], "price": 1690,
-        "ar": {"name": "Grand Garden Bouquet", "desc": "١٩ وردة Buttercream معمولة باليد — Roses و Peonies و Daisies و Lilies وأكتر — متغلّفة زي Bouquet ورد طبيعي"},
-        "en": {"name": "Grand Garden Bouquet", "desc": "Nineteen hand-piped buttercream blooms — roses, peonies, daisies, lilies and more — wrapped like fresh flowers"} },
+        "ar": {"name": "Grand Garden Bouquet", "desc": "١٩ وردة Chantilly Cream معمولة باليد — Roses و Peonies و Daisies و Lilies وأكتر — متغلّفة زي Bouquet ورد طبيعي"},
+        "en": {"name": "Grand Garden Bouquet", "desc": "Nineteen hand-piped chantilly cream blooms — roses, peonies, daisies, lilies and more — wrapped like fresh flowers"} },
       { "id": "b1", "images": [], "price": 690,
-        "ar": {"name": "Petite bouquet", "desc": "٧ وردات Buttercream"},
-        "en": {"name": "Petite bouquet", "desc": "Seven buttercream blooms"} },
+        "ar": {"name": "Petite bouquet", "desc": "٧ وردات Chantilly Cream"},
+        "en": {"name": "Petite bouquet", "desc": "Seven chantilly cream blooms"} },
       { "id": "b2", "images": [], "price": 1150,
         "ar": {"name": "Classic bouquet", "desc": "١٢ وردة بالألوان اللي تختارها"},
         "en": {"name": "Classic bouquet", "desc": "Twelve blooms in your colours"} },
       { "id": "b-midnight-rose", "images": ["products/bouquet-midnight-rose.webp"], "price": 750,
-        "ar": { "name": "Midnight Rose Bouquet", "desc": "ورد Buttercream بالـ Burgundy والأوف وايت في تغليف رمادي أنيق وشريطة حمرا." },
-        "en": { "name": "Midnight Rose Bouquet", "desc": "Burgundy and ivory buttercream roses in smoky-grey wrap, tied with a crimson ribbon." } },
+        "ar": { "name": "Midnight Rose Bouquet", "desc": "ورد Chantilly Cream بالـ Burgundy والأوف وايت في تغليف رمادي أنيق وشريطة حمرا." },
+        "en": { "name": "Midnight Rose Bouquet", "desc": "Burgundy and ivory chantilly cream roses in smoky-grey wrap, tied with a crimson ribbon." } },
       { "id": "b-garden-party", "images": ["products/bouquet-garden-party.webp", "products/bouquet-garden-party-2.webp"], "price": 1250,
-        "ar": { "name": "Garden Party Bouquet", "desc": "ورد Buttercream بالبينك والـ Lilac والأوف وايت، في تغليف بحواف دهبي وفيونكة Sage ستان." },
-        "en": { "name": "Garden Party Bouquet", "desc": "Pink, lilac and ivory buttercream roses in gold-edged wrap with a sage satin bow." } }
+        "ar": { "name": "Garden Party Bouquet", "desc": "ورد Chantilly Cream بالبينك والـ Lilac والأوف وايت، في تغليف بحواف دهبي وفيونكة Sage ستان." },
+        "en": { "name": "Garden Party Bouquet", "desc": "Pink, lilac and ivory chantilly cream roses in gold-edged wrap with a sage satin bow." } }
     ] }
   ],
   "flowerRosettePetals": [
@@ -340,7 +339,7 @@
       { "ar": "Cocoa", "en": "Cocoa", "base": "#7B4F3B", "light": "#9C6B53", "dark": "#5B3829", "messageColour": "#FBEFE6" }
     ],
     "decorations": [
-      { "id": "flowers", "icon": "Flower", "price": 300, "perTier": true, "ar": "Buttercream Flowers", "en": "Buttercream flowers" },
+      { "id": "flowers", "icon": "Flower", "price": 300, "perTier": true, "ar": "Chantilly Cream Flowers", "en": "Chantilly cream flowers" },
       { "id": "photos", "icon": "Camera", "price": 250, "perTier": true, "ar": "Polaroid Photos", "en": "Polaroid photos" },
       { "id": "gold", "icon": "Sparkle", "price": 150, "perTier": true, "ar": "Gold Leaf", "en": "Gold leaf" },
       { "id": "topper", "icon": "PenNib", "price": 120, "perTier": false, "ar": "Written Topper", "en": "Written topper" }
@@ -378,7 +377,7 @@
   "linkInBio": {
     "tagline": { "ar": "Cakes & Cupcakes · @petalya.og", "en": "Cakes & cupcakes · @petalya.og" },
     "bio": {
-      "ar": "Cakes أنيقة لأحلى لحظاتك — Custom Cakes و Cupcakes معمولة بإيدينا، طازة وبكل حب.",
+      "ar": "Cakes بتكمّل أحلى لحظاتك — Custom Cakes و Cupcakes بنعملها بإيدينا وبحب، طازة كل يوم.",
       "en": "Elegant cakes for unforgettable moments — custom cakes and handcrafted cupcakes, freshly made with love."
     },
     "whatsappCta": {
@@ -388,21 +387,21 @@
     "feature": {
       "href": "#flowers",
       "image": "assets/cupcake-bouquet.png",
-      "eyebrow": { "ar": "هوسنا الحالي", "en": "Current obsession" },
+      "eyebrow": { "ar": "Current obsession", "en": "Current obsession" },
       "title": { "ar": "Cupcake Bouquets", "en": "Bakery of flowers" },
       "desc": { "ar": "Cupcakes شكلها ورد حقيقي", "en": "Cupcake bouquets that look like the real thing" }
     },
     "links": [
       { "icon": "Cake", "href": "#custom", "ar": { "title": "صمّم الـ Cake بتاعك", "desc": "اختار الحجم والنكهة والديكور" }, "en": { "title": "Design your cake", "desc": "Pick the size, flavour and décor" } },
       { "icon": "BookOpenText", "href": "#menu", "ar": { "title": "المنيو والأسعار", "desc": "Cakes و Cupcakes و Bouquets" }, "en": { "title": "Menu & prices", "desc": "Cakes, cupcakes and bouquets" } },
-      { "icon": "Images", "href": "#work", "ar": { "title": "شغلنا", "desc": "من مطبخنا لمناسباتكم" }, "en": { "title": "Our work", "desc": "From our kitchen to your table" } },
+      { "icon": "Images", "href": "#work", "ar": { "title": "شغلنا", "desc": "From our kitchen to your table" }, "en": { "title": "Our work", "desc": "From our kitchen to your table" } },
       { "icon": "Heart", "href": "#reviews", "ar": { "title": "آراء العملاء", "desc": "رسايل حقيقية من عملائنا" }, "en": { "title": "Reviews", "desc": "Sweet things they said" } },
       { "icon": "Truck", "href": "#contact", "ar": { "title": "التوصيل والاستلام", "desc": "القاهرة والجيزة" }, "en": { "title": "Delivery & pick-up", "desc": "Cairo & Giza" } }
     ],
-    "kitchenHeading": { "ar": "من مطبخنا", "en": "From our kitchen" },
+    "kitchenHeading": { "ar": "From our kitchen", "en": "From our kitchen" },
     "seeAll": { "ar": "شوف الكل", "en": "See all" },
     "stripImages": ["assets/cake-birthday.png", "assets/cupcake-bouquet.png", "assets/cake-bride.png", "assets/cupcake-tulle.png", "assets/cake-husband.png"],
-    "shareText": { "ar": "Cakes أنيقة لأحلى لحظاتك", "en": "Elegant cakes for unforgettable moments" },
+    "shareText": { "ar": "Cakes بتكمّل أحلى لحظاتك", "en": "Elegant cakes for unforgettable moments" },
     "toastCopied": { "ar": "اتنسخ اللينك", "en": "Link copied" },
     "footerTagline": { "ar": "معمولة طازة وبكل حب · أمنية الجندي", "en": "Freshly made with love · by Omnia El Gendy" }
   }

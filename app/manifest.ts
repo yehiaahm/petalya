@@ -6,7 +6,7 @@ export default function manifest(): MetadataRoute.Manifest {
     id: '/',
     name: 'Petalya — Cakes & Cupcakes',
     short_name: 'Petalya',
-    description: 'Cakes أنيقة لأحلى لحظاتك — Elegant custom cakes and handcrafted cupcakes.',
+    description: 'Cakes بتكمّل أحلى لحظاتك — Elegant custom cakes and handcrafted cupcakes.',
     lang: 'ar',
     dir: 'rtl',
     start_url: '/?source=pwa',

@@ -80,12 +80,12 @@ export function Flowers({ photos, onBouquet }: { photos: string[]; onBouquet: ()
       <div className="wrap w1240 cols">
         <div className="col">
           <div data-reveal="1" className="eyebrow dark start">
-            <span>{pick('هوسنا الحالي', 'Current obsession')}</span>
+            <span>{pick('Current obsession', 'Current obsession')}</span>
           </div>
           <h2 data-reveal="1" className="h2 dark">
             {ar ? (
               <>
-                ورد من <span className="accent">Buttercream</span>
+                Chantilly Cream <span className="accent">Flowers</span>
               </>
             ) : (
               <>
@@ -94,7 +94,7 @@ export function Flowers({ photos, onBouquet }: { photos: string[]; onBouquet: ()
             )}
           </h2>
           <p data-reveal="1" className="lead-dark">
-            {pick('ورد Buttercream بنعمله بتلة بتلة بإيدينا… Cupcake Bouquets تتهادى، وتتاكل كمان.', 'Buttercream blooms, piped petal by petal by hand — cupcake bouquets made to be gifted, and eaten.')}
+            {pick('بنعمل ورد الـ Chantilly Cream بتلة بتلة بإيدينا… Cupcake Bouquets تتهادى، وتتاكل كمان.', 'Chantilly cream blooms, piped petal by petal by hand — cupcake bouquets made to be gifted, and eaten.')}
           </p>
           <div data-reveal="1" className="fchips">
             {chips.map((c) => (

@@ -137,11 +137,11 @@ export function Hero({ images }: { images: [string, string] }) {
         </div>
 
         <div data-intro="1" className="eyebrow" style={{ marginBottom: 16 }}>
-          <span>{pick('Cakes & Cupcakes · بإيد أمنية الجندي', 'Cakes & cupcakes · by Omnia El Gendy')}</span>
+          <span>{pick('Cakes & Cupcakes · Omnia El Gendy','Cakes & cupcakes · by Omnia El Gendy')}</span>
         </div>
         {ar ? (
           <h1 data-intro="1">
-            Cakes أنيقة <span data-shine="1" className="shine-text">لأحلى لحظاتك</span>
+            Cakes بتكمّل <span data-shine="1" className="shine-text">أحلى لحظاتك</span>
           </h1>
         ) : (
           <h1 data-intro="1">
@@ -149,7 +149,7 @@ export function Hero({ images }: { images: [string, string] }) {
           </h1>
         )}
         <p data-intro="1" className="lead">
-          {pick('Custom Cakes على ذوقك لكل مناسبة، و Cupcakes معمولة بإيدينا — طازة كل يوم وبكل حب.', 'Custom cakes for your occasion and handcrafted cupcakes — freshly made, every day, with love.')}
+          {pick('Custom Cakes على ذوقك لكل مناسبة، و Cupcakes بنعملها بإيدينا وبحب، طازة كل يوم.', 'Custom cakes for your occasion and handcrafted cupcakes — freshly made, every day, with love.')}
         </p>
         <div data-intro="1" className="ctas">
           <a href="#custom" onClick={(e) => go(e, 'custom')} className="btn btn-primary" style={{ padding: '0 28px' }}>
@@ -161,13 +161,6 @@ export function Hero({ images }: { images: [string, string] }) {
             {pick('شوف المنيو', 'Browse the menu')}
             <FwdIcon />
           </a>
-        </div>
-        <div data-intro="1" className="hint">
-          <span className="pulse-dot">
-            <span />
-            <span />
-          </span>
-          {pick('المس الشاشة وشوف البتلات بتطير', 'Touch anywhere — watch the petals fly')}
         </div>
       </div>
     </section>

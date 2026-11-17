@@ -58,7 +58,7 @@ export function Gallery({ items }: { items: GalleryItem[] }) {
     <section id="work" className="section" style={{ padding: 'clamp(96px,14vw,160px) 0 clamp(64px,9vw,110px)' }}>
       <div className="wrap w1240 center">
         <div data-reveal="1" className="eyebrow">
-          <span>{pick('من مطبخنا', 'From our kitchen')}</span>
+          <span>{pick('From our kitchen', 'From our kitchen')}</span>
         </div>
         <h2 data-reveal="1" className="h2">
           {ar ? (
