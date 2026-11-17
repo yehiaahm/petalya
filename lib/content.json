@@ -80,7 +80,7 @@
     "menu": {
       "eyebrow": { "ar": "المنيو", "en": "The menu" },
       "title": {
-        "ar": { "before": "اختار ", "accent": "اللي نفسك فيه", "after": "" },
+        "ar": { "before": "كل لحظة حلوة ", "accent": "ليها اختيار", "after": "" },
         "en": { "before": "Choose your ", "accent": "sweet", "after": "" }
       },
       "addToOrder": { "ar": "ضيف للطلب", "en": "Add to order" },

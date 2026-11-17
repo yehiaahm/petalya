@@ -80,7 +80,7 @@ export function Menu({ tab, setTab }: { tab: number; setTab: (i: number) => void
           <h2 data-reveal="1" className="h2">
             {ar ? (
               <>
-                اختار <span className="accent">اللي نفسك فيه</span>
+                كل لحظة حلوة <span className="accent">ليها اختيار</span>
               </>
             ) : (
               <>
