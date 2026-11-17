@@ -1,3 +1,5 @@
+import type { Session } from './sessions';
+
 export type Lang = 'ar' | 'en';
 export type L = { ar: string; en: string };
 
@@ -169,7 +171,8 @@ export type DB = {
   coupons: Coupon[];
   orders: Order[];
   settings: Settings;
-  admin: { passwordHash: string; secret: string };
+  /** `sessions`: the admin browsers currently signed in (server-side, so logout can really revoke them). */
+  admin: { passwordHash: string; secret: string; sessions?: Session[] };
   counters: { order: number };
   users: User[];
   push: PushState;
@@ -208,6 +211,8 @@ export type User = {
   email: string;
   phone?: string;
   passwordHash?: string;
+  /** Browsers currently signed in to this account (server-side, so logout can really revoke them). Never sent to the client. */
+  sessions?: Session[];
   googleId?: string;
   avatar?: string;
   zoneId?: string;

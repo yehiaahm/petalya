@@ -1,3 +1,5 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { mutate, appendEvents } from '@/lib/db';
 import { buildOrder, OrderError, type OrderInput } from '@/lib/orders';
 import { getUser } from '@/lib/customer';
@@ -6,12 +8,10 @@ import { notifyNewOrder } from '@/lib/push';
 
 export async function POST(req: Request) {
   if (rateLimited('orders', clientIp(req), 12, 60 * 60_000)) return tooMany();
-  let body: OrderInput;
-  try {
-    body = await req.json();
-  } catch {
-    return Response.json({ error: 'bad_request' }, { status: 400 });
-  }
+  const raw = await readJson(req, LIMITS.json);
+  if (raw === TOO_BIG) return tooBig();
+  if (raw === null || typeof raw !== 'object') return Response.json({ error: 'bad_request' }, { status: 400 });
+  const body = raw as OrderInput;
   const me = await getUser();
   try {
     const order = await mutate((db) => {

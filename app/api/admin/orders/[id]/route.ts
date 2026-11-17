@@ -1,3 +1,5 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { mutate } from '@/lib/db';
 import { isAdmin, unauthorized } from '@/lib/auth';
 import type { OrderStatus } from '@/lib/types';
@@ -7,7 +9,9 @@ const ST: OrderStatus[] = ['new', 'confirmed', 'preparing', 'ready', 'out_for_de
 export async function PATCH(req: Request, ctx: { params: Promise<{ id: string }> }) {
   if (!(await isAdmin())) return unauthorized();
   const { id } = await ctx.params;
-  const b = (await req.json().catch(() => ({}))) as { status?: OrderStatus; note?: string; paid?: boolean; adminNotes?: string; seen?: boolean; quote?: { total?: number; note?: string } };
+  const raw = await readJson(req, LIMITS.small);
+  if (raw === TOO_BIG) return tooBig();
+  const b = (raw ?? {}) as { status?: OrderStatus; note?: string; paid?: boolean; adminNotes?: string; seen?: boolean; quote?: { total?: number; note?: string } };
   const o = await mutate((db) => {
     const o = db.orders.find((x) => x.id === id);
     if (!o) return null;

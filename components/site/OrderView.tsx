@@ -245,7 +245,7 @@ export function OrderView({ initial, isNew }: { initial: PublicOrder; isNew: boo
                   {o.fulfillment.type === 'delivery' ? pick('التوصيل', 'Delivery') : pick('الاستلام', 'Pick-up')}
                 </span>
                 <b style={{ fontWeight: 600 }}>{fmtDate(o.fulfillment.date, lang, { weekday: 'long', day: 'numeric', month: 'long' }) + slotName}</b>
-                <span style={{ fontSize: 13.5, color: 'var(--ink-muted)' }}>{o.fulfillment.type === 'delivery' ? `${t(o.fulfillment.zoneName)} — ${o.fulfillment.address}` : t(data.settings.pickupAddress)}</span>
+                <span style={{ fontSize: 13.5, color: 'var(--ink-muted)' }}>{o.fulfillment.type === 'delivery' ? `${t(o.fulfillment.zoneName)} — ${pick('العنوان محفوظ مع الطلب', 'address saved with your order')}` : t(data.settings.pickupAddress)}</span>
               </div>
               <div className="summary-box">
                 <span className="field-label">{pick('الدفع', 'Payment')}</span>

@@ -1,10 +1,14 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { mutate } from '@/lib/db';
 import { shortId } from '@/lib/crypto';
 import { clientIp, rateLimited, tooMany } from '@/lib/net';
 
 export async function POST(req: Request) {
   if (rateLimited('reviews', clientIp(req), 10, 60 * 60_000)) return tooMany();
-  const b = (await req.json().catch(() => ({}))) as { orderId?: string; rating?: number; quote?: string };
+  const raw = await readJson(req, LIMITS.small);
+  if (raw === TOO_BIG) return tooBig();
+  const b = (raw ?? {}) as { orderId?: string; rating?: number; quote?: string };
   const quote = String(b.quote || '').trim().slice(0, 400);
   const rating = Math.max(1, Math.min(5, Math.round(Number(b.rating) || 5)));
   if (quote.length < 4) return Response.json({ error: 'quote' }, { status: 422 });

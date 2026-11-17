@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { Cake, CreditCard, DownloadSimple, FloppyDisk, Lock, Moped, Plus, Sparkle, Storefront, Trash } from '@phosphor-icons/react';
+import { Cake, CreditCard, DownloadSimple, FloppyDisk, Lock, Moped, Plus, SignOut, Sparkle, Storefront, Trash } from '@phosphor-icons/react';
 import type { Settings } from '@/lib/types';
 import { PhoneAlerts } from './PhoneAlerts';
 import { api, BiInput, Field, NumInput, PageHeader, Toggle, useAdmin, useConfirm } from './ui';
@@ -333,6 +333,14 @@ function Security({ hasDemo, confirm }: { hasDemo: boolean; confirm: (t: string,
     }
     setBusy(false);
   };
+  const signOutAll = async () => {
+    if (!(await confirm('تسجيل الخروج من كل الأجهزة؟', 'سيتم إنهاء جلسة لوحة التحكم على كل الهواتف والأجهزة، بما فيها هذا الجهاز، وستحتاج إلى تسجيل الدخول من جديد.', 'تسجيل الخروج'))) return;
+    setBusy(true);
+    try {
+      await api('/api/admin/logout', 'POST', { all: true });
+    } catch {}
+    location.href = '/admin/login';
+  };
   const demo = async (action: 'load' | 'clear') => {
     if (action === 'clear' && !(await confirm('حذف البيانات التجريبية؟', 'سيتم حذف الطلبات والزيارات التجريبية فقط، ولن تتأثر طلباتك الحقيقية.', 'حذف'))) return;
     setBusy(true);
@@ -355,6 +363,13 @@ function Security({ hasDemo, confirm }: { hasDemo: boolean; confirm: (t: string,
         </div>
         <button className="ab primary" style={{ justifySelf: 'start' }} disabled={busy || !cur || next.length < 8} onClick={change}>
           <Lock size={16} /> تغيير كلمة المرور
+        </button>
+      </div>
+      <div className="a-card a-pad a-grid">
+        <b>الأجهزة المسجّل دخولها</b>
+        <p className="muted small" style={{ margin: 0 }}>إذا فقدت هاتفك أو دخلت من جهاز لا تثق به، أنهِ كل الجلسات من هنا. تغيير كلمة المرور يفعل الشيء نفسه.</p>
+        <button className="ab danger" style={{ justifySelf: 'start' }} disabled={busy} onClick={signOutAll}>
+          <SignOut size={16} /> تسجيل الخروج من كل الأجهزة
         </button>
       </div>
       <div className="a-card a-pad a-grid">

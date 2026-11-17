@@ -146,9 +146,20 @@ export function buildOrder(db: DB, raw: OrderInput): Order {
   };
 }
 
-/** What a customer may see about their own order. */
+/**
+ * What anyone holding the order link may see (PT-14). The link is a capability: it gets shared on WhatsApp, kept in
+ * browser history and ends up in logs, so it carries only what the tracking page needs. Not included: the street
+ * address (only the delivery zone), the customer's notes, the full name (first name only), the phone (masked), the
+ * e-mail, the internal account id, and the admin-only fields. The owner sees everything in the admin panel and, for
+ * signed-in customers, on the account page.
+ */
 export function publicOrder(o: Order) {
-  const { adminNotes: _a, seen: _s, demo: _d, ...rest } = o;
-  return { ...rest, customer: { name: o.customer.name, phone: o.customer.phone.replace(/^(\d{3})\d{5}(\d{3})$/, '$1•••••$2') } };
+  const { adminNotes: _a, seen: _s, demo: _d, notes: _n, userId: _u, ...rest } = o;
+  const { address: _addr, ...fulfillment } = o.fulfillment;
+  return {
+    ...rest,
+    fulfillment,
+    customer: { name: o.customer.name.trim().split(/\s+/)[0] ?? '', phone: o.customer.phone.replace(/^(\d{3})\d{5}(\d{3})$/, '$1•••••$2') },
+  };
 }
 export type PublicOrder = ReturnType<typeof publicOrder>;

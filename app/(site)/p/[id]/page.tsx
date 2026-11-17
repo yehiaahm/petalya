@@ -1,12 +1,13 @@
 import { jsonForScript } from '@/lib/safe';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { readDB } from '@/lib/db';
+import { getPublicData } from '@/lib/db';
 import { ProductPage } from '@/components/site/ProductPage';
 
+// Public product pages read the cached public view (active products + settings), not the whole database.
 async function find(id: string) {
-  const db = await readDB();
-  const p = db.products.find((x) => x.id === id && x.active);
+  const db = await getPublicData();
+  const p = db.products.find((x) => x.id === id);
   return { db, p };
 }
 

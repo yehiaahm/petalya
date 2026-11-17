@@ -1,10 +1,14 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { readDB } from '@/lib/db';
 import { couponDiscount } from '@/lib/pricing';
 import { clientIp, rateLimited, tooMany } from '@/lib/net';
 
 export async function POST(req: Request) {
   if (rateLimited('coupons', clientIp(req), 30, 10 * 60_000)) return tooMany();
-  const { code, subtotal } = (await req.json().catch(() => ({}))) as { code?: string; subtotal?: number };
+  const raw = await readJson(req, LIMITS.small);
+  if (raw === TOO_BIG) return tooBig();
+  const { code, subtotal } = (raw ?? {}) as { code?: string; subtotal?: number };
   const db = await readDB();
   const c = db.coupons.find((x) => x.code.toUpperCase() === String(code || '').trim().toUpperCase());
   if (!c || !c.active) return Response.json({ ok: false, reason: 'invalid' });

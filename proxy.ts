@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import { limitForPath } from './lib/limits';
 
 /**
  * Runs in front of every /api request:
@@ -6,13 +7,6 @@ import { NextResponse, type NextRequest } from 'next/server';
  *  - rejects oversized bodies before they are read
  */
 const SAFE_METHODS = new Set(['GET', 'HEAD', 'OPTIONS']);
-const MB = 1024 * 1024;
-
-function limitFor(pathname: string) {
-  if (pathname === '/api/admin/upload') return 12 * MB;
-  if (pathname === '/api/upload') return 6 * MB;
-  return 2 * MB;
-}
 
 function hostOf(value: string | null) {
   if (!value) return '';
@@ -41,8 +35,11 @@ export function proxy(req: NextRequest) {
     if (!allowed.has(origin)) return deny(403, 'forbidden');
   }
 
+  // Early exit for an honest oversized Content-Length. This header is optional and client-supplied (a chunked
+  // body has none), so it is NOT the real limit: the route handlers read the body through lib/body.ts, which
+  // counts the bytes as they arrive and stops at the same ceilings (PT-04).
   const length = Number(req.headers.get('content-length') || 0);
-  if (length > limitFor(req.nextUrl.pathname)) return deny(413, 'too_big');
+  if (length > limitForPath(req.nextUrl.pathname)) return deny(413, 'too_big');
 
   return NextResponse.next();
 }

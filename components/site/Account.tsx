@@ -40,8 +40,8 @@ export function Account({ orders }: { orders: OrderCard[] }) {
   const zones = data.settings.zones.filter((z) => z.active);
   const active = orders.filter((o) => !['delivered', 'cancelled'].includes(o.status));
 
-  const logout = async () => {
-    await fetch('/api/auth/logout', { method: 'POST' });
+  const logout = async (all = false) => {
+    await fetch('/api/auth/logout', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ all }) });
     setUser(null);
     location.href = '/';
   };
@@ -95,10 +95,15 @@ export function Account({ orders }: { orders: OrderCard[] }) {
             <span className="ltr" style={{ color: 'var(--ink-muted)', fontSize: 14 }}>{user.email}</span>
             {user.google && <span style={{ marginInlineStart: 8, fontSize: 12, fontWeight: 600, padding: '2px 8px', borderRadius: 99, background: '#EEF3FD', color: '#3F5F86' }}>Google</span>}
           </div>
-          <button className="btn btn-ghost btn-sm" onClick={logout}>
-            <SignOut size={18} />
-            {pick('تسجيل الخروج', 'Sign out')}
-          </button>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            <button className="btn btn-ghost btn-sm" onClick={() => logout()}>
+              <SignOut size={18} />
+              {pick('تسجيل الخروج', 'Sign out')}
+            </button>
+            <button className="btn btn-ghost btn-sm" onClick={() => logout(true)}>
+              {pick('اخرج من كل الأجهزة', 'Sign out everywhere')}
+            </button>
+          </div>
         </div>
 
         <div className="seg" style={{ margin: '18px 0', maxWidth: 420 }} role="tablist">

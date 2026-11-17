@@ -1,3 +1,5 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { mutate } from '@/lib/db';
 import { hashPassword, shortId } from '@/lib/crypto';
 import { createUserSession, normEmail, publicUser, validEmail } from '@/lib/customer';
@@ -10,7 +12,9 @@ const err = (field: string, ar: string, en: string, status = 422) => Response.js
 export async function POST(req: Request) {
   const ip = 'reg:' + clientIp(req);
   if (loginBlocked(ip) || rateLimited('register', ip, 10, 60 * 60_000)) return err('rate', 'محاولات كتير — جرّب تاني بعد دقيقة.', 'Too many attempts — try again in a minute.', 429);
-  const b = (await req.json().catch(() => ({}))) as { name?: string; email?: string; password?: string };
+  const raw = await readJson(req, LIMITS.small);
+  if (raw === TOO_BIG) return tooBig();
+  const b = (raw ?? {}) as { name?: string; email?: string; password?: string };
   const name = String(b.name || '').trim().slice(0, 80);
   const email = normEmail(b.email);
   const password = String(b.password || '');

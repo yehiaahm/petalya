@@ -1,3 +1,5 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { mutate } from '@/lib/db';
 import { isAdmin, unauthorized } from '@/lib/auth';
 import { cleanProduct } from '@/lib/sanitize';
@@ -5,7 +7,9 @@ import type { Product } from '@/lib/types';
 
 export async function POST(req: Request) {
   if (!(await isAdmin())) return unauthorized();
-  const p = cleanProduct((await req.json().catch(() => ({}))) as Partial<Product>);
+  const raw = await readJson(req, LIMITS.adminJson);
+  if (raw === TOO_BIG) return tooBig();
+  const p = cleanProduct((raw ?? {}) as Partial<Product>);
   if (!p.name.ar) return Response.json({ error: 'name' }, { status: 422 });
   const saved = await mutate((db) => {
     if (!db.categories.some((c) => c.id === p.categoryId)) p.categoryId = db.categories[0]?.id ?? '';
@@ -19,7 +23,9 @@ export async function POST(req: Request) {
 /** Reorder: body = { ids } in the new order. */
 export async function PUT(req: Request) {
   if (!(await isAdmin())) return unauthorized();
-  const { ids } = (await req.json().catch(() => ({}))) as { ids?: string[] };
+  const raw = await readJson(req, LIMITS.adminJson);
+  if (raw === TOO_BIG) return tooBig();
+  const { ids } = (raw ?? {}) as { ids?: string[] };
   if (!Array.isArray(ids)) return Response.json({ error: 'ids' }, { status: 422 });
   await mutate((db) => {
     ids.forEach((id, i) => {

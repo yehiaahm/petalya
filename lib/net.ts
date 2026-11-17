@@ -1,19 +1,21 @@
+import { proxyConfigFromEnv, resolveClientIp, UNKNOWN_IP } from './client-ip';
+
 /** Client address + a tiny in-memory rate limiter shared by the public endpoints. */
 
 /**
- * Behind Railway's edge, `x-real-ip` is the client address. Fall back to the LAST
- * `x-forwarded-for` entry (the one appended by the nearest proxy) — never the first,
- * which a visitor can set to anything.
+ * The key every limiter uses for "this visitor". Built only from what OUR proxy wrote (see lib/client-ip.ts):
+ * x-real-ip and client-supplied x-forwarded-for entries are never believed, and an unresolvable address
+ * falls into one shared "unknown" bucket instead of getting a fresh limit.
+ * Configure with TRUSTED_PROXY_HOPS / TRUSTED_IP_HEADER (see .env.example).
  */
+let warned = false;
 export function clientIp(req: Request) {
-  const real = req.headers.get('x-real-ip')?.trim();
-  if (real) return real.slice(0, 64);
-  const xff = req.headers.get('x-forwarded-for');
-  if (xff) {
-    const parts = xff.split(',').map((s) => s.trim()).filter(Boolean);
-    if (parts.length) return parts[parts.length - 1].slice(0, 64);
+  const ip = resolveClientIp(req.headers, proxyConfigFromEnv(process.env));
+  if (ip === UNKNOWN_IP && process.env.NODE_ENV === 'production' && !warned) {
+    warned = true;
+    console.warn('[net] could not determine the client address from the proxy headers; requests like this share one rate-limit bucket. Check TRUSTED_PROXY_HOPS / TRUSTED_IP_HEADER.');
   }
-  return 'local';
+  return ip;
 }
 
 type Bucket = Map<string, number[]>;

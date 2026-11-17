@@ -1,9 +1,9 @@
-import { readDB } from '@/lib/db';
+import { readDBAsAdmin } from '@/lib/admin-data';
 import { SettingsEditor } from '@/components/admin/SettingsEditor';
 
 export const metadata = { title: 'الإعدادات' };
 
 export default async function Page() {
-  const db = await readDB();
+  const db = await readDBAsAdmin();
   return <SettingsEditor settings={db.settings} hasDemo={db.orders.some((o) => o.demo)} />;
 }

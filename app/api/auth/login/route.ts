@@ -1,34 +1,45 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { mutate, readDB } from '@/lib/db';
 import { safeEqual, verifyPassword } from '@/lib/crypto';
 import { createUserSession, normEmail, publicUser } from '@/lib/customer';
-import { adminUsername, createSessionCookie, loginBlocked, loginFailed, loginOk } from '@/lib/auth';
-import { clientIp, MAX_PASSWORD, rateLimited, tooMany } from '@/lib/net';
+import { adminLoginBlocked, adminLoginFailed, adminLoginSucceeded, adminUsername, loginBlocked, loginFailed, loginOk } from '@/lib/auth';
+import { clientIp, MAX_PASSWORD, tooMany } from '@/lib/net';
 
 export async function POST(req: Request) {
   const ip = 'user:' + clientIp(req);
   if (loginBlocked(ip)) return Response.json({ error: 'rate', message: { ar: 'محاولات كتير — جرّب تاني بعد دقيقة.', en: 'Too many attempts — try again in a minute.' } }, { status: 429 });
-  const b = (await req.json().catch(() => ({}))) as { email?: string; password?: string };
+  const raw = await readJson(req, LIMITS.small);
+  if (raw === TOO_BIG) return tooBig();
+  const b = (raw ?? {}) as { email?: string; password?: string };
   const email = normEmail(b.email);
   const pw = String(b.password || '').slice(0, MAX_PASSWORD + 1);
+  // Per-account lockout on top of the per-client one: guessing one account's password from many
+  // different addresses must not get unlimited tries. Cleared by a successful sign-in.
+  // NOT applied to the admin name: that name is handled by the admin throttle below, and a per-name lock would let
+  // anyone lock the owner out of this form with five wrong tries (PT-03).
+  const adminName = safeEqual(email, adminUsername().toLowerCase());
+  const acct = 'acct:' + email;
+  if (email && !adminName && loginBlocked(acct)) return Response.json({ error: 'rate', message: { ar: 'محاولات كتير — جرّب تاني بعد دقيقة.', en: 'Too many attempts — try again in a minute.' } }, { status: 429 });
   const db = await readDB();
 
   // The admin name typed into the customer form (e.g. "admin"): sign in to the panel instead,
-  // under the same lockout and global ceiling as /api/admin/login so this isn't a side door.
-  if (pw && safeEqual(email, adminUsername().toLowerCase())) {
+  // under the same throttle as /api/admin/login so this isn't a side door.
+  if (pw && adminName) {
     const adminIp = 'admin:' + clientIp(req);
-    if (loginBlocked(adminIp) || rateLimited('admin-login-all', 'all', 60, 10 * 60_000)) return tooMany();
+    if (await adminLoginBlocked(adminIp)) return tooMany();
     if (pw.length <= MAX_PASSWORD && verifyPassword(pw, db.admin.passwordHash)) {
-      loginOk(adminIp);
       loginOk(ip);
-      await createSessionCookie();
+      await adminLoginSucceeded(adminIp);
       return Response.json({ admin: true, redirect: '/admin' });
     }
-    loginFailed(adminIp);
+    adminLoginFailed(adminIp);
   }
 
   const u = db.users.find((x) => x.email === email);
   if (!u || !u.passwordHash || !verifyPassword(pw, u.passwordHash)) {
     loginFailed(ip);
+    if (email && !adminName) loginFailed(acct);
     await new Promise((r) => setTimeout(r, 350));
     const google = u && !u.passwordHash;
     return Response.json(
@@ -42,6 +53,7 @@ export async function POST(req: Request) {
     );
   }
   loginOk(ip);
+  loginOk(acct);
   await mutate((d) => {
     const x = d.users.find((y) => y.id === u.id);
     if (x) x.lastLoginAt = new Date().toISOString();

@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import { readDB } from '@/lib/db';
+import { orderExists, readDB } from '@/lib/db';
 import { publicOrder } from '@/lib/orders';
 import { OrderView } from '@/components/site/OrderView';
 
@@ -7,6 +7,7 @@ export const metadata = { title: 'Your order', robots: { index: false } };
 
 export default async function OrderPage({ params, searchParams }: { params: Promise<{ id: string }>; searchParams: Promise<{ new?: string }> }) {
   const [{ id }, sp] = await Promise.all([params, searchParams]);
+  if (!(await orderExists(id))) notFound(); // cached id set: guessed ids do not each parse the whole database
   const db = await readDB();
   const o = db.orders.find((x) => x.id === id);
   if (!o) notFound();

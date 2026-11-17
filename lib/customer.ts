@@ -1,8 +1,9 @@
 import 'server-only';
 import { cookies } from 'next/headers';
-import { readDB } from './db';
+import { mutate, readDB } from './db';
 import { safeEqual, sign } from './crypto';
 import { credVersion } from './auth';
+import { addSession, hasSession, newSessionId, removeSession } from './sessions';
 import { siteUrl } from './site';
 import type { PublicUser, User } from './types';
 
@@ -16,9 +17,20 @@ async function secret() {
 /** Tied to the current password, so changing or resetting it signs the old sessions out. */
 const userVersion = (u: User | undefined) => credVersion(u?.passwordHash ?? 'no-password');
 
+/**
+ * A new customer session: its random id is stored on the user record (so it can be revoked) and put in the signed
+ * cookie. Tokens from before this change carry no id and are rejected, so customers sign in once after deploy.
+ */
 export async function createUserSession(userId: string) {
-  const user = (await readDB()).users.find((x) => x.id === userId);
-  const payload = Buffer.from(JSON.stringify({ uid: userId, exp: Date.now() + MAX_AGE * 1000, v: userVersion(user) })).toString('base64url');
+  const sid = newSessionId();
+  const passwordHash = await mutate((db) => {
+    const u = db.users.find((x) => x.id === userId);
+    if (!u) return undefined;
+    u.sessions = addSession(u.sessions, sid, Date.now(), MAX_AGE * 1000);
+    return u.passwordHash ?? '';
+  });
+  if (passwordHash === undefined) return; // account vanished: nothing to sign in to
+  const payload = Buffer.from(JSON.stringify({ uid: userId, sid, exp: Date.now() + MAX_AGE * 1000, v: credVersion(passwordHash || 'no-password') })).toString('base64url');
   (await cookies()).set(USER_COOKIE, `${payload}.${sign(payload, await secret())}`, {
     httpOnly: true,
     sameSite: 'lax',
@@ -32,19 +44,44 @@ export async function clearUserSession() {
   (await cookies()).delete(USER_COOKIE);
 }
 
-async function sessionUser(): Promise<User | null> {
+/** The cookie's claims if its signature is ours (says nothing about whether the session is still live). */
+async function signedUserClaims(): Promise<{ uid: string; sid: string; exp: number; v: string } | null> {
   const token = (await cookies()).get(USER_COOKIE)?.value;
   if (!token) return null;
   const [payload, sig] = token.split('.');
   if (!payload || !sig || !safeEqual(sig, sign(payload, await secret()))) return null;
   try {
-    const { uid, exp, v } = JSON.parse(Buffer.from(payload, 'base64url').toString());
-    if (typeof uid !== 'string' || typeof v !== 'string' || !(exp > Date.now())) return null;
-    const u = (await readDB()).users.find((x) => x.id === uid);
-    return u && safeEqual(v, userVersion(u)) ? u : null;
+    const { uid, sid, exp, v } = JSON.parse(Buffer.from(payload, 'base64url').toString());
+    if (typeof uid !== 'string' || typeof sid !== 'string' || typeof v !== 'string' || typeof exp !== 'number') return null;
+    return { uid, sid, exp, v };
   } catch {
     return null;
   }
+}
+
+async function sessionUser(): Promise<User | null> {
+  const c = await signedUserClaims();
+  if (!c || !(c.exp > Date.now())) return null;
+  const u = (await readDB()).users.find((x) => x.id === c.uid);
+  return u && hasSession(u.sessions, c.sid, Date.now()) && safeEqual(c.v, userVersion(u)) ? u : null;
+}
+
+/**
+ * Real logout. Revokes this browser's session on the server (not just the cookie). With `all`, revokes every session
+ * of the account, but only for a caller whose own session is valid.
+ */
+export async function endUserSession(all = false) {
+  const c = await signedUserClaims();
+  if (c) {
+    const live = all ? (await sessionUser())?.id === c.uid : true;
+    if (live) {
+      await mutate((db) => {
+        const u = db.users.find((x) => x.id === c.uid);
+        if (u) u.sessions = all ? [] : removeSession(u.sessions, c.sid);
+      });
+    }
+  }
+  await clearUserSession();
 }
 
 export async function getUser(): Promise<User | null> {
@@ -69,11 +106,8 @@ export function publicUser(u: User | null): PublicUser | null {
 export const normEmail = (e: unknown) => (typeof e === 'string' ? e.trim().toLowerCase().slice(0, 120) : '');
 export const validEmail = (e: string) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e);
 
-/** Only allow same-site relative redirects. */
-export function safeNext(n: unknown, fallback = '/account') {
-  const s = typeof n === 'string' ? n : '';
-  return s.startsWith('/') && !s.startsWith('//') && !s.startsWith('/\\') ? s.slice(0, 200) : fallback;
-}
+/** Only allow same-site relative redirects (see lib/safe-next.ts). */
+export { safeNext } from './safe-next';
 
 export const googleConfigured = () => !!(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET);
 

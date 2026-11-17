@@ -1,3 +1,5 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { mutate } from '@/lib/db';
 import { getUser, publicUser } from '@/lib/customer';
 import { normalisePhone } from '@/lib/orders';
@@ -5,7 +7,9 @@ import { normalisePhone } from '@/lib/orders';
 export async function PATCH(req: Request) {
   const me = await getUser();
   if (!me) return Response.json({ error: 'unauthorized' }, { status: 401 });
-  const b = (await req.json().catch(() => ({}))) as { name?: string; phone?: string; zoneId?: string; address?: string };
+  const raw = await readJson(req, LIMITS.small);
+  if (raw === TOO_BIG) return tooBig();
+  const b = (raw ?? {}) as { name?: string; phone?: string; zoneId?: string; address?: string };
   const phone = b.phone !== undefined ? normalisePhone(String(b.phone)) : undefined;
   if (phone && !/^01[0125]\d{8}$/.test(phone)) return Response.json({ error: 'phone', message: { ar: 'رقم الموبايل لازم يكون ١١ رقم ويبدأ بـ 01.', en: 'Enter an 11-digit mobile starting with 01.' } }, { status: 422 });
   const u = await mutate((db) => {

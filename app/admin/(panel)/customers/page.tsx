@@ -1,10 +1,10 @@
-import { readDB } from '@/lib/db';
+import { readDBAsAdmin } from '@/lib/admin-data';
 import { Customers, type CustomerRow } from '@/components/admin/ContentEditors';
 
 export const metadata = { title: 'العملاء' };
 
 export default async function Page() {
-  const db = await readDB();
+  const db = await readDBAsAdmin();
   const m = new Map<string, CustomerRow>();
   const byUser = new Map(db.users.map((u) => [u.id, u]));
   [...db.orders]

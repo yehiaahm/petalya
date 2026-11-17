@@ -11,6 +11,7 @@ export async function PATCH(_req: Request, ctx: { params: Promise<{ id: string }
     const u = db.users.find((x) => x.id === id);
     if (!u) return false;
     u.passwordHash = hashPassword(temp);
+    u.sessions = []; // whoever was signed in with the old password (or a stolen cookie) is signed out
     return true;
   });
   if (!ok) return Response.json({ error: 'not_found' }, { status: 404 });

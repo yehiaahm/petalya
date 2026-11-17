@@ -49,7 +49,11 @@ export async function GET(req: Request) {
       if (u) {
         // An email/password account was never verified by email, so when it is claimed through Google
         // drop its password: whoever pre-registered the address can no longer sign in to it.
-        if (!u.googleId && u.passwordHash) delete u.passwordHash;
+        // Their signed-in browsers are revoked too (a session id would otherwise outlive the dropped password).
+        if (!u.googleId && u.passwordHash) {
+          delete u.passwordHash;
+          u.sessions = [];
+        }
         u.googleId = p.sub;
         if (!u.avatar && p.picture) u.avatar = p.picture;
         if (!u.name && p.name) u.name = p.name;

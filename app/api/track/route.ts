@@ -1,3 +1,5 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { appendEvents } from '@/lib/db';
 import type { TrackEvent } from '@/lib/types';
 import { clientIp, rateLimited } from '@/lib/net';
@@ -6,12 +8,9 @@ const TYPES = new Set(['page_view', 'add_to_cart', 'checkout_start', 'whatsapp_c
 
 export async function POST(req: Request) {
   if (rateLimited('track', clientIp(req), 120, 60_000)) return new Response(null, { status: 204 });
-  let body: unknown;
-  try {
-    body = JSON.parse(await req.text());
-  } catch {
-    return new Response(null, { status: 204 });
-  }
+  const body = await readJson(req, LIMITS.json);
+  if (body === TOO_BIG) return tooBig();
+  if (body === null) return new Response(null, { status: 204 });
   const now = Date.now();
   const list = (Array.isArray(body) ? body : [body]).slice(0, 25) as Partial<TrackEvent>[];
   const clean: TrackEvent[] = [];

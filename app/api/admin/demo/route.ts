@@ -1,3 +1,5 @@
+import { readJson, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import { mutate, appendEvents, rewriteEvents } from '@/lib/db';
 import { isAdmin, unauthorized } from '@/lib/auth';
 import { demoOrders } from '@/lib/seed';
@@ -5,7 +7,9 @@ import type { TrackEvent } from '@/lib/types';
 
 export async function POST(req: Request) {
   if (!(await isAdmin())) return unauthorized();
-  const { action } = (await req.json().catch(() => ({}))) as { action?: string };
+  const raw = await readJson(req, LIMITS.small);
+  if (raw === TOO_BIG) return tooBig();
+  const { action } = (raw ?? {}) as { action?: string };
   if (action === 'clear') {
     await mutate((db) => {
       db.orders = db.orders.filter((o) => !o.demo);

@@ -1,4 +1,8 @@
 import fs from 'node:fs/promises';
+import { readForm, TOO_BIG, tooBig } from '@/lib/body';
+import { retentionFromEnv } from '@/lib/retention';
+import { maybeSweepUploads, refUploadBytes, sweepUploads } from '@/lib/uploads';
+import { LIMITS } from '@/lib/limits';
 import path from 'node:path';
 import { UPLOAD_DIR } from '@/lib/db';
 import { shortId } from '@/lib/crypto';
@@ -23,13 +27,21 @@ function sniff(b: Uint8Array) {
 
 export async function POST(req: Request) {
   if (rateLimited('upload', clientIp(req), MAX_PER_WINDOW, WINDOW_MS)) return Response.json({ error: 'rate' }, { status: 429 });
-  const form = await req.formData().catch(() => null);
+  const form = await readForm(req, LIMITS.upload);
+  if (form === TOO_BIG) return tooBig();
   const file = form?.get('file');
   if (!(file instanceof File)) return Response.json({ error: 'no_file' }, { status: 400 });
   if (file.size > MAX_BYTES) return Response.json({ error: 'too_big' }, { status: 413 });
   const buf = new Uint8Array(await file.arrayBuffer());
   const type = sniff(buf);
   if (!type) return Response.json({ error: 'type' }, { status: 415 });
+  // Bounded storage (PT-06): clean up abandoned photos now and then, and refuse a new one when the quota is full.
+  maybeSweepUploads();
+  const quota = retentionFromEnv(process.env).refQuotaBytes;
+  if ((await refUploadBytes()) + buf.length > quota) {
+    await sweepUploads(24 * 60 * 60 * 1000); // under pressure: anything unused for a day goes
+    if ((await refUploadBytes()) + buf.length > quota) return Response.json({ error: 'storage_full' }, { status: 507 });
+  }
   const name = `ref-${Date.now().toString(36)}-${shortId(10).toLowerCase()}${EXT[type]}`;
   await fs.mkdir(UPLOAD_DIR, { recursive: true });
   await fs.writeFile(path.join(UPLOAD_DIR, name), buf);

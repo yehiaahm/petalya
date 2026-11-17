@@ -1,4 +1,6 @@
 import fs from 'node:fs/promises';
+import { readForm, TOO_BIG, tooBig } from '@/lib/body';
+import { LIMITS } from '@/lib/limits';
 import path from 'node:path';
 import { UPLOAD_DIR } from '@/lib/db';
 import { isAdmin, unauthorized } from '@/lib/auth';
@@ -18,7 +20,8 @@ function sniff(b: Uint8Array) {
 
 export async function POST(req: Request) {
   if (!(await isAdmin())) return unauthorized();
-  const form = await req.formData().catch(() => null);
+  const form = await readForm(req, LIMITS.adminUpload);
+  if (form === TOO_BIG) return tooBig();
   const file = form?.get('file');
   if (!(file instanceof File)) return Response.json({ error: 'no_file' }, { status: 400 });
   if (file.size > 10 * 1024 * 1024) return Response.json({ error: 'too_big' }, { status: 413 });
