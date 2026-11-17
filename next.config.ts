@@ -6,11 +6,11 @@ const isProd = process.env.NODE_ENV === 'production';
 // so the policy can stay tight. Next injects small inline scripts/styles, hence 'unsafe-inline'.
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isProd ? '' : " 'unsafe-eval'"}`,
+  `script-src 'self' 'unsafe-inline' https://us-assets.i.posthog.com${isProd ? '' : " 'unsafe-eval'"}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  "connect-src 'self' https://us.i.posthog.com https://us-assets.i.posthog.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
