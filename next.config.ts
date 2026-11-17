@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import { withSentryConfig } from '@sentry/nextjs/config';
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -10,7 +11,7 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  "connect-src 'self' https://*.ingest.de.sentry.io",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
@@ -49,4 +50,15 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// Sentry: error reporting is configured in instrumentation*.ts / sentry.*.config.ts.
+// Source maps are uploaded only when SENTRY_AUTH_TOKEN is set at build time (readable stack traces).
+export default withSentryConfig(nextConfig, {
+  org: '8f38d0bbaf2e',
+  project: 'petalya',
+  authToken: process.env.SENTRY_AUTH_TOKEN,
+  sentryUrl: 'https://de.sentry.io/',
+  silent: !process.env.CI,
+  telemetry: false,
+  widenClientFileUpload: true,
+  sourcemaps: { disable: !process.env.SENTRY_AUTH_TOKEN, deleteSourcemapsAfterUpload: true },
+});
