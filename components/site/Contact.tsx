@@ -97,7 +97,7 @@ export function Footer() {
       <div aria-hidden="true" data-shine="1" className="giant shine-text">
         Petalya
       </div>
-      <p style={{ margin: '10px 0 0', fontSize: 15, color: 'var(--ink-muted)' }}>{pick('معمولة طازة وبكل حب · أمنية الجندي', 'Freshly made with love · by Omnia El Gendy')}</p>
+      <p style={{ margin: '10px 0 0', fontSize: 15, color: 'var(--ink-muted)' }}>{pick('معمولة بكل حب · Omnia El Gendy', 'Freshly made with love · by Omnia El Gendy')}</p>
       <div className="links">
         <a href={data.settings.instagramUrl} target="_blank" rel="noopener">
           <InstagramLogo size={17} />

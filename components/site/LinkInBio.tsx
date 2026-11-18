@@ -224,7 +224,7 @@ export function LinkInBio() {
               <GlobeSimple size={20} />
             </Link>
           </div>
-          <p style={{ margin: '16px 0 0', fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick('معمولة طازة وبكل حب · أمنية الجندي', 'Freshly made with love · by Omnia El Gendy')}</p>
+          <p style={{ margin: '16px 0 0', fontSize: 13.5, color: 'var(--ink-muted)' }}>{pick('معمولة بكل حب · Omnia El Gendy', 'Freshly made with love · by Omnia El Gendy')}</p>
           <p style={{ margin: '6px 0 0', fontSize: 11.5, color: 'var(--ink-faint)' }}>© {new Date().getFullYear()} Petalya Cakes</p>
         </footer>
       </main>

@@ -55,7 +55,7 @@
         "en": { "before": "Elegant cakes for ", "accent": "unforgettable", "after": " moments" }
       },
       "lead": {
-        "ar": "Custom Cakes على ذوقك لكل مناسبة، و Cupcakes بنعملها بإيدينا وبحب، طازة كل يوم.",
+        "ar": "Custom Cakes على ذوقك لكل مناسبة، و Cupcakes بنعملها بإيدينا وبحب، Fresh كل يوم.",
         "en": "Custom cakes for your occasion and handcrafted cupcakes — freshly made, every day, with love."
       },
       "primaryCta": { "ar": "صمّم الـ Cake بتاعك", "en": "Design your cake", "href": "#custom" },
@@ -159,7 +159,7 @@
       "whatsappCta": { "ar": "اطلب على واتساب", "en": "Order on WhatsApp" }
     },
     "footer": {
-      "tagline": { "ar": "معمولة طازة وبكل حب · أمنية الجندي", "en": "Freshly made with love · by Omnia El Gendy" }
+      "tagline": { "ar": "معمولة بكل حب · Omnia El Gendy", "en": "Freshly made with love · by Omnia El Gendy" }
     },
     "cart": {
       "label": { "ar": "طلبك", "en": "Your order" },
@@ -377,7 +377,7 @@
   "linkInBio": {
     "tagline": { "ar": "Cakes & Cupcakes · @petalya.og", "en": "Cakes & cupcakes · @petalya.og" },
     "bio": {
-      "ar": "Cakes بتكمّل أحلى لحظاتك — Custom Cakes و Cupcakes بنعملها بإيدينا وبحب، طازة كل يوم.",
+      "ar": "Cakes بتكمّل أحلى لحظاتك — Custom Cakes و Cupcakes بنعملها بإيدينا وبحب، Fresh كل يوم.",
       "en": "Elegant cakes for unforgettable moments — custom cakes and handcrafted cupcakes, freshly made with love."
     },
     "whatsappCta": {
@@ -403,6 +403,6 @@
     "stripImages": ["assets/cake-birthday.png", "assets/cupcake-bouquet.png", "assets/cake-bride.png", "assets/cupcake-tulle.png", "assets/cake-husband.png"],
     "shareText": { "ar": "Cakes بتكمّل أحلى لحظاتك", "en": "Elegant cakes for unforgettable moments" },
     "toastCopied": { "ar": "اتنسخ اللينك", "en": "Link copied" },
-    "footerTagline": { "ar": "معمولة طازة وبكل حب · أمنية الجندي", "en": "Freshly made with love · by Omnia El Gendy" }
+    "footerTagline": { "ar": "معمولة بكل حب · Omnia El Gendy", "en": "Freshly made with love · by Omnia El Gendy" }
   }
 }

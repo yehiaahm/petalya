@@ -149,7 +149,7 @@ export function Hero({ images }: { images: [string, string] }) {
           </h1>
         )}
         <p data-intro="1" className="lead">
-          {pick('Custom Cakes على ذوقك لكل مناسبة، و Cupcakes بنعملها بإيدينا وبحب، طازة كل يوم.', 'Custom cakes for your occasion and handcrafted cupcakes — freshly made, every day, with love.')}
+          {pick('Custom Cakes على ذوقك لكل مناسبة، و Cupcakes بنعملها بإيدينا وبحب، Fresh كل يوم.', 'Custom cakes for your occasion and handcrafted cupcakes — freshly made, every day, with love.')}
         </p>
         <div data-intro="1" className="ctas">
           <a href="#custom" onClick={(e) => go(e, 'custom')} className="btn btn-primary" style={{ padding: '0 28px' }}>
