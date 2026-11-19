@@ -13,9 +13,12 @@ export const lstr = (v: unknown, max = 500): L => {
   const ar = str(o.ar, max), en = str(o.en, max);
   return { ar: ar || en, en: en || ar };
 };
+// Local image folders: `uploads` (admin/customer uploads), and the bundled `assets`, `products` and `reviews` in /public.
+// `products` must be listed — the whole menu's photos live there, and any save (even just editing the price) runs
+// every image through this filter, so a folder missing here silently wipes those photos.
 const img = (v: unknown) => {
   const s = str(v, 300);
-  return /^\/(uploads|assets|reviews)\/[\w.\-]+$/.test(s) || /^https:\/\/[^\s"'<>]+$/.test(s) ? s : '';
+  return /^\/(uploads|assets|products|reviews)\/[\w.\-]+$/.test(s) || /^https:\/\/[^\s"'<>]+$/.test(s) ? s : '';
 };
 const id = (v: unknown, prefix: string) => {
   const s = str(v, 40);
